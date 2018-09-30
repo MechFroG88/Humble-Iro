@@ -9,7 +9,6 @@
 **content** :
 
 ## Full information
----
 ```
 student
 ├─ cn_name   -> (string, chinese)
@@ -118,7 +117,6 @@ detail
 ```
 
 ## Basic information
----
 | status id | status |
 | :-------: | :----: |
 | **0**     | 不批准 |

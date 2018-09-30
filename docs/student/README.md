@@ -20,12 +20,13 @@ student
 ├─ aittitude -> (int, [0, 100])
 ├─ photo     -> (file, type = ".jpg .png .gif")
 ├─ gender(radio)       -> (0 = male; 1 = female)
-├─ birthdate(dropdown) -> (int year, month, day; format = DDMMYYYY)
-└─ financial_aid(dropdown) -> (string, id)
+├─ birthdate(datepicker) -> (int year, month, day; format = DDMMYYYY)
+├─ financial_end(dropdown) -> (int year, month, day; format = DDMMYYYY)
+└─ financial_aid(dropdown) -> (id)
 ```
 
 ```
-father
+parent
 ├─ cn_name    -> (string, chinese)
 ├─ en_name    -> (string, english)
 ├─ age        -> (int)
@@ -34,21 +35,7 @@ father
 ├─ work_place -> (string)
 ├─ work_address -> (string, english)
 ├─ boss_contact -> (int, size = 10 || size = 11)
-├─ relation(dropdown)     -> (0 = father; 1 = guardian)
-└─ ic_number(3 input box) -> (int; format = XXXXXX XX XXXX)
-```
-
-```
-mother
-├─ cn_name    -> (string, chinese)
-├─ en_name    -> (string, english)
-├─ age        -> (int)
-├─ contact    -> (int, size = 10 || size = 11)
-├─ occupation -> (string)
-├─ work_place -> (string)
-├─ work_address -> (string, english)
-├─ boss_contact -> (int, size = 10 || size = 11)
-├─ relation(dropdown)     -> (0: mother; 1: guardian)
+├─ relation(dropdown)     -> (0 = father; 1 = mother; 2 = guardian)
 └─ ic_number(3 input box) -> (int; format = XXXXXX XX XXXX)
 ```
 

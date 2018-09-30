@@ -1,12 +1,10 @@
-# GET student details
+# Student details
 
 > All inputs require verification
 
 ## Success response
 
 **code** : `200 OK`
-
-**content** :
 
 ## Full information
 ```

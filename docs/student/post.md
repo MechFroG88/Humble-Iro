@@ -10,9 +10,9 @@
 
 ## Success response
 
-**code** : `200 OK`
+**Code** : `200 OK`
 
-**content** :
+**Content** :
 
 ```json
 {
@@ -34,9 +34,9 @@
 
 ## Success response 
 
-**code** : `200 OK`
+**Code** : `200 OK`
 
-**content** :
+**Content** :
 
 ```json
 {
@@ -49,9 +49,9 @@
 
 `DELETE` /student/delete/:id
 
-**code** : `200 OK`
+**Code** : `200 OK`
 
-**content** :
+**Content** :
 
 ```json
 {

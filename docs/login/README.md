@@ -9,6 +9,6 @@
 ## Login data
 ```
 teacher
-├─ username -> (string)
-└─ password -> (int)
+├── username -> (string)
+└── password -> (int)
 ```

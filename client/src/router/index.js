@@ -7,12 +7,17 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
+      redirect: {'name': 'login'},
     },
     {
       path: '/login',
       name: 'login',
       component: () => import('@/pages/login')
+    },
+    {
+      path: '/student',
+      name: 'student',
+      component: () => import('@/pages/student')
     }
   ]
 })

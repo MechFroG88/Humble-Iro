@@ -17,7 +17,7 @@ student
 ├─ address   -> (string, english)
 ├─ ancestor  -> (string)
 ├─ score     -> (int, [0, 100])
-├─ aittitude -> (int, [0, 100])
+├─ attitude -> (int, [0, 100])
 ├─ photo     -> (file, type = ".jpg .png .gif")
 ├─ gender(radio)       -> (0 = male; 1 = female)
 ├─ birthdate(datepicker) -> (int year, month, day; format = DDMMYYYY)
@@ -26,7 +26,7 @@ student
 ```
 
 ```
-parent
+parents (array)
 ├─ cn_name    -> (string, chinese)
 ├─ en_name    -> (string, english)
 ├─ age        -> (int)
@@ -40,7 +40,7 @@ parent
 ```
 
 ```
-siblings
+siblings (array)
 ├─ age       -> (int)
 ├─ cn_name   -> (string, chinese)
 ├─ aid_total -> (int)
@@ -92,12 +92,12 @@ finance
 └─ balance = total income - total expenditure -> (int)
 ```
 
-```
+``` 
 detail
 ├─ aircond     -> (int)
-├─ other_house -> (string, chinese)
-├─ house_state (radio)   -> (0: rent; 1: paid; 2: paying)
-├─ house_type (dropdown) -> (string, chinese)
+├─ house (array)
+│  ├─ house_type (dropdown) -> (string, chinese)
+│  └─ house_state (radio)   -> (0: rent; 1: paid; 2: paying)
 └─ transport [type(dropdown), model, year] -> ((0: motor; 1: car): type; string: model; int: year)
 ```
 

@@ -41,7 +41,7 @@ class User_model extends HI_Model{
             $data['created']   = $this->date();
             $data['updated']   = $this->date();
             $data['password']  = password_hash($data['password'], PASSWORD_DEFAULT);
-            $this->db->insert(T_USERS,$data);
+            $this->db->insert(T_USERS, $data);
             return 200;
         } else {
             return 400;

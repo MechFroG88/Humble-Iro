@@ -4,8 +4,8 @@
 
 ```json
 {
-  "title"   : "哈哈哈基金",
-  "supplier": "呵呵呵会馆",
+  "title"            : "哈哈哈基金",
+  "supplier"         : "呵呵呵会馆",
 }
 ```
 
@@ -29,7 +29,8 @@
 
 ```json
 {
-  "name" : "lol"
+  "title"    : "lol",
+  "supplier" : "呵呵呵会馆"
 }
 ```
 

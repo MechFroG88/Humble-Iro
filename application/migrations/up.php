@@ -29,6 +29,7 @@ class Upstream
         $this->db->column("financial_aid_id") ->bigint(20) ->primary()->unique()->autoIncrement()
                  ->column("title")            ->text()
                  ->column("supplier")         ->text()
+                 ->column("status")           ->tinyint(2) ->default(1)
                  ->create("financial_aid");
 
         return $this;

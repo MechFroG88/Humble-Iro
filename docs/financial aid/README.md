@@ -8,6 +8,5 @@
 ```
 financial aid
 ├─ name
-├─ supplier
-└─ amount
+└─ supplier
 ```

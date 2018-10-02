@@ -1,10 +1,11 @@
-# Add student
+# Add User
 
-`POST` /student
+`POST` /user
 
 ```json
 {
-  //student full information
+  "username" : "hello",
+  "password" : "hello"
 }
 ```
 
@@ -21,13 +22,14 @@
 }
 ```
 
-# Edit student
+# Change password
 
-`POST` /student/edit/:id
+`POST` /user/change/password
 
 ```json
 {
-  //student full information
+  "old": "hello",
+  "new": "LOLOL"
 }
 ```
 
@@ -40,13 +42,13 @@
 ```json
 {
   "status": 200,
-  "data"  : "Edited successfully"
+  "data"  : "Password changed successfully"
 }
 ```
 
-# Delete student
+# Delete user
 
-`POST` /student/delete/:id
+`POST` /user/delete/:id
 
 **Code** : `200 OK`
 

@@ -4,12 +4,12 @@
 
 ```json
 {
-  "name": "哈哈哈基金",
-  "supplier": "呵呵呵会馆",
-  "amount": 59487,
+  "finance_id" : "1",
+  "title"      : "哈哈哈基金",
+  "supplier"   : "呵呵呵会馆",
 }
 ```
 
 ## Success response
 
-**Content** : return [all financial aid information](README.md#full-information "All aid info")
+**Content** : return [all us information](README.md#full-information "All aid info")

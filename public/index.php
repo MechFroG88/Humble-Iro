@@ -1,4 +1,6 @@
 <?php
+
+date_default_timezone_set("Asia/Kuala_Lumpur");
 /**
  * CodeIgniter
  *
@@ -65,12 +67,20 @@
  */
 switch (ENVIRONMENT)
 {
+	case 'testing':
 	case 'development':
 		error_reporting(-1);
 		ini_set('display_errors', 1);
+		if(isset($_SERVER['HTTP_ORIGIN'])){
+			header("Access-Control-Allow-Origin: " . $_SERVER['HTTP_ORIGIN']);
+			header("Access-Control-Allow-Credentials: true");
+			header("Access-Control-Allow-Headers: authorization, X-Requested-With, Content-Type, Origin, Cache-Control, Pragma, Authorization, Accept, Accept-Encoding");
+			header("Access-Control-Max-Age: 1000");
+			header("Access-Control-Allow-Methods: PUT, POST, GET, OPTIONS, DELETE");
+		}
+		
 	break;
-
-	case 'testing':
+	
 	case 'production':
 		ini_set('display_errors', 0);
 		if (version_compare(PHP_VERSION, '5.3', '>='))
@@ -89,6 +99,9 @@ switch (ENVIRONMENT)
 		exit(1); // EXIT_ERROR
 }
 
+if($_SERVER['REQUEST_METHOD'] == "OPTIONS"){
+	exit();	
+}
 /*
  *---------------------------------------------------------------
  * SYSTEM DIRECTORY NAME
@@ -97,7 +110,7 @@ switch (ENVIRONMENT)
  * This variable must contain the name of your "system" directory.
  * Set the path if it is not in the same directory as this file.
  */
-	$system_path = 'system';
+	$system_path = '../system';
 
 /*
  *---------------------------------------------------------------
@@ -114,7 +127,7 @@ switch (ENVIRONMENT)
  *
  * NO TRAILING SLASH!
  */
-	$application_folder = 'application';
+	$application_folder = '../application';
 
 /*
  *---------------------------------------------------------------

@@ -1,10 +1,11 @@
-# Add student
+# Add financial aid 
 
-`POST` /student
+`POST` /finance
 
 ```json
 {
-  //student full information
+  "title"   : "哈哈哈基金",
+  "supplier": "呵呵呵会馆",
 }
 ```
 
@@ -21,13 +22,14 @@
 }
 ```
 
-# Edit student
 
-`POST` /student/edit/:id
+# Edit financial aid
+
+`POST` /finance/edit/:id
 
 ```json
 {
-  //student full information
+  "name" : "lol"
 }
 ```
 
@@ -44,9 +46,9 @@
 }
 ```
 
-# Delete student
+# Delete financial aid
 
-`POST` /student/delete/:id
+`POST` /finance/delete/:id
 
 **Code** : `200 OK`
 

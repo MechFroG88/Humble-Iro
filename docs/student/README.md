@@ -98,7 +98,7 @@ detail
 ├─ house (array)
 │  ├─ house_type (dropdown) -> (string, chinese)
 │  └─ house_state (radio)   -> (0: rent; 1: paid; 2: paying)
-└─ transport [type(dropdown), model, year] -> ((0: motor; 1: car): type; string: model; int: year)
+└─ transport (array) [type(dropdown), model, year] -> ((0: motor; 1: car): type; string: model; int: year)
 ```
 
 ## Basic information

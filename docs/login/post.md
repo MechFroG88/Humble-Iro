@@ -17,7 +17,7 @@
 
 ```json
 {
-  "status": 200,
-  "data"  : "Login successful" 
+  "status" : 200,
+  "data"   : "21bd6e9f-ee99-4c87-ac3c-4502fe85ba09"
 }
 ```

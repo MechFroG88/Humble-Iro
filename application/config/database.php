@@ -4,6 +4,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
+
+define("T_USERS"               , "users");
+define("T_STUDENTS"            , "students");
+define("T_PARENTS"             , "parents");
+define("T_SIBLINGS"            , "siblings");
+define("T_FAMILY"              , "family");
+define("T_FINANCE"             , "finance");
+define("T_AIRCOND"             , "aircond");
+define("T_HOUSES"              , "houses");
+define("T_TRANSPORT"           , "transport");
+define("T_FINANCIAL_AID"       , "financial_aid");
+define("T_PARENTS_CMS"         , "parents_cms");
+define("T_STUDENTS_CMS"        , "students_cms");
+define("T_SIBLINGS_CMS"        , "siblings_cms");
+define("T_FINANCE_INCOME"      , "finance_income");
+define("T_FINANCE_EXPENDITURE" , "finance_expenditure");
+
+
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',

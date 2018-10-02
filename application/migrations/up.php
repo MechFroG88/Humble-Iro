@@ -14,7 +14,7 @@ class Upstream
     {
         $this->db->column("user_id")     ->bigint(20)  ->primary()->unique()->autoIncrement()
                  ->column("username")    ->varchar(64) ->index()
-                 ->column("password")    ->char(64)
+                 ->column("password")    ->char(60)
                  ->column("token")       ->text()
                  ->column("created")     ->datetime()
                  ->column("updated")     ->datetime()

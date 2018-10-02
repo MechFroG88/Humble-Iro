@@ -1,6 +1,6 @@
 # Get student full information
 
-`GET` /student
+`GET` /student/:id
 
 ```json
 {
@@ -18,10 +18,10 @@
 
 ```json
 {
-  "cn_name" : "陈某某",
-  "en_name" : "Tan Mou Mou",
-  "aid_type": "啦啦啦基金",
-  "status"  : 0
+  "student_id" : "1",
+  "cn_name"    : "陈某某",
+  "en_name"    : "Tan Mou Mou",
+  "financial_aid"   : ["啦啦啦基金",...],
 }
 ```
 

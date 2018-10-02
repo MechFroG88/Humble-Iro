@@ -27,7 +27,6 @@
 
 ```json
 {
-  "student_id": 2,
   //student full information
 }
 ```
@@ -47,7 +46,7 @@
 
 # Delete student
 
-`DELETE` /student/delete/:id
+`POST` /student/delete/:id
 
 **Code** : `200 OK`
 

@@ -1,6 +1,8 @@
 <template>
   <div id="_crudTable">
-    <h3>{{title}}</h3> 
+    <el-row class="title" type="flex">
+      <h3>{{title}}</h3> 
+    </el-row>
     <el-table
       stripe
       :data="tableData">
@@ -28,19 +30,10 @@
 <script>
 export default {
   props: {
-    title: {
-      type: String
-    },
-    columns: {
-      type: Array
-    },
-    tableData: {
-      type: Array
-    },
-    actions: {
-      type: Object,
-      default: () => {}
-    },
+    title: String,
+    columns: Array,
+    tableData: Array,
+    actions: Object
   },
   data() {
     return{
@@ -66,10 +59,8 @@ export default {
       this.loading = false
       this.originalData = JSON.parse(JSON.stringify(this.tableData))
       this.displayData  = JSON.parse(JSON.stringify(this.tableData))
-      this.search.columns = this.columns.filter(
-        (x) => x.search).map(
-          ({field}) => field
-        );
+      this.search.columns = this.columns.filter((x) => x.search)
+      .map(({field}) => field);
     }
   },
 }

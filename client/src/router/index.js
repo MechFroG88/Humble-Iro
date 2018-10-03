@@ -19,7 +19,12 @@ export default new Router({
     {
       path: '/student',
       name: 'student',
-      component: () => import('@/pages/student')
+      component: () => import('@/pages/student'),
+    },
+    {
+      path: '/addStudent',
+      name: 'addStudent',
+      component: () => import('@/pages/addStudent'),
     },
     {
       path: '/aid',

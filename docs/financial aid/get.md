@@ -9,7 +9,7 @@
       "supplier"           : "呵呵呵会馆",
       "expired"            : "datetime",
       "financial_aid_type" : "lol"
-  ]
+  ],...
 ]
 ```
 

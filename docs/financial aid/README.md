@@ -7,6 +7,7 @@
 ## Full information
 ```
 financial aid
-├─ name
-└─ supplier
+├─ supplier     -> (string)
+├─ finance_type -> (string)
+└─ expired_date -> (string, format = DDMMYYYY)
 ```

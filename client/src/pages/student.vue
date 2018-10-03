@@ -1,19 +1,26 @@
 <template>
   <div id="_student">
     <layout>
+      <el-button class="button addStudent" size="small" type="primary">
+        <router-link :to="{'name': 'addStudent'}">
+          <i class="icon icon-plus"></i> 添加学生
+        </router-link>
+      </el-button>
       <crudTable
       title="学生列表"
-      :columns="societyColumns"
-      :tableData="data">
+      :columns="studentColumns"
+      :tableData="studentData">
       </crudTable>
     </layout>
   </div>
 </template>
 
 <script>
-import crudTable from '@/components/tables'
 import layout    from '@/layout/default'
-import {studentColumns} from '../../api/tableColumns'
+import crudTable from '@/components/tables'
+import { studentColumns } from '../../api/tableColumns'
+
+import { studentData } from '../../api/mock/tableData'
 export default {
   components: {
     crudTable,
@@ -21,12 +28,8 @@ export default {
   },
   data() {
     return {
-      studentColumns,
-      data : [{
-        cn_name: "陈某某",
-        class  : "搞搞丽丽",
-        aid_type: "吃到你爽",
-      }]
+      studentColumns, 
+      studentData
     }
   }
 }

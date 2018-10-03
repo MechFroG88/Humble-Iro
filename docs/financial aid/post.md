@@ -4,8 +4,9 @@
 
 ```json
 {
-  "title"            : "哈哈哈基金",
-  "supplier"         : "呵呵呵会馆",
+  "supplier"           : "呵呵呵会馆",
+  "expired"            : "datetime",
+  "financial_aid_type" : "lol"
 }
 ```
 
@@ -29,8 +30,9 @@
 
 ```json
 {
-  "title"    : "lol",
-  "supplier" : "呵呵呵会馆"
+  "supplier"           : "呵呵呵会馆",
+  "expired"            : "datetime",
+  "financial_aid_type" : "lol"
 }
 ```
 

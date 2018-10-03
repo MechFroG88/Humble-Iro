@@ -1,36 +1,36 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Student extends HI_Controller {
+class Parents extends HI_Controller {
 
     public function __construct()
     {
         parent::__construct();
-        $this->load->model("Student_cms","student");
+        $this->load->model("Parent_CMS","parents");
         $this->auth->is_logged_in() ? :$this->error(401);
     }
 
     public function get($student_id)
     {
-        $this->json($this->student->get($student_id));
+        $this->json($this->parents->get($student_id));
     }
 
     public function get_basic()
     {
-        $this->json($this->student->get_basic());
-    }
-    
-    public function create()
-    {
-        $this->json($this->student->create());
+        $this->json($this->parents->get_basic());
     }
 
-    public function edit($student_id, $section)
+    public function create($student_id)
+    {
+        $this->json($this->parents->create($student_id));
+    }
+
+    public function edit($student_id)
     {
         $data = $this->input->post();
-        $status = $this->student->edit($data, $student_id, $section);
+        $status = $this->parents->edit($data, $student_id);
         if ($status == 200){
-            $this->json("Edited Successfully");
+            $this->json("Edited Succesfully");
         } else {
             $this->error($status);
         }
@@ -38,9 +38,9 @@ class Student extends HI_Controller {
 
     public function delete($student_id)
     {
-        $status = $this->student->delete($student_id);
+        $status = $this->parents->delete($student_id);
         if ($status == 200){
-            $this->json("Deleted Successfully");
+            $this->json("Deleted Succesfully");
         } else {
             $this->error($status);
         }

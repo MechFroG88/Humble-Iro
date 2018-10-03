@@ -5,7 +5,7 @@ export let studentColumns = [
 ];
 
 export let aidColumns = [
-  { label: '机构名称'  , field: 'company_name', search: true },
+  { label: '赞助者'  , field: 'supplier', search: true },
   { label: '助学金种类', field: 'finance_type' },
   { label: '截止日期'  , field: 'expired_date' }
 ];

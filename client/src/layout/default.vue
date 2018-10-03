@@ -14,8 +14,12 @@
             某某某 <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="a">更换密码</el-dropdown-item>
-            <el-dropdown-item command="b">登出</el-dropdown-item>
+            <el-dropdown-item command="a">
+              <i class="icon icon-lock"></i> 更换密码
+            </el-dropdown-item>
+            <el-dropdown-item command="b">
+              <i class="icon icon-log-out"></i> 登出
+            </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </header>
@@ -56,9 +60,7 @@
 <script>
 export default {
   methods: {
-    hi(e){
-      console.log(e)
-    }
+    
   }
 };
 </script>

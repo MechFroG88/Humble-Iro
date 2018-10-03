@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/earlyaccess/notosanssc.css');
+@import 'variables';
+//pages
+@import 'pages/login';
+@import 'pages/student';
+
+//layouts
+@import 'layout/default';
+
+//components
+@import 'components/tables';
+
+//element ui configuration
+/* theme color */
+$--color-primary: #6A7EFC;
+
+/* icon font path, required */
+$--font-path: '../../../node_modules/element-ui/lib/theme-chalk/fonts';
+
+@import "../../../node_modules/element-ui/packages/theme-chalk/src/index";
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f0f4f7;
+}

@@ -15,7 +15,5 @@ export default {
   font-family: "Noto Sans SC";
   -webkit-font-smoothingx: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
 }
 </style>

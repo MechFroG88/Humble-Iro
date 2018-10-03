@@ -1,6 +1,8 @@
 <template>
   <div id="_crudTable">
-    <h3 >{{title}}</h3> 
+    <el-row class="title" type="flex">
+      <h3>{{title}}</h3> 
+    </el-row>
     <el-table
       stripe
       :data="tableData">

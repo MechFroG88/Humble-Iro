@@ -4,8 +4,9 @@
 
 ```json
 {
-  "title"            : "哈哈哈基金",
-  "supplier"         : "呵呵呵会馆",
+  "supplier"    : "呵呵呵会馆",
+  "finance_type": "哈哈哈基金",
+  "expired_date": "21032019"
 }
 ```
 
@@ -29,8 +30,9 @@
 
 ```json
 {
-  "title"    : "lol",
-  "supplier" : "呵呵呵会馆"
+  "supplier"    : "呵呵呵会馆",
+  "finance_type": "哈哈哈基金",
+  "expired_date": "21032019"
 }
 ```
 

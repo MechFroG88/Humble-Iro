@@ -5,8 +5,9 @@
 ```json
 {
   "financial_aid_id" : "1",
-  "title"            : "哈哈哈基金",
-  "supplier"         : "呵呵呵会馆",
+  "supplier"    : "呵呵呵会馆",
+  "finance_type": "哈哈哈基金",
+  "expired_date": "21032019"
 }
 ```
 

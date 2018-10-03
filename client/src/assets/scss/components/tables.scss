@@ -1,5 +1,26 @@
-#_crudTable .el-table{
-  margin: 0 auto;
-  border: 1px solid #eeeeee;
-  box-shadow: $box-shadow-1;
+#_crudTable {
+  .el-table{
+    margin: 0 auto;
+    border: 1px solid #eeeeee;
+    box-shadow: $box-shadow-1;
+  
+    tr {
+      td:first-child, th:first-child {
+        .cell {
+          padding-left: 1.5rem;
+        }
+      }
+    }
+  }
+}
+
+.button {
+  align-self: flex-start;
+  span {
+    font-size: $font-size-lg;
+  }
+  a {
+    color: #fff;
+    text-decoration: none;
+  }
 }

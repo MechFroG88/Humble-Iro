@@ -1,44 +1,86 @@
 #_default {
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 5rem;
+  .header-container {
     border-bottom: .8px solid #eee;
     background-color: #fff;
     box-shadow: $box-shadow-1;
     height: 70px;
-    .title {
-      display: flex;
-      align-items: center;
-      font-size: 1.3rem;
-      font-weight: 500;
-      img {
-        height: 2rem;
-      }
+    @media screen and (max-width: $normal-width) {
+      padding: 0 1.5rem;
     }
-    .dropdown {
-      cursor: pointer;
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0 auto;
+      max-width: $normal-width;
+      .title {
+        display: flex;
+        align-items: center;
+        font-size: 1.3rem;
+        font-weight: 500;
+        img {
+          height: 2rem;
+        }
+      }
+      .dropdown {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        color: $primary-color;
+  
+        .el-dropdown-link {
+          &:focus {
+            outline: none;
+          }
+          .icon {
+            border: .5px solid $primary-color;
+            border-radius: 50%;
+            padding: .1rem;
+            margin-right: .2rem;
+            font-size: 1rem;
+          }
+        }
+      }
     }
   }
 
   .body {
     display: flex;
+    flex-direction: row;
     min-height: calc(100vh - 75px);
+    max-width: $normal-width;
+    margin: 0 auto;
+    @media screen and (max-width: $normal-width) {
+      padding: 0 1.5rem;
+    }
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+    }
     .sidebar {
-      border-right: 1.5px solid $border-color;
-      .el-menu-vertical {
-        z-index: -1;
-        background-color: $background-color;
-        border: none;
-        .el-menu-item {
-          font-size: $font-size-lg;
-          margin: 1rem 0;
+      padding-top: 1rem;
+      ol {
+        list-style-type: none;
+        padding-inline-start: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        li {
+          margin-bottom: .8rem;
+          a{
+            text-decoration: none;
+            color: $font-color;
+            &:focus, &:hover, &.active {
+              color: $primary-color;
+            }
+          }
         }
       }
     }
     .content {
-      padding: 3rem 5rem;
+      padding: 2rem 5rem;
+      @media screen and (max-width: 768px) {
+        width: 100%;
+      }
     }
   }
 }

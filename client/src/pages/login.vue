@@ -1,27 +1,31 @@
 <template>
  <layout>
-   <div class="login">
-     <div class="login-box column">
-       <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-        <h2>login</h2>
-         <div class="form-label-username">
-           <label>username:</label>
-           <input 
-           type="text" 
-           name="username"
-           placeholder="username">
-         </div>
-         
+   <div class="login-container">
+     <div class="login-box">
+      <img src="../assets/logo/chonghwakl.44d226a.png">
+      <label for="username">用户名：</label>
+      <input 
+      class="input-box"
+      type="text" 
+      name="username"
+      placeholder="username">
         
-         <div class="form-label-username">
-           <label>password:</label>
-           <input 
-           type="text" 
-           name="password"
-           placeholder="password">
-         </div>
-         <button> sign</button>
-       </div>
+      <label for="password">密码:</label>
+      <input 
+      class="input-box"
+      type="text" 
+      name="password"
+      placeholder="password">
+
+      <div class="rmb">    
+       <input 
+       class="input-checkbox"
+       type="checkbox"
+       name="checkbox">
+       <span class="rmb-me">记得我</span>
+      </div>
+       <button class="button-signin">登入</button>
+               
      </div>
    </div>
  </layout>

@@ -10,7 +10,7 @@ class Finance_model extends HI_Model{
 
     private $rules = [
         "supplier" => "required",
-        "expired"  => "",
+        "expired_date"  => "",
         "financial_aid_type" => ""
     ];
 

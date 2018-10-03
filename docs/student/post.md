@@ -2,12 +2,6 @@
 
 `POST` /student
 
-```json
-{
-  //student full information
-}
-```
-
 ## Success response
 
 **Code** : `200 OK`
@@ -17,7 +11,7 @@
 ```json
 {
   "status": 200,
-  "data"  : "Added successfully"
+  "data"  : "1"
 }
 ```
 
@@ -27,7 +21,7 @@
 
 ```json
 {
-  //student full information
+  // student detail
 }
 ```
 
@@ -46,7 +40,7 @@
 
 # Delete student
 
-`POST` /student/delete/:id
+`POST` /student/delete/:sid
 
 **Code** : `200 OK`
 

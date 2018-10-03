@@ -70,9 +70,21 @@ class Downstream
         return $this;
     }
 
+    public function finance_income_cms()
+    {
+        $this->db->drop("finance_income_cms");
+        return $this;
+    }
+
     public function finance_expenditure()
     {
         $this->db->drop("finance_expenditure");
+        return $this;
+    }
+
+    public function finance_expenditure_cms()
+    {
+        $this->db->drop("finance_expenditure_cms");
         return $this;
     }
 
@@ -88,9 +100,15 @@ class Downstream
         return $this;
     }
 
-    public function houses()
+    public function house()
     {
-        $this->db->drop("houses");
+        $this->db->drop("house");
+        return $this;
+    }
+    
+    public function house_cms()
+    {
+        $this->db->drop("house_cms");
         return $this;
     }
 
@@ -99,22 +117,32 @@ class Downstream
         $this->db->drop("transport");
         return $this;
     }
+
+    public function transport_cms()
+    {
+        $this->db->drop("transport_cms");
+        return $this;
+    }
 }
 
-$up = new Downstream();
+$down = new Downstream();
 
-$up->users()
-   ->students()
-   ->parents()
-   ->siblings()
-   ->family()
-   ->finance_income()
-   ->finance_expenditure()
-   ->finance()
-   ->houses()
-   ->financial_aid()
-   ->students_cms()
-   ->parents_cms()
-   ->siblings_cms()
-   ->aircond()
-   ->transport();
+$down->users()
+     ->students()
+     ->parents()
+     ->siblings()
+     ->family()
+     ->finance_income()
+     ->finance_income_cms()
+     ->finance_expenditure()
+     ->finance_expenditure_cms()
+     ->finance()
+     ->house()
+     ->house_cms()
+     ->financial_aid()
+     ->students_cms()
+     ->parents_cms()
+     ->siblings_cms()
+     ->aircond()
+     ->transport()
+     ->transport_cms();

@@ -14,3 +14,8 @@ export let listColumns = [
   { label: '助学金种类'  , field: 'finance_type', search: true },
   { label: '申请条件', field: 'requirement' }
 ];
+
+export let usersColumns = [
+  { label: '用户名'  , field: 'username', search: true },
+  { label: '中文姓名', field: 'cn_name' }
+];

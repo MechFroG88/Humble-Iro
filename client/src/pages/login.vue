@@ -2,7 +2,7 @@
  <layout>
    <div class="login-container">
      <div class="login-box">
-      <img src="../assets/logo/chonghwakl.44d226a.png">
+      <h1>账户登入</h1>
       <label for="username">用户名：</label>
       <input 
       class="input-box"
@@ -25,7 +25,7 @@
        <span class="rmb-me">记得我</span>
       </div>
        <button class="button-signin">登入</button>
-               
+
      </div>
    </div>
  </layout>

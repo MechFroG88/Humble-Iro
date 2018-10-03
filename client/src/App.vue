@@ -13,7 +13,7 @@ export default {
 <style>
 #app {
   font-family: "Noto Sans SC";
-  -webkit-font-smoothing: antialiased;
+  -webkit-font-smoothingx: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;

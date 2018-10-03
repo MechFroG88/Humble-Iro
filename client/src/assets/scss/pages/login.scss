@@ -9,20 +9,16 @@
   align-items: flex-start;
 
   h1{
-    margin: 2rem auto 3rem auto;
+    margin: 2rem auto;
   }
 
   label{
     font-weight: 400;
+    margin: 1rem 0;   
   }
 
-  .input-box{
-    margin: 0.3rem 0 1rem 0;
-    height: 1.8rem;
-    width: 100%;
-    border: none;
-    border-radius: .1rem;
-    border-bottom: 1px solid $gray-color-dark;
+  .el-input-box {
+    margin: 0.1rem 0 0.4rem 0; 
   }
 
   .input-checkbox{

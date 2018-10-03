@@ -4,7 +4,8 @@
       <crudTable
       title="学生列表"
       :columns="societyColumns"
-      :tableData="data"></crudTable>
+      :tableData="data">
+      </crudTable>
     </layout>
   </div>
 </template>

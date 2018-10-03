@@ -37,9 +37,13 @@
     font-size: 1.25rem;
     background-color: $primary-color;
     color: white;
-  }
-  .button-signin:active{
-    background-color: $primary-color-dark;
+
+    &:active {
+      background-color: $primary-color-dark;
+    }
+    &:focus {
+      outline: none;
+    }
   }
 }
 

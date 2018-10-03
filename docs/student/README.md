@@ -27,6 +27,7 @@ student
 
 ```
 parents (array)
+├─ parent_id  -> (int)
 ├─ cn_name    -> (string, chinese)
 ├─ en_name    -> (string, english)
 ├─ age        -> (int)
@@ -36,14 +37,15 @@ parents (array)
 ├─ work_address -> (string, english)
 ├─ boss_contact -> (int, size = 10 || size = 11)
 ├─ relation(dropdown)     -> (0 = father; 1 = mother; 2 = guardian)
-└─ ic_number(3 input box) -> (int; format = XXXXXX XX XXXX)
+└─ ic_number(3 input box) -> (string; format = XXXXXX XX XXXX)
 ```
 
 ```
 siblings (array)
-├─ age       -> (int)
-├─ cn_name   -> (string, chinese)
-├─ aid_total -> (int)
+├─ sibling_id -> (int)
+├─ age        -> (int)
+├─ cn_name    -> (string, chinese)
+├─ aid_total  -> (int)
 ├─ got_aid(checkbox)  -> (0: no; 1: yes)
 ├─ relation(dropdown) -> (0: older brother; 1: younger brother; 2: older sister; 3: younger sister)
 └─ financial_aid(dropdown) -> (id)
@@ -65,40 +67,58 @@ family
 
 ```
 finance
-├─ income
-│  ├─ dad   -> (int)
-│  ├─ mom   -> (int)
-│  ├─ total -> (int)
-│  ├─ guardian     -> (int)
-│  ├─ other_member -> (int)
-│  └─ other_aid [title, value] (add-button) -> (string: title; int: value)
-│ 
-├─ expenditure
-│  ├─ car   -> (int)
-│  ├─ food  -> (int)
-│  ├─ house -> (int)
-│  ├─ medic -> (int)
-│  ├─ astro -> (int)
-│  ├─ total -> (int)
-│  ├─ utility   -> (int)
-│  ├─ telecomm  -> (int)
-│  ├─ transport -> (int)
-│  ├─ school      [title, value] (add-button) -> (string: title; int: value)
-│  ├─ tuition     [title, value] (add-button) -> (string: title; int: value)
-│  └─ other_spend [title, value] (add-button) -> (string: title; int: value)
-│ 
 ├─ remarks -> (string)
 ├─ auto_transfer (radio) -> (0: no; 1: yes)
 └─ balance = total income - total expenditure -> (int)
 ```
 
+```
+finance_income
+├─ finance_income_id -> (int)
+├─ dad   -> (int)
+├─ mom   -> (int)
+├─ total -> (int)
+├─ guardian     -> (int)
+├─ other_member -> (int)
+└─ other_aid [title, value] (add-button) -> (string: title; int: value)
+```
+
+```
+finance_expenditure
+├─ finance_expenditure_id -> (int)
+├─ car   -> (int)
+├─ food  -> (int)
+├─ house -> (int)
+├─ medic -> (int)
+├─ astro -> (int)
+├─ total -> (int)
+├─ utility   -> (int)
+├─ telecomm  -> (int)
+├─ transport -> (int)
+├─ school      [title, value] (add-button) -> (string: title; int: value)
+├─ tuition     [title, value] (add-button) -> (string: title; int: value)
+└─ other_spend [title, value] (add-button) -> (string: title; int: value)
+```
+
 ``` 
-detail
-├─ aircond     -> (int)
-├─ house (array)
-│  ├─ house_type (dropdown) -> (string, chinese)
-│  └─ house_state (radio)   -> (0: rent; 1: paid; 2: paying)
-└─ transport (array) [type(dropdown), model, year] -> ((0: motor; 1: car): type; string: model; int: year)
+aircond
+└─ amount     -> (int)
+```
+
+```
+house
+├─ house_id -> (int)
+├─ house_type (dropdown) -> (string, chinese)
+└─ house_state (radio)   -> (0: rent; 1: paid; 2: paying)
+```
+
+```
+transport 
+├─ transport_id -> (int)
+├─ year -> (int)
+├─ model -> (string)
+└─ transport_type -> (int) (0:motor, 1:car)
+
 ```
 
 ## Basic information

@@ -199,9 +199,9 @@ class Upstream
 
     public function transport_cms()
     {
-        $this->db->column("transport_type")   ->tinyint(2)
-                 ->column("model")            ->varchar(16)
-                 ->column("year")             ->int(4)
+        $this->db->column("transport_id")     ->bigint(20) ->index()
+                 ->column("title")            ->text()
+                 ->column("value")            ->text()
                  ->create("transport_cms");
 
         return $this;
@@ -211,7 +211,7 @@ class Upstream
 
 $up = new Upstream();
 
-$up->users()
+/*$up->users()
    ->students()
    ->parents()
    ->siblings()
@@ -229,4 +229,6 @@ $up->users()
    ->siblings_cms()
    ->aircond()
    ->transport()
-   ->transport_cms();
+   ->transport_cms();*/
+
+$up->transport_cms();

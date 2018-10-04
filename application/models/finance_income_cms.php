@@ -8,6 +8,12 @@ class Finance_income_cms extends HI_Model{
         parent::__construct();
     }
 
+    private $rules = [
+        "finance_income_id" => "required|integer",
+        "member" => "required",
+        "income" => "required|integer"
+    ];
+
     /**
      * finance_income details
      * 
@@ -18,17 +24,17 @@ class Finance_income_cms extends HI_Model{
     {
         $this->check_existance($student_id, "student_id", T_STUDENTS);
         $finance_income_ids = $this->db->where("student_id", $student_id)
-                              ->where("status", 1)
-                              ->get(T_FINANCE_INCOME)
-                              ->result_array();
+                                            ->where("status", 1)
+                                            ->get(T_FINANCE_INCOME)
+                                            ->result_array();
         $finance_incomes = [];
         foreach ($finance_income_ids as $single_finance_income){
             $finance_income_id = $single_finance_income['finance_income_id'];
             $finance_income_detail = $this->db->where("finance_income_id", $finance_income_id)
-                                     ->select("member, income")
-                                     ->get(T_FINANCE_INCOME_CMS)
-                                     ->result_array();
-            
+                                                   ->select("member, income")
+                                                   ->get(T_FINANCE_INCOME_CMS)
+                                                   ->result_array();
+
             $finance_income = [];
             foreach ($finance_income_detail as $single_finance_income_detail){
                 $member = $single_finance_income_detail['member'];
@@ -58,40 +64,33 @@ class Finance_income_cms extends HI_Model{
         return $finance_income_id;
     }
 
-    /**
+/**
      *  edit finance_income detail
      * 
-     * @var object|int
+     * @var member|int
      * @return int
      */
     public function edit($data, $student_id)
     {
         $this->check_existance($student_id, "student_id", T_STUDENTS);
         foreach ($data as $single_data){
-            $finance_income_id = $single_data['finance_income_id'];
-            unset($single_data['finance_income_id']);
-            foreach ($data as $key => $value){
-                if (!is_int($value)){
-                    return 400;
-                }
-                $temp_data = [];
-                $temp_data['finance_income_id'] = $finance_income_id;
-                $temp_data['member'] = $key;
-                $temp_data['income'] = $value;
-                
+            if ($this->form_validation->validate($this->rules, $single_data)){
+                $finance_income_id = $single_data['finance_income_id'];
+                $this->check_existance($finance_income_id, "finance_income_id", T_FINANCE_INCOME);
                 $finance_income_cms = $this->db->where("finance_income_id", $finance_income_id)
-                                      ->where("member", $key)
-                                      ->get(T_FINANCE_INCOME_CMS)
-                                      ->row();
-
+                                                    ->where("member", $single_data['member'])
+                                                    ->get(T_FINANCE_INCOME_CMS)
+                                                    ->row();
                 if (isset($finance_income_cms)){
                     $this->db->where("finance_income_id", $finance_income_id)
-                             ->where("member", $key)
-                             ->update(T_FINANCE_INCOME_CMS, $temp_data);
+                             ->where("member", $single_data['member'])
+                             ->update(T_FINANCE_INCOME_CMS, $single_data);
                 } else {
-                    $this->db->insert(T_FINANCE_INCOME_CMS, $temp_data);
+                    $this->db->insert(T_FINANCE_INCOME_CMS, $single_data);
                 }
-            } 
+            } else {
+                return 400;
+            }
         }
         return 200;
     }

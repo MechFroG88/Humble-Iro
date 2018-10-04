@@ -27,18 +27,18 @@ class Family_cms extends HI_Model{
      * @var int
      * @return object
      */
-    public function get_family($student_id)
+    public function get($student_id)
     {
         $family = $this->db->where("student_id", $student_id)
                            ->select("title, value")
                            ->get(T_FAMILY)
                            ->result_array();
 
-        $family_detail = new stdClass;
+        $family_detail = [];
         foreach ($family as $single_family){
             $title = $single_family['title'];
             $value = $single_family['value'];
-            $family_detail->$title = $value; 
+            $family_detail[$title] = $value; 
         }
         
         return $family_detail;
@@ -50,7 +50,7 @@ class Family_cms extends HI_Model{
      * @var object|int
      * @return int
      */
-    public function edit_family($data, $student_id)
+    public function edit($data, $student_id)
     {
         if ($this->form_validation->validate($this->rules, $data)){
             foreach ($data as $key => $value){

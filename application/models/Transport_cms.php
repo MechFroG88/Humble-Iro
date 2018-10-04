@@ -9,6 +9,7 @@ class Transport_cms extends HI_Model{
     }
 
     private $rules = [
+        "transport_id" => "required|integer",
         "transport_type" => "",
         "transport_state" => "integer",
         "year" => "integer",
@@ -75,9 +76,10 @@ class Transport_cms extends HI_Model{
     {
         $this->check_existance($student_id, "student_id", T_STUDENTS);
         foreach ($data as $single_data){
-            $transport_id = $single_data['transport_id'];
-            unset($single_data['transport_id']);
             if ($this->form_validation->validate($this->rules, $single_data)){
+                $transport_id = $single_data['transport_id'];
+                unset($single_data['transport_id']);
+                $this->check_existance($transport_id, "transport_id", T_TRANSPORT);
                 foreach ($single_data as $key => $value){
                     $temp_data = [];
                     $temp_data['transport_id'] = $transport_id;

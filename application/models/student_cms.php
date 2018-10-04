@@ -107,7 +107,9 @@ class Student_cms extends HI_Model{
                     array_push($financial_aid,$cn_name->financial_aid_type);
                 }
             }
-            $student->financial_aid = $financial_aid;
+            if(!empty($financial_aid)){
+                $student->financial_aid = $financial_aid;
+            } 
             array_push($students, $student);
         }
         return $students;

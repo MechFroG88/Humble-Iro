@@ -29,7 +29,7 @@ $route['financial_aid/delete/(:num)']['POST'] = 'Financial_aid/delete/$1';
  * FULL
  * 
  */
-$route['student/full/(:num)']['POST']          = 'Full/get/$1';
+$route['student/full/(:num)']['GET']          = 'Full/get/$1';
 
 /**
  * Student CRUD

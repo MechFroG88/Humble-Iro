@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Student_model extends HI_Model{
+class Full_model extends HI_Model{
 
     public function __construct()
     {

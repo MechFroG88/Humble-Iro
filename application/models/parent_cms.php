@@ -9,6 +9,7 @@ class Parent_cms extends HI_Model{
     }
 
     private $rules = [
+        'parent_id'    => 'required|integer',
         'cn_name'      => 'regex_match[/[\x{4e00}-\x{9fa5}]+/u]',
         'en_name'      => '',
         'age'          => 'integer',
@@ -110,9 +111,10 @@ class Parent_cms extends HI_Model{
     {
         $this->check_existance($student_id, "student_id", T_STUDENTS);
         foreach ($data as $single_data){
-            $parent_id = $single_data['parent_id'];
-            unset($single_data['parent_id']);
             if ($this->form_validation->validate($this->rules, $single_data)){
+                $parent_id = $single_data['parent_id'];
+                unset($single_data['parent_id']);
+                $this->check_existance($parent_id, "parent_id", T_PARENTS);
                 foreach ($single_data as $key => $value){
                     $temp_data = [];
                     $temp_data['parent_id'] = $parent_id;

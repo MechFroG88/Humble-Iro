@@ -9,6 +9,7 @@ class House_cms extends HI_Model{
     }
 
     private $rules = [
+        "house_id"  => "required|integer",
         "house_type" => "",
         "house_state" => "integer"
     ];
@@ -73,9 +74,10 @@ class House_cms extends HI_Model{
     {
         $this->check_existance($student_id, "student_id", T_STUDENTS);
         foreach ($data as $single_data){
-            $house_id = $single_data['house_id'];
-            unset($single_data['house_id']);
             if ($this->form_validation->validate($this->rules, $single_data)){
+                $house_id = $single_data['house_id'];
+                unset($single_data['house_id']);
+                $this->check_existance($house_id, "house_id", T_HOUSE);
                 foreach ($single_data as $key => $value){
                     $temp_data = [];
                     $temp_data['house_id'] = $house_id;

@@ -127,7 +127,7 @@ class Downstream
 
 $down = new Downstream();
 
-$down->users()
+/*$down->users()
      ->students()
      ->parents()
      ->siblings()
@@ -145,4 +145,6 @@ $down->users()
      ->siblings_cms()
      ->aircond()
      ->transport()
-     ->transport_cms();
+     ->transport_cms();*/
+
+$down->transport_cms();

@@ -17,44 +17,34 @@
       <el-table-column label="操作" min-width="120">
         <template slot-scope="scope">
           <el-button
-            size="mini"
-            @click="openEdit()">编辑</el-button>
+          class="mr-2"
+          size="mini"
+          @click="openEdit()">编辑</el-button>
+
           <el-button
-            size="mini"
-            type="danger"
-            @click="openDelete()">删除</el-button>
+          size="mini"
+          type="danger"
+          @click="openDelete()">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
-    
-    <!-- <edit-modal ref="edit">
-      <div slot="content">
-      </div>
-    </edit-modal> -->
 
-    <div class="modal" ref="edit" id="editGroup" :class="{'active': active }">
-      <a @click="closeClick" class="modal-overlay" aria-label="Close"></a>
-      <div class="modal-container loading-lg" :class="{ 'loading' : loading }">
-        <div class="modal-header">
-          <a @click="closeClick" class="btn btn-clear float-right" aria-label="Close"></a>
-          <div class="modal-title h5">{{modalTitle}}</div>
-        </div>
-        <div class="modal-body">
-          <div class="toast toast-error" v-if="error">
-            {{ errorMessage }}
-          </div>
-          <div class="content">
-            <div class="form-group" v-for="i in inputs" :key="i.name">
-              <label class="form-label" :for="i.name">{{i.name}}</label>
-              <input class="form-input" :type="i.type" :id="i.name" :placeholder="i.placeholder">
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          
+    <edit-modal ref="edit" :title="modalTitle">
+      <div slot="content">
+        <div class="form-group" v-for="stuffs in modalData" :key="stuffs.name">
+          <label class="form-label">{{stuffs.name}}</label>
+          <input 
+          class="form-input" 
+          :type="stuffs.type" 
+          :placeholder="stuffs.placeholder">
         </div>
       </div>
-    </div>
+
+      <div slot="footer">
+        <button class="btn btn-primary btn-error btn-lg" @click="$refs.edit.active = false">取消</button>
+        <button class="btn btn-primary btn-lg" @click="confirmClick()">确认</button>
+      </div>
+    </edit-modal>
 
     <delete-modal 
     :confirm="handleDelete" ref="del">
@@ -64,20 +54,19 @@
 
 <script>
 import deleteModal from '@/components/modal/confirmation'
+import editModal   from '@/components/modal/modal'
 export default {
-  mounted() {
-    console.log(this)
-  },
   components: {
-    deleteModal
+    deleteModal,
+    editModal
   },
   props: {
     title: String,
     columns: Array,
     tableData: Array,
     modal: Boolean,
-    inputs: Array,
-    modalTitle: String
+    modalTitle: String,
+    modalData: Array
   },
   data() {
     return{
@@ -87,12 +76,7 @@ export default {
       },
       loading: true,
       originalData: [],
-      displayData : [],
-      // modal data
-      active : false,
-      loading: false,
-      error  : false,
-      errorMessage: "发生错误，请检查表单。"
+      displayData : []
     }
   },
   methods: {
@@ -102,22 +86,22 @@ export default {
     openEdit() {
       if (this.modal == true) {
         this.$refs.edit.active = true;
+        // this.$refs.edit.active = true;
+        // console.log(this);
+        // console.log(this.$refs.edit.active);
       } else {
         this.$router.push({ path: 'addStudent'});
       }
     },
-    handleEdit(index, row) {
-      console.log(index, row);
-    },
     handleDelete(index, row) {
-      // delete object
-      console.log("delete")
+      //DELETE
     },
-    closeClick() {
-      this.active  = false
-      this.loading = false
-      this.error   = false
-      this.$emit('close')
+    confirmClick() {
+      this.$refs.edit.active  = false;
+      this.$refs.edit.loading = false;
+      this.$refs.edit.error   = false;
+      this.$emit('close');
+      //POST
     }
   },
   watch: {

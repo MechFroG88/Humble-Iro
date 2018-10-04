@@ -25,10 +25,15 @@ export default new Router({
       path: '/addStudent/',
       name: 'addStudent',
       component: () => import('@/pages/addStudent'),
-      children: [
+      children:[
         {
-          path: '',
-          redirect: {'name': 'basic'},
+          path:'',
+          redirect: {'name':'basic'},
+        },
+        {
+          path:'basic',
+          name:'basic',
+          component: () => import('@/pages/createStudent/studentform'),
         }
       ]
     },

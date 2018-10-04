@@ -1,7 +1,7 @@
 <template>
   <div id="_student">
     <layout>
-      <el-button class="button addStudent" size="small" type="primary">
+      <el-button class="btnn addStudent" size="mini" type="primary">
         <router-link :to="{'name': 'addStudent'}">
           <i class="icon icon-plus"></i> 添加学生
         </router-link>

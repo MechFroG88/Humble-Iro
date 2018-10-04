@@ -1,7 +1,7 @@
 <template>
   <div id="_default">
     <div class="header-container">
-      <header class="header">
+      <div class="nav-header">
         <h3 class="title">
           <img src="../assets/logo/chkl-logo.jpg">
           隆中华学生福利处
@@ -22,7 +22,7 @@
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-      </header>
+      </div>
     </div>
     <div class="body">
       <el-col class="sidebar" :span="5" :sm="3">

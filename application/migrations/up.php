@@ -21,6 +21,10 @@ class Upstream
                  ->column("status")      ->tinyint(2)  ->default(1)
                  ->create("users");
 
+                 $this->table->insertMulti("users", [
+                    [ "username" => "admin", "password" => password_hash('admin', PASSWORD_DEFAULT), "token" => 0,
+                      "created" => date("Y-m-d H:i:s"), "updated" => date("Y-m-d H:i:s") ]]);
+
         return $this;
     }
 
@@ -211,7 +215,7 @@ class Upstream
 
 $up = new Upstream();
 
-/*$up->users()
+$up->users()
    ->students()
    ->parents()
    ->siblings()
@@ -229,6 +233,4 @@ $up = new Upstream();
    ->siblings_cms()
    ->aircond()
    ->transport()
-   ->transport_cms();*/
-
-$up->transport_cms();
+   ->transport_cms();

@@ -22,7 +22,7 @@ export default new Router({
       component: () => import('@/pages/student'),
     },
     {
-      path: '/addStudent',
+      path: '/addStudent/',
       name: 'addStudent',
       component: () => import('@/pages/addStudent'),
       children:[

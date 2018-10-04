@@ -28,7 +28,8 @@ export default {
   data() {
     return {
       aidColumns,
-      aidData
+      aidData,
+      aidModal
     }
   }
 }

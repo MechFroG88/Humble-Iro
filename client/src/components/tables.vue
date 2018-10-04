@@ -46,7 +46,7 @@
           <div class="content">
             <div class="form-group" v-for="i in inputs" :key="i.name">
               <label class="form-label" :for="i.name">{{i.name}}</label>
-              <input class="form-input" :type="type" :id="i.name" :placeholder="i.placeholder">
+              <input class="form-input" :type="i.type" :id="i.name" :placeholder="i.placeholder">
             </div>
           </div>
         </div>
@@ -77,7 +77,7 @@ export default {
     tableData: Array,
     modal: Boolean,
     inputs: Array,
-    modalTitle: String,
+    modalTitle: String
   },
   data() {
     return{

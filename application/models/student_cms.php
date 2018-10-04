@@ -39,57 +39,73 @@ class Student_cms extends HI_Model{
                                    ->get(T_STUDENTS_CMS)
                                    ->result_array();
 
+        $financial_aid = [];
         foreach ($student_detail as $single_detail){
             $title = $single_detail['title'];
             $value = $single_detail['value'];
+            if ($title == "financial_aid"){
+                array_push($financial_aid, $value);
+                continue;
+            }
             $student->$title = $value;
         }
+        $student->financial_aid = $financial_aid;
 
         return $student;
     }
 
     public function get_basic()
     {
-        $student = $this->db->where("status", 1)
-                            ->select("student_id")
-                            ->get(T_STUDENTS)
-                            ->row();
-
-        $cn_name = $this->db->where("student_id", $student_id)
-                            ->or_where("title", "cn_name")
-                            ->select("value")
-                            ->row();
-
-        isset($cn_name) ? $student->cn_name = $cn_name->cn_name : NULL ;
-
-        $en_name = $this->db->where("student_id", $student_id)
-                            ->or_where("title", "en_name")
-                            ->select("value")
-                            ->row();
-
-        isset($en_name) ? $student->en_name = $en_name->en_name : NULL ;
-
-        $financial_aid_ids = $this->db->where("student_id", $student->$student_id)
-                                      ->where("title", "financial_aid")
-                                      ->select("value")
-                                      ->get(T_STUDENTS_CMS)
-                                      ->result_array();
-
-        $financial_aid = [];
-        foreach ($financial_aid_ids as $single_financial_aid_id){
-            $cn_name = $this->db->where("financial_aid_id", $single_financial_aid_id)
-                                ->where("status", 1)
-                                ->select("title")
-                                ->get(T_FINANCIAL_AID)
+        $student_ids = $this->db->where("status", 1)
+                                ->select("student_id")
+                                ->get(T_STUDENTS)
+                                ->result_array();
+        $students = [];
+        foreach ($student_ids as $studentss){
+            $student = new stdClass;
+            $student_id = $studentss['student_id'];
+            $student->student_id = $student_id;
+            $cn_name = $this->db->where("student_id", $student_id)
+                                ->or_where("title", "cn_name")
+                                ->select("value")
+                                ->get(T_STUDENTS_CMS)
+                                ->row();
+        
+            $cn_name = isset($cn_name) ? $cn_name->value : "";
+            
+            $en_name = $this->db->where("student_id", $student_id)
+                                ->or_where("title", "en_name")
+                                ->select("value")
+                                ->get(T_STUDENTS_CMS)
                                 ->row();
 
-            if (isset($cn_name)){
-                array_push($financial_aid,$cn_name->title);
-            }
-        }
-        $student->financial_aid = $financial_aid;
+            $en_name = isset($en_name) ? $en_name->value : "";
 
-        return $student;
+            $student->cn_name = $cn_name;
+            $student->en_name = $en_name;
+
+            $financial_aid_ids = $this->db->where("student_id", $student_id)
+                                          ->where("title", "financial_aid")
+                                          ->select("value")
+                                          ->get(T_STUDENTS_CMS)
+                                          ->result_array();
+
+            $financial_aid = [];
+            foreach ($financial_aid_ids as $single_financial_aid_id){
+                $cn_name = $this->db->where("financial_aid_id", $single_financial_aid_id['value'])
+                                    ->where("status", 1)
+                                    ->select("title")
+                                    ->get(T_FINANCIAL_AID)
+                                    ->row();
+            
+                if (isset($cn_name)){
+                    array_push($financial_aid,$cn_name->title);
+                }
+            }
+            $student->financial_aid = $financial_aid;
+            array_push($students, $student);
+        }
+        return $students;
     }
 
     public function create()
@@ -111,8 +127,12 @@ class Student_cms extends HI_Model{
     public function edit($data, $student_id)
     {
         $this->check_existance($student_id, "student_id", T_STUDENTS);
-        if ($this->form_valdiation->validate($this->rules, $data)){
+        if ($this->form_validation->validate($this->rules, $data)){
             foreach ($data as $key => $value){
+                if ($key == "financial_aid"){
+                    $this->financial_aid($value, $student_id);
+                    continue;
+                }
                 $temp_data = [];
                 $temp_data['student_id'] = $student_id;
                 $temp_data['title'] = $key;
@@ -120,15 +140,15 @@ class Student_cms extends HI_Model{
                 
                 $student_cms = $this->db->where("student_id", $student_id)
                                         ->where("title", $key)
-                                        ->get(T_STUDENT_CMS)
+                                        ->get(T_STUDENTS_CMS)
                                         ->row();
 
                 if (isset($student_cms)){
                     $this->db->where("student_id", $student_id)
                              ->where("title", $key)
-                             ->update(T_STUDENT_CMS, $temp_data);
+                             ->update(T_STUDENTS_CMS, $temp_data);
                 } else {
-                    $this->db->insert(T_STUDENT_CMS, $temp_data);
+                    $this->db->insert(T_STUDENTS_CMS, $temp_data);
                 }
             }
             return 200;
@@ -145,5 +165,21 @@ class Student_cms extends HI_Model{
                  ->update(T_STUDENTS);
 
         return 200;
+    }
+
+    public function financial_aid($value, $student_id)
+    {
+        $this->db->where("student_id", $student_id)
+                 ->where("title", "financial_aid")
+                 ->delete(T_STUDENTS_CMS);
+
+        foreach ($value as $single_value){
+            $temp_data = [];
+            $temp_data['student_id'] = $student_id;
+            $temp_data['title'] = "financial_aid";
+            $temp_data['value'] = $single_value;
+
+            $this->db->insert(T_STUDENTS_CMS, $temp_data);
+        }
     }
 }

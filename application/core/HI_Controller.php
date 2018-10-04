@@ -22,7 +22,8 @@ class HI_Controller extends CI_Controller{
              ->set_output(json_encode([
                  "status" => $status,
                  "data"   => $data
-             ]));
+             ]))->_display();
+             exit;
     }
 
     public function error($status, $data = '')
@@ -34,7 +35,8 @@ class HI_Controller extends CI_Controller{
                  "status"  => $status,
                  "message" => $this->errors[$status],
                  "errors"  => $data
-             ]));
+             ]))->_display();
+             exit;
     }
 
 }

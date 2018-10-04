@@ -46,6 +46,11 @@ export default new Router({
         {
           path: 'finance',
           name: 'finance',
+        },
+        {
+          path: 'finish',
+          name: 'finish',
+          component: () => import('@/pages/createStudent/finish')
         }
       ]
     },

@@ -7,12 +7,14 @@
       stripe
       :data="tableData">
       <el-table-column 
-      v-for="column in columns" 
+      v-for="(column, index) in columns" 
+      :fixed="index == 0 ? true : false"
+      min-width="160"
       :key="column.field"
       :prop="column.field"
       :label="column.label">
       </el-table-column>
-      <el-table-column label="操作">
+      <el-table-column label="操作" min-width="120">
         <template slot-scope="scope">
           <el-button
             size="mini"
@@ -25,12 +27,34 @@
       </el-table-column>
     </el-table>
     
-    <!-- <edit-modal
-    title="编辑学生" ref="edit">
+    <!-- <edit-modal ref="edit">
       <div slot="content">
-
       </div>
     </edit-modal> -->
+
+    <div class="modal" ref="edit" id="editGroup" :class="{'active': active }">
+      <a @click="closeClick" class="modal-overlay" aria-label="Close"></a>
+      <div class="modal-container loading-lg" :class="{ 'loading' : loading }">
+        <div class="modal-header">
+          <a @click="closeClick" class="btn btn-clear float-right" aria-label="Close"></a>
+          <div class="modal-title h5">{{modalTitle}}</div>
+        </div>
+        <div class="modal-body">
+          <div class="toast toast-error" v-if="error">
+            {{ errorMessage }}
+          </div>
+          <div class="content">
+            <div class="form-group" v-for="i in inputs" :key="i.name">
+              <label class="form-label" :for="i.name">{{i.name}}</label>
+              <input class="form-input" :type="type" :id="i.name" :placeholder="i.placeholder">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          
+        </div>
+      </div>
+    </div>
 
     <delete-modal 
     :confirm="handleDelete" ref="del">
@@ -40,17 +64,20 @@
 
 <script>
 import deleteModal from '@/components/modal/confirmation'
-import editModal   from '@/components/modal/modal'
 export default {
+  mounted() {
+    console.log(this)
+  },
   components: {
-    deleteModal,
-    editModal
+    deleteModal
   },
   props: {
     title: String,
     columns: Array,
     tableData: Array,
-    actions: Object
+    modal: Boolean,
+    inputs: Array,
+    modalTitle: String,
   },
   data() {
     return{
@@ -60,7 +87,12 @@ export default {
       },
       loading: true,
       originalData: [],
-      displayData : []
+      displayData : [],
+      // modal data
+      active : false,
+      loading: false,
+      error  : false,
+      errorMessage: "发生错误，请检查表单。"
     }
   },
   methods: {
@@ -68,7 +100,11 @@ export default {
       this.$refs.del.active = true;
     },
     openEdit() {
-      this.$router.push({ path: 'addStudent'});
+      if (this.modal == true) {
+        this.$refs.edit.active = true;
+      } else {
+        this.$router.push({ path: 'addStudent'});
+      }
     },
     handleEdit(index, row) {
       console.log(index, row);
@@ -76,6 +112,12 @@ export default {
     handleDelete(index, row) {
       // delete object
       console.log("delete")
+    },
+    closeClick() {
+      this.active  = false
+      this.loading = false
+      this.error   = false
+      this.$emit('close')
     }
   },
   watch: {
@@ -87,9 +129,6 @@ export default {
       .map(({field}) => field);
     }
   },
-  mounted() {
-    console.log(this)
-  }
 }
 </script>
 

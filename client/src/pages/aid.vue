@@ -4,7 +4,10 @@
       <crudTable
       title="助学金申请列表"
       :columns="aidColumns"
-      :tableData="aidData">
+      :tableData="aidData"
+      :modal="true"
+      :inputs="aidModal"
+      modalTitle="编辑助学金申请">
       </crudTable>
     </layout>
   </div>
@@ -13,6 +16,7 @@
 <script>
 import layout    from '@/layout/default'
 import crudTable from '@/components/tables'
+import { aidModal }   from '../../api/modalData'
 import { aidColumns } from '../../api/tableColumns'
 
 import { aidData } from '../../api/mock/tableData'

@@ -1,7 +1,7 @@
 <template>
   <div id="_crudTable">
-    <el-row class="title" type="flex">
-      <h3>{{title}}</h3> 
+    <el-row class="title-container" type="flex">
+      <h3 class="title">{{title}}</h3> 
     </el-row>
     <el-table
       stripe

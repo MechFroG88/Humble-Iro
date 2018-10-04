@@ -1,21 +1,32 @@
-.el-step__head.is-process {
-  color: $primary-color !important;
-  border-color: $primary-color !important;
-  margin-right: 1rem; 
-}
-.el-step__title {
-  font-weight: 500 !important;
-  &.is-process {
+#_addStudents {
+  .el-step__head.is-process {
     color: $primary-color !important;
+    border-color: $primary-color !important;
+    margin-right: 1rem; 
   }
-}
+  .el-step__title {
+    font-weight: 500 !important;
+    @media screen and (max-width: $size-md) {
+      font-size: $font-size-sm;
+    }
+    &.is-process {
+      color: $primary-color !important;
+    }
+  }
+  
+  .el-steps {
+    margin-bottom: .5rem;
+  }
+  
+  .btn-group {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+  }
 
-.el-steps {
-  margin-bottom: .5rem;
-}
-
-.btn-group {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 1rem;
+  .finish-button {
+    display: flex;
+    justify-content: center;
+    margin-top: .8rem;
+  }
 }

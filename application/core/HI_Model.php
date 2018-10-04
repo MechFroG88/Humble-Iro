@@ -7,6 +7,13 @@ class HI_Model extends CI_Model{
         parent::__construct();
     }
 
+    private $errors = [
+        404 => "Not Found",
+        401 => "Unauthorized",
+        400 => "Validation error",
+        500 => "Internal Server Error"
+    ];
+
     public function date()
     {
             return date("Y-m-d H:i:s");
@@ -20,6 +27,20 @@ class HI_Model extends CI_Model{
                            ->row();
         
         isset($status) ? NULL : $this->error(404);
+    }
+
+    public function error($status, $data = '')
+    {
+        $this->output
+             ->set_content_type('application/json')
+             ->set_status_header($status)
+             ->set_output(json_encode([
+                 "status"  => $status,
+                 "message" => $this->errors[$status],
+                 "errors"  => $data
+             ]))
+             ->_display();
+        exit;
     }
 
 }

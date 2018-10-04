@@ -18,7 +18,7 @@ class Parent_cms extends HI_Model{
         'work_address' => '',
         'boss_contact' => '',
         'relation'     => 'integer',
-        'ic_name'      => '',
+        'ic'           => '',
     ];
 
 
@@ -35,6 +35,7 @@ class Parent_cms extends HI_Model{
                                ->where("status", 1)
                                ->get(T_PARENTS)
                                ->result_array();
+
         $parents = [];
         foreach ($parent_ids as $single_parent){
             $parent_id = $single_parent['parent_id'];
@@ -53,6 +54,34 @@ class Parent_cms extends HI_Model{
             array_push($parents, $parent);
         }
 
+        return $parents;
+    }
+
+    public function get_basic($student_id)
+    {
+        $parent_ids = $this->db->where("student_id", $student_id)
+                               ->where("status", 1)
+                               ->get(T_PARENTS)
+                               ->result_array();
+
+        $parents = [];
+        foreach ($parent_ids as $single_parent){
+            $parent_id = $single_parent['parent_id'];
+            $parent_detail = $this->db->where("parent_id", $parent_id)
+                                      ->where("title", "relation")
+                                      ->select("title, value")
+                                      ->get(T_PARENTS_CMS)
+                                      ->result_array();
+            
+            $parent = [];
+            $parent['parent_id'] = $parent_id;
+            foreach ($parent_detail as $single_parent_detail){
+                $title = $single_parent_detail['title'];
+                $value = $single_parent_detail['value'];
+                $parent[$title] = $value;
+            }
+            array_push($parents, $parent);
+        }
         return $parents;
     }
 
@@ -83,8 +112,8 @@ class Parent_cms extends HI_Model{
         foreach ($data as $single_data){
             $parent_id = $single_data['parent_id'];
             unset($single_data['parent_id']);
-            if ($this->form_valdiation->validate($this->rules, $single_data)){
-                foreach ($data as $key => $value){
+            if ($this->form_validation->validate($this->rules, $single_data)){
+                foreach ($single_data as $key => $value){
                     $temp_data = [];
                     $temp_data['parent_id'] = $parent_id;
                     $temp_data['title'] = $key;
@@ -94,7 +123,7 @@ class Parent_cms extends HI_Model{
                                            ->where("title", $key)
                                            ->get(T_PARENTS_CMS)
                                            ->row();
-    
+
                     if (isset($parent_cms)){
                         $this->db->where("parent_id", $parent_id)
                                  ->where("title", $key)

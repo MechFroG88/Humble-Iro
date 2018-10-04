@@ -52,7 +52,7 @@ class Family_cms extends HI_Model{
      */
     public function edit_family($data, $student_id)
     {
-        if ($this->form_valdiation->validate($this->rules, $data)){
+        if ($this->form_validation->validate($this->rules, $data)){
             foreach ($data as $key => $value){
                 $temp_data = [];
                 $temp_data['student_id'] = $student_id;

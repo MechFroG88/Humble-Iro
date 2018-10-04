@@ -5,7 +5,7 @@
 ```json
 {
   "supplier"    : "呵呵呵会馆",
-  "finance_aid_type": "哈哈哈基金",
+  "financial_aid_type": "哈哈哈基金",
   "expired_date": "21032019"
 }
 ```
@@ -31,7 +31,7 @@
 ```json
 {
   "supplier"    : "呵呵呵会馆",
-  "finance_aid_type": "哈哈哈基金",
+  "financial_aid_type": "哈哈哈基金",
   "expired_date": "21032019"
 }
 ```

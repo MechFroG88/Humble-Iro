@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Finance_model extends HI_Model{
+class Financial_aid_model extends HI_Model{
 
     public function __construct()
     {
@@ -24,6 +24,8 @@ class Finance_model extends HI_Model{
     public function create($data)
     {
         if ($this->form_validation->validate($this->rules,$data)){
+            $date_time = DateTime::createFromFormat('d-m-Y', $data['expired_date']);
+            $data['expired_date'] = $date_time->format("Y-m-d H:i:s");
             $this->db->insert(T_FINANCIAL_AID, $data);
             return 200;
         } else {
@@ -35,6 +37,8 @@ class Finance_model extends HI_Model{
     {
         $this->check_existance($financial_aid_id, "financial_aid_id", T_FINANCIAL_AID);
         if ($this->form_validation->validate($this->rules, $data)){
+            $date_time = DateTime::createFromFormat('d-m-Y', $data['expired_date']);
+            $data['expired_date'] = $date_time->format("Y-m-d H:i:s");
             $this->db->where("financial_aid_id", $financial_aid_id)
                      ->where("status", 1)
                      ->update(T_FINANCIAL_AID, $data);

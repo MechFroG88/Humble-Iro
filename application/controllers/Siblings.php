@@ -15,9 +15,9 @@ class Siblings extends HI_Controller {
         $this->json($this->siblings->get($student_id));
     }
 
-    public function get_basic()
+    public function get_basic($student_id)
     {
-        $this->json($this->siblings->get_basic());
+        $this->json($this->siblings->get_basic($student_id));
     }
 
     public function create($student_id)

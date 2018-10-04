@@ -15,9 +15,9 @@ class Parents extends HI_Controller {
         $this->json($this->parents->get($student_id));
     }
 
-    public function get_basic()
+    public function get_basic($student_id)
     {
-        $this->json($this->parents->get_basic());
+        $this->json($this->parents->get_basic($student_id));
     }
 
     public function create($student_id)
@@ -36,9 +36,9 @@ class Parents extends HI_Controller {
         }
     }
 
-    public function delete($student_id)
+    public function delete($parent_id)
     {
-        $status = $this->parents->delete($student_id);
+        $status = $this->parents->delete($parent_id);
         if ($status == 200){
             $this->json("Deleted Succesfully");
         } else {

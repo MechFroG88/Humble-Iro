@@ -28,7 +28,7 @@ class Upstream
     {
         $this->db->column("financial_aid_id")   ->bigint(20) ->primary()->unique()->autoIncrement()
                  ->column("supplier")           ->text()
-                 ->column("expired")            ->datetime()
+                 ->column("expired_date")       ->datetime()
                  ->column("financial_aid_type") ->text()
                  ->column("status")             ->tinyint(2) ->default(1)
                  ->create("financial_aid");

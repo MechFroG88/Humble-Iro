@@ -77,8 +77,8 @@ class Transport_cms extends HI_Model{
         foreach ($data as $single_data){
             $transport_id = $single_data['transport_id'];
             unset($single_data['transport_id']);
-            if ($this->form_valdiation->validate($this->rules, $single_data)){
-                foreach ($data as $key => $value){
+            if ($this->form_validation->validate($this->rules, $single_data)){
+                foreach ($single_data as $key => $value){
                     $temp_data = [];
                     $temp_data['transport_id'] = $transport_id;
                     $temp_data['title'] = $key;

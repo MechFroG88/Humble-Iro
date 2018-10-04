@@ -86,14 +86,12 @@ export default {
     openEdit() {
       if (this.modal == true) {
         this.$refs.edit.active = true;
-        // this.$refs.edit.active = true;
-        // console.log(this);
-        // console.log(this.$refs.edit.active);
       } else {
         this.$router.push({ path: 'addStudent'});
       }
     },
     handleDelete(index, row) {
+      console.log("delete")
       //DELETE
     },
     confirmClick() {
@@ -101,6 +99,7 @@ export default {
       this.$refs.edit.loading = false;
       this.$refs.edit.error   = false;
       this.$emit('close');
+      console.log("post")
       //POST
     }
   },

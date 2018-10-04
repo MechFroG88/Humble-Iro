@@ -8,7 +8,9 @@
         <el-step title="经济资料"></el-step>
       </el-steps>
 
-      <el-button type="primary" plain calss="button" @click="nextStep">确认</el-button>
+      <router-view></router-view>
+
+      <el-button type="primary" class="btnn confirm" size="medium" @click="nextStep">确认</el-button>
     </layout>
   </div>
 </template>
@@ -25,8 +27,19 @@ export default {
     }
   },
   methods: {
+    // prevStep() {
+    //   if (this.active == 0) {
+    //     this.active = 0;
+    //   } else {
+    //     this.active--;
+    //   }
+    // },
     nextStep() {
-      this.active++;
+      if (this.active == 3) {
+        this.active = 0;
+      } else {
+        this.active++;
+      }
     }
   }
 }
@@ -35,3 +48,4 @@ export default {
 <style>
 
 </style>
+

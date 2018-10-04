@@ -1,5 +1,7 @@
 #_default {
   .header-container {
+    display: flex;
+    align-content: center;
     border-bottom: .8px solid #eee;
     background-color: #fff;
     box-shadow: $box-shadow-1;
@@ -7,10 +9,10 @@
     @media screen and (max-width: $normal-width) {
       padding: 0 1.5rem;
     }
-    .header {
+    .nav-header {
+      flex-grow: 1;
       display: flex;
       justify-content: space-between;
-      align-items: center;
       margin: 0 auto;
       max-width: $normal-width;
       .title {
@@ -18,7 +20,8 @@
         align-items: center;
         font-size: 1.3rem;
         font-weight: 500;
-        color: $primary-color;    
+        color: $primary-color;
+        height: 100%; 
         img {
           height: 2rem;
         }

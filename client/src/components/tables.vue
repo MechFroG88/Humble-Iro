@@ -16,19 +16,36 @@
         <template slot-scope="scope">
           <el-button
             size="mini"
-            @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+            @click="openEdit()">编辑</el-button>
           <el-button
             size="mini"
             type="danger"
-            @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+            @click="openDelete()">删除</el-button>
         </template>
       </el-table-column>
-    </el-table>    
+    </el-table>
+    
+    <!-- <edit-modal
+    title="编辑学生" ref="edit">
+      <div slot="content">
+
+      </div>
+    </edit-modal> -->
+
+    <delete-modal 
+    :confirm="handleDelete" ref="del">
+    </delete-modal>
   </div>
 </template>
 
 <script>
+import deleteModal from '@/components/modal/confirmation'
+import editModal   from '@/components/modal/modal'
 export default {
+  components: {
+    deleteModal,
+    editModal
+  },
   props: {
     title: String,
     columns: Array,
@@ -47,11 +64,18 @@ export default {
     }
   },
   methods: {
+    openDelete() {
+      this.$refs.del.active = true;
+    },
+    openEdit() {
+      this.$router.push({ path: 'addStudent'});
+    },
     handleEdit(index, row) {
       console.log(index, row);
     },
     handleDelete(index, row) {
-      console.log(index, row);
+      // delete object
+      console.log("delete")
     }
   },
   watch: {
@@ -63,6 +87,9 @@ export default {
       .map(({field}) => field);
     }
   },
+  mounted() {
+    console.log(this)
+  }
 }
 </script>
 

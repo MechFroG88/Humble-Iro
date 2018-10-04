@@ -2,6 +2,13 @@
 
 `POST` /aircond/edit/:sid
 
+``` json
+{
+  "amount" : 300
+}
+
+```
+
 ## Success response
 
 **Code** : `200 OK`

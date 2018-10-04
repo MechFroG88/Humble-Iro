@@ -3,12 +3,14 @@
 `GET` /finance
 
 ```json
-{
-  "financial_aid_id" : "1",
-  "supplier"    : "呵呵呵会馆",
-  "finance_type": "哈哈哈基金",
-  "expired_date": "21032019"
-}
+[
+  [
+      "financial_aid_id"   : 1,
+      "supplier"           : "呵呵呵会馆",
+      "expired_date"       : "datetime",
+      "financial_aid_type" : "lol"
+  ],...
+]
 ```
 
 ## Success response

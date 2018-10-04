@@ -6,19 +6,113 @@ $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+/**
+ * User CRUD 
+ *
+ */
 $route['user']['GET']                   = 'User/get';
 $route['user']['POST']                  = 'User/create';
 $route['user/change/password']['POST']  = 'User/change_password';
 $route['user/delete/(:num)']['POST']    = 'User/delete/$1';
 $route['login']['POST']                 = 'User/login';
 
-$route['student/(:num)']['GET']         = 'Student/get/$1';
-$route['student/basic']['GET']          = 'Student/get_basic';
-$route['student']['POST']               = 'Student/create';
-$route['student/edit/(:num)']['POST']   = 'Student/edit/$1';
-$route['student/delete/(:num)']['POST'] = 'Student/delete/$1';
+/**
+ * Financial_aid CRUD
+ * 
+ */
+$route['financial_aid']['GET']                = 'Financial_aid/get';
+$route['financial_aid']['POST']               = 'Financial_aid/create';
+$route['financial_aid/edit/(:num)']['POST']   = 'Financial_aid/edit/$1';
+$route['financial_aid/delete/(:num)']['POST'] = 'Financial_aid/delete/$1';
 
-$route['finance']['GET']                = 'Finance/get';
-$route['finance']['POST']               = 'Finance/create';
-$route['fianance/edit/(:num)']['POST']  = 'Finance/edit/$1';
-$route['finance/delete/(:num)']['POST'] = 'Finance/delete/$1';
+/**
+ * FULL
+ * 
+ */
+$route['student/full/(:num)']['POST']          = 'Full/get/$1';
+
+/**
+ * Student CRUD
+ * 
+ */
+$route['student/(:num)']['GET']                = 'Student/get/$1';
+$route['student/basic']['GET']                 = 'Student/get_basic';
+$route['student']['POST']                      = 'Student/create';
+$route['student/edit/(:num)']['POST']          = 'Student/edit/$1';
+$route['student/delete/(:num)']['POST']        = 'Student/delete/$1';
+
+/**
+ * Parent CRUD
+ * 
+ */
+$route['parent/(:num)']['GET']                 = 'Parent/get/$1';
+$route['parent/basic/(:num)']['GET']           = 'Parent/get_basic/$1';
+$route['parent/(:num)']['POST']                = 'Parent/create/$1';
+$route['parent/edit/(:num)']['POST']           = 'Parent/edit/$1';
+$route['parent/delete/(:num)']['POST']         = 'Parent/delete/$1';
+
+/**
+ * Sibling CRUD
+ * 
+ */
+$route['sibling/(:num)']['GET']                = 'Sibling/get/$1';
+$route['sibling/basic/(:num)']['GET']          = 'Sibling/get_basic/$1';
+$route['sibling/(:num)']['POST']               = 'Sibling/create/$1';
+$route['sibling/edit/(:num)']['POST']          = 'Sibling/edit/$1';
+$route['sibling/delete/(:num)']['POST']        = 'Sibling/delete/$1';
+
+/**
+ * Family CRUD
+ * 
+ */
+$route['family/(:num)']['GET']                 = 'Family/get/$1';
+$route['family/edit/(:num)']['POST']           = 'Family/edit/$1';
+
+/**
+ * Finance CRUD
+ * 
+ */
+$route['finance/(:num)']['GET']                = 'Finance/get/$1';
+$route['finance/edit/(:num)']['POST']          = 'Finance/edit/$1';
+
+/**
+ * Finance_income CRUD
+ * 
+ */
+$route['finance_income/(:num)']['GET']         = 'Finance_income/get/$1';
+$route['finance_income/(:num)']['POST']        = 'Finance_income/create/$1';
+$route['finance_income/edit/(:num)']['POST']   = 'Finance_income/edit/$1';
+$route['finance_income/delete/(:num)']['POST'] = 'Finance_income/delete/$1';
+
+/**
+ * Finance_expenditure CRUD
+ * 
+ */
+$route['finance_expenditure/(:num)']['GET']         = 'Finance_expenditure/get/$1';
+$route['finance_expenditure/(:num)']['POST']        = 'Finance_expenditure/create/$1';
+$route['finance_expenditure/edit/(:num)']['POST']   = 'Finance_expenditure/edit/$1';
+$route['finance_expenditure/delete/(:num)']['POST'] = 'Finance_expenditure/delete/$1';
+
+/**
+ *  Aircond CRUD
+ */
+$route['aircond/(:num)']['GET']       = 'Aircond/get/$1';
+$route['aircond/edit/(:num)']['POST'] = 'Aircond/edit/$1';
+
+/**
+ * House CRUD
+ * 
+ */
+$route['house/(:num)']['GET']         = 'House/get/$1';
+$route['house/(:num)']['POST']        = 'House/create/$1';
+$route['house/edit/(:num)']['POST']   = 'House/edit/$1';
+$route['house/delete/(:num)']['POST'] = 'House/delete/$1';
+
+/**
+ * Transport CRUD
+ * 
+ */
+$route['transport/(:num)']['GET']         = 'Transport/get/$1';
+$route['transport/(:num)']['POST']        = 'Transport/create/$1';
+$route['transport/edit/(:num)']['POST']   = 'Transport/edit/$1';
+$route['transport/delete/(:num)']['POST'] = 'Transport/delete/$1';

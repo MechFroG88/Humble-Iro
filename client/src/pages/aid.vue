@@ -6,8 +6,8 @@
       :columns="aidColumns"
       :tableData="aidData"
       :modal="true"
-      :inputs="aidModal"
-      modalTitle="编辑助学金申请">
+      modalTitle="编辑助学金申请"
+      :modalData="aidModal">
       </crudTable>
     </layout>
   </div>
@@ -16,14 +16,18 @@
 <script>
 import layout    from '@/layout/default'
 import crudTable from '@/components/tables'
-import { aidModal }   from '../../api/modalData'
+import modal     from '@/components/modal/modal'
+import { aidModal } from '../../api/modalData'
 import { aidColumns } from '../../api/tableColumns'
 
 import { aidData } from '../../api/mock/tableData'
 export default {
+  mounted() {
+  },
   components: {
     layout,
-    crudTable
+    crudTable,
+    modal
   },
   data() {
     return {

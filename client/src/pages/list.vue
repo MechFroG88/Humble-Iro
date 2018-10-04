@@ -4,7 +4,11 @@
       <crudTable
       title="助学金种类列表"
       :columns="listColumns"
-      :tableData="listData"></crudTable>
+      :tableData="listData"
+      :modal="true"
+      modalTitle="编辑助学金"
+      :modalData="listModal">
+      </crudTable>
     </layout>
   </div>
 </template>
@@ -12,6 +16,7 @@
 <script>
 import layout    from '@/layout/default'
 import crudTable from '@/components/tables'
+import { listModal } from '../../api/modalData'
 import { listColumns } from '../../api/tableColumns'
 
 import { listData } from '../../api/mock/tableData'
@@ -23,7 +28,8 @@ export default {
   data() {
     return {
       listColumns,
-      listData
+      listData,
+      listModal
     }
   }
 }

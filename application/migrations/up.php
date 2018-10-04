@@ -21,6 +21,10 @@ class Upstream
                  ->column("status")      ->tinyint(2)  ->default(1)
                  ->create("users");
 
+                 $this->table->insertMulti("users", [
+                    [ "username" => "admin", "password" => password_hash('admin', PASSWORD_DEFAULT), "token" => 0,
+                      "created" => date("Y-m-d H:i:s"), "updated" => date("Y-m-d H:i:s") ]]);
+
         return $this;
     }
 
@@ -28,7 +32,7 @@ class Upstream
     {
         $this->db->column("financial_aid_id")   ->bigint(20) ->primary()->unique()->autoIncrement()
                  ->column("supplier")           ->text()
-                 ->column("expired")            ->datetime()
+                 ->column("expired_date")       ->datetime()
                  ->column("financial_aid_type") ->text()
                  ->column("status")             ->tinyint(2) ->default(1)
                  ->create("financial_aid");
@@ -199,9 +203,9 @@ class Upstream
 
     public function transport_cms()
     {
-        $this->db->column("transport_type")   ->tinyint(2)
-                 ->column("model")            ->varchar(16)
-                 ->column("year")             ->int(4)
+        $this->db->column("transport_id")     ->bigint(20) ->index()
+                 ->column("title")            ->text()
+                 ->column("value")            ->text()
                  ->create("transport_cms");
 
         return $this;

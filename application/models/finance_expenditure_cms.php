@@ -8,6 +8,12 @@ class Finance_expenditure_cms extends HI_Model{
         parent::__construct();
     }
 
+    private $rules = [
+        "finance_expenditure_id" => "required|integer",
+        "object" => "required",
+        "expenditure" => "required|integer"
+    ];
+
     /**
      * finance_expenditure details
      * 
@@ -28,7 +34,7 @@ class Finance_expenditure_cms extends HI_Model{
                                                    ->select("object, expenditure")
                                                    ->get(T_FINANCE_EXPENDITURE_CMS)
                                                    ->result_array();
-            
+
             $finance_expenditure = [];
             foreach ($finance_expenditure_detail as $single_finance_expenditure_detail){
                 $object = $single_finance_expenditure_detail['object'];
@@ -68,30 +74,23 @@ class Finance_expenditure_cms extends HI_Model{
     {
         $this->check_existance($student_id, "student_id", T_STUDENTS);
         foreach ($data as $single_data){
-            $finance_expenditure_id = $single_data['finance_expenditure_id'];
-            unset($single_data['finance_expenditure_id']);
-            foreach ($data as $key => $value){
-                if (!is_int($value)){
-                    return 400;
-                }
-                $temp_data = [];
-                $temp_data['finance_expenditure_id'] = $finance_expenditure_id;
-                $temp_data['object'] = $key;
-                $temp_data['expenditure'] = $value;
-                
+            if ($this->form_validation->validate($this->rules, $single_data)){
+                $finance_expenditure_id = $single_data['finance_expenditure_id'];
+                $this->check_existance($finance_expenditure_id, "finance_expenditure_id", T_FINANCE_EXPENDITURE);
                 $finance_expenditure_cms = $this->db->where("finance_expenditure_id", $finance_expenditure_id)
-                                                    ->where("object", $key)
+                                                    ->where("object", $single_data['object'])
                                                     ->get(T_FINANCE_EXPENDITURE_CMS)
                                                     ->row();
-
                 if (isset($finance_expenditure_cms)){
                     $this->db->where("finance_expenditure_id", $finance_expenditure_id)
-                             ->where("object", $key)
-                             ->update(T_FINANCE_EXPENDITURE_CMS, $temp_data);
+                             ->where("object", $single_data['object'])
+                             ->update(T_FINANCE_EXPENDITURE_CMS, $single_data);
                 } else {
-                    $this->db->insert(T_FINANCE_EXPENDITURE_CMS, $temp_data);
+                    $this->db->insert(T_FINANCE_EXPENDITURE_CMS, $single_data);
                 }
-            } 
+            } else {
+                return 400;
+            }
         }
         return 200;
     }

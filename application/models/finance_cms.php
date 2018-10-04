@@ -20,12 +20,12 @@ class Finance_cms extends HI_Model{
      * @var int
      * @return object
      */
-    public function get_finance($student_id)
+    public function get($student_id)
     {
         $this->check_existance($student_id, "student_id", T_STUDENTS);
         $finance = $this->db->where("student_id", $student_id)
                             ->get(T_FINANCE)
-                            ->row();
+                            ->result_array();
 
         unset($finance['student_id']);
         return $finance;
@@ -37,10 +37,10 @@ class Finance_cms extends HI_Model{
      * @var object|int
      * @var int
      */
-    public function edit_finance($data, $student_id)
+    public function edit($data, $student_id)
     {
         $this->check_existance($student_id, "student_id", T_STUDENTS);
-        if ($this->form_valdiation->validate($this->rules, $data)){
+        if ($this->form_validation->validate($this->rules, $data)){
             foreach ($data as $key => $value){
                 $temp_data = [];
                 $temp_data['student_id'] = $student_id;

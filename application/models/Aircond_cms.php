@@ -8,11 +8,16 @@ class Aircond_cms extends HI_Model{
         parent::__construct();
     }
 
+    private $rules = [
+        "amount" => "integer"
+    ];
+
     public function get($student_id)
     {
         $this->check_existance($student_id, "student_id", T_STUDENTS);
         $aircond = $this->db->where("student_id", $student_id)
-                            ->get(T_AIRCOND);
+                            ->get(T_AIRCOND)
+                            ->result_array();
 
         unset($aircond['student_id']);
         return $aircond;
@@ -21,11 +26,20 @@ class Aircond_cms extends HI_Model{
     public function edit($data, $student_id)
     {
         $this->check_existance($student_id, "student_id", T_STUDENTS);
-        if (is_int($data['amount'])){
-            $this->check_existance($student_id);
-            $this->db->where("student_id", $student_id)
-                     ->set("amount", $data['amount'])
-                     ->update(T_AIRCOND);
+        if ($this->form_validation->validate($this->rules,$data)){
+            
+            $aircond = $this->db->where("student_id", $student_id)
+                                ->get(T_AIRCOND)
+                                ->row();
+            
+            if (isset($aircond)){
+                $this->db->where("student_id", $student_id)
+                         ->set("amount", $data['amount'])
+                         ->update(T_AIRCOND);
+            } else {
+                $data['student_id'] = $student_id;
+                $this->db->insert(T_AIRCOND, $data);
+            }
 
             return 200;
         } else {

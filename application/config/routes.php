@@ -29,7 +29,7 @@ $route['financial_aid/delete/(:num)']['POST'] = 'Financial_aid/delete/$1';
  * FULL
  * 
  */
-$route['student/full/(:num)']['POST']          = 'Full/get/$1';
+$route['student/full/(:num)']['GET']          = 'Full/get/$1';
 
 /**
  * Student CRUD
@@ -45,21 +45,21 @@ $route['student/delete/(:num)']['POST']        = 'Student/delete/$1';
  * Parent CRUD
  * 
  */
-$route['parent/(:num)']['GET']                 = 'Parent/get/$1';
-$route['parent/basic/(:num)']['GET']           = 'Parent/get_basic/$1';
-$route['parent/(:num)']['POST']                = 'Parent/create/$1';
-$route['parent/edit/(:num)']['POST']           = 'Parent/edit/$1';
-$route['parent/delete/(:num)']['POST']         = 'Parent/delete/$1';
+$route['parent/(:num)']['GET']                 = 'Parents/get/$1';
+$route['parent/basic/(:num)']['GET']           = 'Parents/get_basic/$1';
+$route['parent/(:num)']['POST']                = 'Parents/create/$1';
+$route['parent/edit/(:num)']['POST']           = 'Parents/edit/$1';
+$route['parent/delete/(:num)']['POST']         = 'Parents/delete/$1';
 
 /**
  * Sibling CRUD
  * 
  */
-$route['sibling/(:num)']['GET']                = 'Sibling/get/$1';
-$route['sibling/basic/(:num)']['GET']          = 'Sibling/get_basic/$1';
-$route['sibling/(:num)']['POST']               = 'Sibling/create/$1';
-$route['sibling/edit/(:num)']['POST']          = 'Sibling/edit/$1';
-$route['sibling/delete/(:num)']['POST']        = 'Sibling/delete/$1';
+$route['sibling/(:num)']['GET']                = 'Siblings/get/$1';
+$route['sibling/basic/(:num)']['GET']          = 'Siblings/get_basic/$1';
+$route['sibling/(:num)']['POST']               = 'Siblings/create/$1';
+$route['sibling/edit/(:num)']['POST']          = 'Siblings/edit/$1';
+$route['sibling/delete/(:num)']['POST']        = 'Siblings/delete/$1';
 
 /**
  * Family CRUD

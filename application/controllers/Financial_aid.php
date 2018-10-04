@@ -1,12 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Finance_aid extends HI_Controller {
+class Financial_aid extends HI_Controller {
 
     public function __construct()
     {
         parent::__construct();
-        $this->load->model("Finance_model","finance");
+        $this->load->model("Financial_aid_model","finance");
         $this->auth->is_logged_in() ? :$this->error(401);
     }
 

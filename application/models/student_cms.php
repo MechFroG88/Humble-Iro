@@ -44,7 +44,12 @@ class Student_cms extends HI_Model{
             $title = $single_detail['title'];
             $value = $single_detail['value'];
             if ($title == "financial_aid"){
-                array_push($financial_aid, $value);
+                $cn_name = $this->db->where("financial_aid_id", $value)
+                                    ->where("status", 1)
+                                    ->select("financial_aid_type")
+                                    ->get(T_FINANCIAL_AID)
+                                    ->row();
+                isset($cn_name) ? array_push($financial_aid, $cn_name) : NULL ;
                 continue;
             }
             $student->$title = $value;
@@ -94,15 +99,17 @@ class Student_cms extends HI_Model{
             foreach ($financial_aid_ids as $single_financial_aid_id){
                 $cn_name = $this->db->where("financial_aid_id", $single_financial_aid_id['value'])
                                     ->where("status", 1)
-                                    ->select("title")
+                                    ->select("financial_aid_type")
                                     ->get(T_FINANCIAL_AID)
                                     ->row();
             
                 if (isset($cn_name)){
-                    array_push($financial_aid,$cn_name->title);
+                    array_push($financial_aid,$cn_name->financial_aid_type);
                 }
             }
-            $student->financial_aid = $financial_aid;
+            if(!empty($financial_aid)){
+                $student->financial_aid = $financial_aid;
+            } 
             array_push($students, $student);
         }
         return $students;

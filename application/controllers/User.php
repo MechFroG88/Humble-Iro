@@ -28,7 +28,7 @@ class User extends HI_Controller {
                 $this->error($status);
             }
         } else {
-           $this->error(401);
+          $this->error(401);
         }
     }
 

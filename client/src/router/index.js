@@ -23,17 +23,29 @@ export default new Router({
     },
     {
       path: '/addStudent/',
-      name: 'addStudent',
       component: () => import('@/pages/addStudent'),
       children:[
         {
-          path:'',
-          redirect: {'name':'basic'},
+          path: '',
+          redirect: { 'path':'basic' },
         },
         {
-          path:'basic',
-          name:'basic',
+          path: 'basic',
+          name: 'basic',
           component: () => import('@/pages/createStudent/studentform'),
+        },
+        {
+          path: 'parent',
+          name: 'parent',
+          component: () => import('@/pages/createStudent/parent')
+        },
+        {
+          path: 'family',
+          name: 'family',
+        },
+        {
+          path: 'finance',
+          name: 'finance',
         }
       ]
     },

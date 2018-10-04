@@ -1,5 +1,71 @@
 .studentform-box{
   display: flex;
-  flex-direction: row; 
-}
+  flex-direction: column;
 
+  h2{
+    margin: 3rem 0 1rem 0;
+  }
+
+  .form-input studentform{
+    margin: 0.1rem 0 0.4rem 0;
+  }
+
+  .name-container {
+    width: 100%;
+    margin: 0.5rem 0;
+    display: flex;
+    justify-content: space-between;
+    .name{
+      width: 70%;
+    }
+    .name1{
+      margin-right: 2.5rem;
+    }
+  }
+
+  .info1-container{
+    width:100%;
+    margin: 0.5rem 0;
+    display: flex;
+    justify-content: space-evenly;
+    .info1{
+      margin-right: 0;
+    }
+    .small{
+      margin-right: 1rem;
+    }
+    .big{
+      width:40%;
+    }
+  }
+
+  .info2-container{
+    width:100%;
+    margin: 0.5rem 0;
+    display: flex;
+    justify-content: space-evenly;
+    .info2{
+      margin-right: 0;
+    }
+    .short{
+      margin-right: 1rem;
+    }
+    .long{
+      width:40%;
+    }
+  }
+  
+  .info3-container{
+    width:200%;
+    margin: 0.5rem 0;
+    display: flex;
+    justify-content: space-evenly;
+    // .short{
+    //   width:20%;
+    // }
+    // .long{
+    //   margin-left:1rem;
+    // }
+  }
+
+}

@@ -2,107 +2,145 @@
   <div class="studentform-container">
     <div class="studentform-box">
       <h2>个人资料</h2>
-      <label for="cn-name">中文姓名</label>
-      <input 
-      class="input-studentform-box"
-      type="text"
-      name="cn-name"
-      placeholder="中文姓名">
+      <div class="name-container">
+        <div class="name name1 form-group">
+          <label class="form-label" for="cn-name">中文姓名:</label>
+          <input 
+          class="form-input studentform" 
+          type="text" 
+          id="cn-name" 
+          placeholder="中文姓名">
+        </div>
+        <div class="name form-group">
+          <label class="form-label" for="eng-name">英文姓名</label>
+          <input 
+          class="form-input studentform" 
+          type="text" 
+          id="eng-name" 
+          placeholder="英文姓名">
+        </div>
+      </div>
+        
+      <div class="info1-container">   
+        <div class="info1 small form-group">  
+          <label class="form-label" for="student-id">学号</label>
+          <input 
+          class="form-input studentform" 
+          type="text" 
+          id="student-id" 
+          placeholder="学号">
+        </div>  
 
-      <label for="eng-name">英文姓名</label>
-      <input 
-      class="input-studentform-box"
-      type="text"
-      name="eng-name"
-      placeholder="英文姓名">
+        <div class="info1 small form-group">
+          <label class="form-label" for="class">班级</label>
+          <input 
+          class="form-input studentform" 
+          type="text" 
+          id="class" 
+          placeholder="班级">
+        </div>  
 
-      <label for="student-id">学号</label>
-      <input 
-      class="input-studentform-box"
-      type="text"
-      name="student-id"
-      placeholder="学号">
+        <div class="info1 small form-group">
+          <label class="form-label" for="sex">性别</label>
+          <input 
+          class="form-input studentform" 
+          type="text" 
+          id="sex" 
+          placeholder="性别">
+        </div>
 
-      <label for="class">班级</label>
-      <input 
-      class="input-studentform-box"
-      type="text"
-      name="class"
-      placeholder="班级">
+        <div class="info1 big form-group">  
+          <label class="form-label" for="ic-number">身份证号码</label>
+          <input 
+          class="form-input studentform" 
+          type="text" 
+          id="ic-number" 
+          placeholder="身份证号码">
+        </div>  
+      </div>  
 
-      <label for="sex">性别</label>
-      <input 
-      class="input-studentform-box"
-      type="text"
-      name="sex"
-      placeholder="性别">
+      <div class="info2-container">   
+        <div class="info2 short form-group">
+          <label class="form-label" for="age">年龄</label>
+          <input 
+          class="form-input studentform" 
+          type="text" 
+          id="age" 
+          placeholder="年龄">
+        </div>  
 
-      <label for="ic-number">身份证号码</label>
-      <input 
-      class="input-studentform-box"
-      type="text"
-      name="ic-number"
-      placeholder="身份证号码">
+        <div class="info2 short form-group">
+          <label class="form-label" for="date-of-birth">出生日期</label>
+          <input 
+          class="form-input studentform" 
+          type="text" 
+          id="date-of-birth" 
+          placeholder="出生日期">
+        </div> 
 
-      <label for="phone-number">联络号码</label>
-      <input 
-      class="input-studentform-box"
-      type="text"
-      name="phone-number"
-      placeholder="联络号码">
+        <div class="info2 short form-group">
+          <label class="form-label" for="ancestral">祖籍</label>
+          <input 
+          class="form-input studentform" 
+          type="text" 
+          id="ancestral" 
+          placeholder="祖籍">
+        </div>  
 
-      <label for="hometown">祖籍</label>
-      <input 
-      class="input-studentform-box"
-      type="text"
-      name="hometown"
-      placeholder="祖籍">
+        <div class="info2 long form-group">
+          <label class="form-label" for="phonenum">联络号码</label>
+          <input 
+          class="form-input studentform" 
+          type="text" 
+          id="phonenum" 
+          placeholder="联络号码">
+        </div>  
+      </div>
 
-      <label for="age">年龄</label>
-      <input 
-      class="input-studentform-box"
-      type="text"
-      name="age"
-      placeholder="年龄">
+      <div class="info3-container">   
+        <div class="info3 short form-group">
+          <label class="form-label" for="attitude">操行</label>
+          <input 
+          class="form-input studentform" 
+          type="text" 
+          id="attitude" 
+          placeholder="操行">
+        </div>  
 
-      <label for="date-of-birth">出生日期</label>
-      <input 
-      class="input-studentform-box"
-      type="text"
-      name="date-of-birth"
-      placeholder="出生日期">
+        <div class="info3 long form-group">
+          <label class="form-label" for="average-score">全年总平均</label>
+          <input 
+          class="form-input studentform" 
+          type="text" 
+          id="average-score" 
+          placeholder="全年总平均">
+        </div> 
 
-      <label for="average-mark">全年学业总平均</label>
-      <input 
-      class="input-studentform-box"
-      type="text"
-      name="average-mark"
-      placeholder="全年学业总平均">
+        <div class="info3 long form-group">
+          <label class="form-label" for="financial-aid">今年所获得的助学金</label>
+          <input 
+          class="form-input studentform" 
+          type="text" 
+          id="financial-aid" 
+          placeholder="今年所获得的助学金">
+        </div>  
+      </div>
 
-      <label for="attitude">操行</label>
-      <input 
-      class="input-studentform-box"
-      type="text"
-      name="attitude"
-      placeholder="操行">
-
-      <label for="financial-aid">今年所获得的助学金</label>
-      <input 
-      class="input-studentform-box"
-      type="text"
-      name="financial aid"
-      placeholder="今年所获得的助学金">
-
-      <label for="address">住址</label>
-      <input 
-      class="input-studentform-box"
-      type="text"
-      name="address"
-      placeholder="住址">
-
+      <div class="info4-container">   
+        <div class="info4 form-group">
+          <label class="form-label" for="address">住址</label>
+          <input 
+          class="form-input studentform" 
+          type="text" 
+          id="address" 
+          placeholder="住址">
+        </div>  
+      </div>
+      
     </div>
   </div>
 </template>
+
 
 <script>
 export default {

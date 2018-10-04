@@ -2,12 +2,16 @@
 @import 'variables';
 //pages
 @import 'pages/login';
+@import 'pages/student';
+@import 'pages/addStudent';
 
 //layouts
 @import 'layout/default';
 
 //components
 @import 'components/tables';
+@import "node_modules/spectre.css/src/spectre";
+@import "node_modules/spectre.css/src/forms";
 
 //element ui configuration
 /* theme color */

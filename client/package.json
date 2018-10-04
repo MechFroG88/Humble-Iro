@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "element-ui": "^2.4.8",
+    "spectre.css": "^0.5.3",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },

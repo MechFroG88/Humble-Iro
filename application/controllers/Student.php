@@ -25,10 +25,10 @@ class Student extends HI_Controller {
         $this->json($this->student->create());
     }
 
-    public function edit($student_id, $section)
+    public function edit($student_id)
     {
         $data = $this->input->post();
-        $status = $this->student->edit($data, $student_id, $section);
+        $status = $this->student->edit($data, $student_id);
         if ($status == 200){
             $this->json("Edited Successfully");
         } else {

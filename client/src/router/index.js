@@ -43,6 +43,7 @@ export default new Router({
         {
           path: 'family',
           name: 'family',
+          component: () => import('@/pages/createStudent/family')
         },
         {
           path: 'finance',

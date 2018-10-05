@@ -1,7 +1,7 @@
 <template>
   <div id="_basic" class="student-form">
     <h2>个人资料</h2>
-    <form class="columns">
+    <form class="basic-form columns">
       <div class="column col-6">
         <div class="form-group">
           <label class="form-label" for="cn_name">中文姓名</label>
@@ -156,10 +156,6 @@
 
 <script>
 export default {
-  // mounted() {
-  //   console.log("hi")
-  //   console.log(this);
-  // },
   data() {
     return {
       value: {

@@ -11,6 +11,7 @@
       <!-- form stuffs -->
       <basic v-if="$route.name === 'basic'" ref="basic"></basic>
       <parent v-if="$route.name === 'parent'" ref="parent"></parent>
+      <family v-if="$route.name === 'family'" ref="family"></family>
       <finish v-if="$route.name === 'finish'"></finish>
       <!-- form stuffs -->
       
@@ -40,14 +41,18 @@
 
 <script>
 import layout from '@/layout/default'
+//form pages
 import basic  from '@/pages/createStudent/basic'
 import parent from '@/pages/createStudent/parent'
+import family from '@/pages/createStudent/family'
+//finish pages
 import finish from '@/pages/createStudent/finish'
 export default {
   components: {
     layout,
     basic,
     parent,
+    family,
     finish
   },
   data() {
@@ -111,7 +116,6 @@ export default {
       } else if (this.  id == 1) {
         this.output.parent = this.$refs.parent.value;
       }
-      console.log(this);
       this.nextStep();
     },
     finishStep() {

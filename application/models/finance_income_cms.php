@@ -11,7 +11,7 @@ class Finance_income_cms extends HI_Model{
     private $rules = [
         "finance_income_id" => "required|integer",
         "member" => "required",
-        "income" => "required|integer"
+        "income" => "required|numeric"
     ];
 
     /**

@@ -1,0 +1,9 @@
+#_parent {
+  .parent-form {
+    margin-bottom: .8rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

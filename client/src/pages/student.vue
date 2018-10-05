@@ -1,11 +1,11 @@
 <template>
   <div id="_student">
     <layout>
-      <el-button class="btnn addStudent" size="mini" type="primary">
-        <router-link to="/addStudent">
+      <div class="action-bar">
+        <el-button type="primary" @click="$router.push('/addStudent')">
           <i class="icon icon-plus"></i> 添加学生
-        </router-link>
-      </el-button>
+        </el-button>
+      </div>
       <crudTable
       title="学生列表"
       :columns="studentColumns"

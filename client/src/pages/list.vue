@@ -1,9 +1,11 @@
 <template>
   <div id="_list">
     <layout>
-      <el-button class="btnn addStudent" size="mini" type="primary" @click="addModal">
-        <i class="icon icon-plus"></i> 添加助学金
-      </el-button>
+      <div class="action-bar">
+        <el-button type="primary" @click="addModal">
+          <i class="icon icon-plus"></i> 添加助学金
+        </el-button>
+      </div>
       <crudTable
       title="助学金种类列表"
       :columns="listColumns"

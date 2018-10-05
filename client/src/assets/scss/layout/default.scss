@@ -5,31 +5,30 @@
     border-bottom: .8px solid #eee;
     background-color: #fff;
     box-shadow: $box-shadow-1;
-    height: 70px;
-    @media screen and (max-width: $normal-width) {
-      padding: 0 1.5rem;
-    }
+    padding: .75rem 1rem;
     .nav-header {
       flex-grow: 1;
       display: flex;
       justify-content: space-between;
+      align-items: center;
       margin: 0 auto;
       max-width: $normal-width;
       .title {
         display: flex;
         align-items: center;
-        font-size: 1.3rem;
+        font-size: .8rem;
         font-weight: 500;
+        margin: 0;
+        color: $primary-color;
+        img{
+          height: 1.25rem;
+          margin-right: .25rem;
+        }
         @media screen and (max-width: $size-sm) {
           font-size: $font-size-sm;
           img {
             height: 1rem;
           }
-        }
-        color: $primary-color;
-        height: 100%; 
-        img {
-          height: 2rem;
         }
       }
       .dropdown {
@@ -39,22 +38,17 @@
         color: $primary-color;
   
         .el-dropdown-link {
-          @media screen and (max-width: $size-sm) {
-            font-size: $font-size-sm;
-            .icon {
-              font-size: .3rem;
-              padding: .08rem;
-            }
-          }
-          &:focus {
-            outline: none;
-          }
+          display: flex;
+          align-items: center;
           .icon {
             border: .5px solid $primary-color;
             border-radius: 50%;
             padding: .1rem;
-            margin-right: .2rem;
+            margin-right: .4rem;
             font-size: 1rem;
+          }
+          &:focus {
+            outline: none;
           }
         }
       }
@@ -103,6 +97,7 @@
             text-decoration: none;
             color: $font-color;
             &:focus, &:hover, &.active {
+              box-shadow: none;
               color: $primary-color;
             }
           }

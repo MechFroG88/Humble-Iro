@@ -33,20 +33,3 @@
     }
   }
 }
-
-.btnn {
-  align-self: flex-start;
-  margin-bottom: .5rem !important;
-  span {
-    font-size: $font-size-sm;
-  }
-  a {
-    color: #fff;
-    text-decoration: none;
-    
-    &:visited {
-      text-decoration: none;
-      color: #fff;
-    }
-  }
-}

@@ -1,9 +1,11 @@
 <template>
   <div id="_users">
     <layout>
-      <el-button class="btnn addStudent" size="mini" type="primary" @click="addModal">
-        <i class="icon icon-plus"></i> 添加用户
-      </el-button>
+      <div class="action-bar">
+        <el-button type="primary" @click="addModal">
+          <i class="icon icon-plus"></i> 添加用户
+        </el-button>
+      </div>
       <crudTable
       title="用户列表"
       :columns="usersColumns"

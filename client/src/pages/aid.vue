@@ -1,9 +1,11 @@
 <template>
   <div id="_aid">
     <layout>
-      <el-button class="btnn addStudent" size="mini" type="primary" @click="addModal">
-        <i class="icon icon-plus"></i> 添加赞助单位
-      </el-button>
+      <div class="action-bar">
+        <el-button type="primary" @click="addModal">
+          <i class="icon icon-plus"></i> 添加赞助单位
+        </el-button>
+      </div>
       <crudTable
       title="助学金申请列表"
       :columns="aidColumns"

@@ -4,13 +4,13 @@
       <div class="nav-header">
         <h3 class="title">
           <img src="../assets/logo/chkl-logo.jpg">
-          隆中华学生福利处
+          <span>隆中华学生福利处</span>
         </h3>
         <el-dropdown 
         class="dropdown"
         trigger="click">
           <span class="el-dropdown-link">
-            <span class="icon icon-user"></span>
+            <i class="icon icon-user"></i>
             某某某 <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">

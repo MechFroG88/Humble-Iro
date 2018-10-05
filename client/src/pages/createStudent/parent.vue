@@ -37,9 +37,9 @@
           <label class="form-label" for="relationship">关系：</label>
           <select class="form-select" id="relationship" v-model="value.relation">
             <option value="" disabled>请选择关系</option>
-            <option value="0">父亲</option>
-            <option value="1">母亲</option>
-            <option value="2">监护人</option>
+            <option :value="0">父亲</option>
+            <option :value="1">母亲</option>
+            <option :value="2">监护人</option>
           </select>
         </div>
         <div class="form-group contact column col-3">
@@ -138,7 +138,11 @@ export default {
       this.quantity++;
     },
     dltParent() {
-      this.quantity--;
+      if (this.quantity == 1) {
+        this.quantity = 1;
+      } else {
+        this.quantity--;
+      }
     }
   }
 }

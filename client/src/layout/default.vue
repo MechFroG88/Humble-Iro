@@ -8,7 +8,8 @@
         </h3>
         <el-dropdown 
         class="dropdown"
-        trigger="click">
+        trigger="click"
+        @command="goTo">
           <span class="el-dropdown-link">
             <i class="icon icon-user"></i>
             某某某 <i class="el-icon-arrow-down el-icon--right"></i>
@@ -17,7 +18,7 @@
             <el-dropdown-item command="a">
               <i class="icon icon-lock"></i> 更换密码
             </el-dropdown-item>
-            <el-dropdown-item command="b">
+            <el-dropdown-item command="login">
               <i class="icon icon-log-out"></i> 登出
             </el-dropdown-item>
           </el-dropdown-menu>
@@ -60,7 +61,13 @@
 <script>
 export default {
   methods: {
-    
+    goTo(command) {
+      const url = command;
+      if (url == "login") {
+        console.log("logged out");
+      }
+      this.$router.push({ path: `/${url}` });
+    }
   }
 };
 </script>

@@ -19,7 +19,7 @@
           <el-button type="primary" class="btnn" size="small" @click="prevStep">
             <i class="el-icon-arrow-left"></i> 上一个
           </el-button>
-          <el-button type="primary" class="btnn" size="small" @click="nextStep">
+          <el-button type="primary" class="btnn" size="small" @click="postData">
             下一个 <i class="el-icon-arrow-right"></i>
           </el-button>
         </el-button-group>
@@ -53,15 +53,14 @@ export default {
   data() {
     return {
       active: 0,
-      medium: 0,
       id    : 0,
       paths : [
         'basic', 'parent', 'family', 'finance'
       ],
       output: {
         basic  : {},
-        parent : [],
-        family : [],
+        parent : {},
+        family : {},
         finance: {}
       }
     }
@@ -88,7 +87,6 @@ export default {
       })
     },
     nextStep() {
-      console.log("post")
       if (this.id == 3) {
         this.id++;
         this.active = 4;
@@ -104,10 +102,17 @@ export default {
       this.$nextTick(function () {
         this.active = this.paths.indexOf(this.$route.name);
       })
+    },
+    postData() {
+      console.log("post");
       //POST input data
+      if (this.id == 0) {
+        this.output.basic = this.$refs.basic.value;
+      } else if (this.  id == 1) {
+        this.output.parent = this.$refs.parent.value;
+      }
       console.log(this);
-      this.output.basic = this.$refs.basic.value;
-      console.log(this.output);
+      this.nextStep();
     },
     finishStep() {
       console.log("finish");

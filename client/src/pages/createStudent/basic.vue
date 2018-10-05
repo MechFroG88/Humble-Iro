@@ -10,7 +10,7 @@
             type="text" 
             id="cn_name" 
             placeholder="中文姓名"
-            v-model="cn_name">
+            v-model="value.cn_name">
         </div>
       </div>
       <div class="column col-6">
@@ -21,7 +21,7 @@
             type="text" 
             id="en_name" 
             placeholder="英文姓名"
-            v-model="en_name">
+            v-model="value.en_name">
         </div>
       </div>
       <div class="column col-4">
@@ -32,7 +32,7 @@
             type="text" 
             id="student-id" 
             placeholder="学号"
-            v-model="studentId">
+            v-model="value.studentId">
         </div>
       </div>
       <div class="column col-4">
@@ -43,7 +43,7 @@
             type="text" 
             id="class" 
             placeholder="班级"
-            v-model="classroom">
+            v-model="value.classroom">
         </div>
       </div>
       <div class="column col-3">
@@ -51,12 +51,12 @@
           <label class="form-label col-12">性别</label>
           <label class="form-radio col-6">
             <input type="radio" name="gender" checked
-            v-model="gender" :value="0">
+            v-model="value.gender" :value="0">
             <i class="form-icon"></i> 男
           </label>
           <label class="form-radio col-6">
             <input type="radio" name="gender"
-            v-model="gender" :value="1">
+            v-model="value.gender" :value="1">
             <i class="form-icon"></i> 女
           </label>
         </div>
@@ -69,7 +69,7 @@
           type="text" 
           id="ic-number" 
           placeholder="身份证号码"
-          v-model="ic_num">
+          v-model="value.ic_num">
         </div>  
       </div>
       <div class="column col-5">
@@ -80,7 +80,7 @@
             type="text" 
             id="phonenum" 
             placeholder="联络号码"
-            v-model="contact">
+            v-model="value.contact">
         </div>
       </div>
       <div class="column col-3">
@@ -91,7 +91,7 @@
             type="text" 
             id="ancestral" 
             placeholder="祖籍"
-            v-model="ancestor">
+            v-model="value.ancestor">
         </div>  
       </div>
       <div class="column col-4">
@@ -102,7 +102,7 @@
             type="date" 
             id="date-of-birth" 
             placeholder="出生日期"
-            v-model="birth">
+            v-model="value.birth">
         </div>
       </div>
       <div class="column col-3">
@@ -113,7 +113,7 @@
           type="text" 
           id="attitude" 
           placeholder="操行"
-          v-model="attitude">
+          v-model="value.attitude">
         </div>  
       </div>
       <div class="column col-3">
@@ -124,7 +124,7 @@
           type="text" 
           id="average-score" 
           placeholder="全年总平均"
-          v-model="score">
+          v-model="value.score">
         </div>
       </div>
       <div class="column col-6">
@@ -135,7 +135,7 @@
             type="text" 
             id="financial-aid" 
             placeholder="今年所获得的助学金"
-            v-model="aid">
+            v-model="value.aid">
         </div>
       </div>
       <div class="column col-12">
@@ -147,7 +147,7 @@
           id="address" 
           rows="3"
           placeholder="住址"
-          v-model="address"></textarea>
+          v-model="value.address"></textarea>
         </div>
       </div>
     </form>
@@ -156,8 +156,10 @@
 
 <script>
 export default {
-  mounted() {
-  },
+  // mounted() {
+  //   console.log("hi")
+  //   console.log(this);
+  // },
   data() {
     return {
       value: {
@@ -165,13 +167,13 @@ export default {
         en_name: '',
         studentId: '',
         classroom: '',
-        gender: Number,
+        gender: '',
         ic_num: '',
         contact: '',
         ancestor: '',
         birth: '',
-        attitude: Number,
-        score: Number,
+        attitude: '',
+        score: '',
         aid: '',
         address: ''
       }

@@ -1,25 +1,27 @@
 <template>
-  <div class="student-form">
+  <div id="_basic" class="student-form">
     <h2>个人资料</h2>
     <form class="columns">
       <div class="column col-6">
         <div class="form-group">
-          <label class="form-label" for="cn-name">中文姓名</label>
+          <label class="form-label" for="cn_name">中文姓名</label>
           <input 
             class="form-input" 
             type="text" 
-            id="cn-name" 
-            placeholder="中文姓名">
+            id="cn_name" 
+            placeholder="中文姓名"
+            v-model="cn_name">
         </div>
       </div>
       <div class="column col-6">
         <div class="form-group">
-          <label class="form-label" for="eng-name">英文姓名</label>
+          <label class="form-label" for="en_name">英文姓名</label>
           <input 
             class="form-input" 
             type="text" 
-            id="eng-name" 
-            placeholder="英文姓名">
+            id="en_name" 
+            placeholder="英文姓名"
+            v-model="en_name">
         </div>
       </div>
       <div class="column col-4">
@@ -29,7 +31,8 @@
             class="form-input" 
             type="text" 
             id="student-id" 
-            placeholder="学号">
+            placeholder="学号"
+            v-model="studentId">
         </div>
       </div>
       <div class="column col-4">
@@ -39,18 +42,21 @@
             class="form-input" 
             type="text" 
             id="class" 
-            placeholder="班级">
+            placeholder="班级"
+            v-model="classroom">
         </div>
       </div>
       <div class="column col-3">
         <div class="form-group columns col-gapless">
           <label class="form-label col-12">性别</label>
           <label class="form-radio col-6">
-            <input type="radio" name="gender" checked>
+            <input type="radio" name="gender" checked
+            v-model="gender" :value="0">
             <i class="form-icon"></i> 男
           </label>
           <label class="form-radio col-6">
-            <input type="radio" name="gender">
+            <input type="radio" name="gender"
+            v-model="gender" :value="1">
             <i class="form-icon"></i> 女
           </label>
         </div>
@@ -62,7 +68,8 @@
           class="form-input" 
           type="text" 
           id="ic-number" 
-          placeholder="身份证号码">
+          placeholder="身份证号码"
+          v-model="ic_num">
         </div>  
       </div>
       <div class="column col-5">
@@ -72,7 +79,8 @@
             class="form-input" 
             type="text" 
             id="phonenum" 
-            placeholder="联络号码">
+            placeholder="联络号码"
+            v-model="contact">
         </div>
       </div>
       <div class="column col-3">
@@ -82,7 +90,8 @@
             class="form-input" 
             type="text" 
             id="ancestral" 
-            placeholder="祖籍">
+            placeholder="祖籍"
+            v-model="ancestor">
         </div>  
       </div>
       <div class="column col-4">
@@ -92,7 +101,8 @@
             class="form-input" 
             type="date" 
             id="date-of-birth" 
-            placeholder="出生日期">
+            placeholder="出生日期"
+            v-model="birth">
         </div>
       </div>
       <div class="column col-3">
@@ -102,7 +112,8 @@
           class="form-input" 
           type="text" 
           id="attitude" 
-          placeholder="操行">
+          placeholder="操行"
+          v-model="attitude">
         </div>  
       </div>
       <div class="column col-3">
@@ -112,7 +123,8 @@
           class="form-input" 
           type="text" 
           id="average-score" 
-          placeholder="全年总平均">
+          placeholder="全年总平均"
+          v-model="score">
         </div>
       </div>
       <div class="column col-6">
@@ -122,7 +134,8 @@
             class="form-input" 
             type="text" 
             id="financial-aid" 
-            placeholder="今年所获得的助学金">
+            placeholder="今年所获得的助学金"
+            v-model="aid">
         </div>
       </div>
       <div class="column col-12">
@@ -133,9 +146,41 @@
           type="text" 
           id="address" 
           rows="3"
-          placeholder="住址"></textarea>
+          placeholder="住址"
+          v-model="address"></textarea>
         </div>
       </div>
     </form>
   </div>
 </template>
+
+<script>
+export default {
+  mounted() {
+  },
+  data() {
+    return {
+      value: {
+        cn_name: '',
+        en_name: '',
+        studentId: '',
+        classroom: '',
+        gender: Number,
+        ic_num: '',
+        contact: '',
+        ancestor: '',
+        birth: '',
+        attitude: Number,
+        score: Number,
+        aid: '',
+        address: ''
+      }
+    }
+  }
+}
+</script>
+
+<style>
+
+</style>
+

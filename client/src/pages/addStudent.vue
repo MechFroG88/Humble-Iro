@@ -9,12 +9,11 @@
       </el-steps>
 
       <!-- form stuffs -->
-      <basic v-if="$route.name === 'basic'"></basic>
-      <parent v-if="$route.name === 'parent'"></parent>
-      
-      
+      <basic v-if="$route.name === 'basic'" ref="basic"></basic>
+      <parent v-if="$route.name === 'parent'" ref="parent"></parent>
       <finish v-if="$route.name === 'finish'"></finish>
-
+      <!-- form stuffs -->
+      
       <div class="btn-group" v-if="active != 4">
         <el-button-group>
           <el-button type="primary" class="btnn" size="small" @click="prevStep">
@@ -41,7 +40,7 @@
 
 <script>
 import layout from '@/layout/default'
-import basic  from '@/pages/createStudent/studentform'
+import basic  from '@/pages/createStudent/basic'
 import parent from '@/pages/createStudent/parent'
 import finish from '@/pages/createStudent/finish'
 export default {
@@ -59,6 +58,12 @@ export default {
       paths : [
         'basic', 'parent', 'family', 'finance'
       ],
+      output: {
+        basic  : {},
+        parent : [],
+        family : [],
+        finance: {}
+      }
     }
   },
   mounted() {
@@ -99,8 +104,10 @@ export default {
       this.$nextTick(function () {
         this.active = this.paths.indexOf(this.$route.name);
       })
-
-
+      //POST input data
+      console.log(this);
+      this.output.basic = this.$refs.basic.value;
+      console.log(this.output);
     },
     finishStep() {
       console.log("finish");
@@ -114,33 +121,7 @@ export default {
         this.active = this.paths.indexOf(this.$route.name);
       })
     }
-  },
-    // computed: {
-    //   nextStep: function() {
-    //     if (this.id == 3) {
-    //       this.id++;
-    //       const params = "finish";
-    //       this.$router.push({ path: `/addStudent/${params}` });
-    //       return;
-    //       //finish upload
-    //     } else {
-    //       this.id++;
-    //     }
-    //     const params = this.paths[this.id];
-    //     this.$router.push({ path: `/addStudent/${params}` });
-    //     this.active = this.paths.indexOf(this.$route.name);
-    //   },
-    //   prevStep: function() {
-    //     if (this.id == 0) {
-    //       this.id = 0;
-    //     } else {
-    //       this.id--;
-    //     }
-    //     const params = this.paths[this.id];
-    //     this.$router.push({ path: `/addStudent/${params}` });
-    //     this.active = this.paths.indexOf(this.$route.name);
-    //   }
-    // }
+  }
 }
 </script>
 

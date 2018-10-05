@@ -33,7 +33,7 @@ export default new Router({
         {
           path: 'basic',
           name: 'basic',
-          component: () => import('@/pages/createStudent/studentform'),
+          component: () => import('@/pages/createStudent/basic'),
         },
         {
           path: 'parent',

@@ -26,9 +26,12 @@
         </el-button-group>
       </div>
 
-      <div class="finish-button" >
+      <div class="finish-button" v-if="active == 4">
         <button class="btn btn-primary btn-block" @click="finishStep">
           <i class="icon icon-edit"></i> 完成
+        </button>
+        <button class="btn btn-primary btn-block" @click="backStep">
+          <i class="icon icon-repeat"></i> 修改
         </button>
       </div>
 
@@ -75,7 +78,9 @@ export default {
       }
       const params = this.paths[this.id];
       this.$router.push({ path: `/addStudent/${params}` });
-      this.active = this.paths.indexOf(this.$route.name);
+      this.$nextTick(function () {
+        this.active = this.paths.indexOf(this.$route.name);
+      })
     },
     nextStep() {
       console.log("post")
@@ -94,9 +99,20 @@ export default {
       this.$nextTick(function () {
         this.active = this.paths.indexOf(this.$route.name);
       })
+
+
     },
     finishStep() {
       console.log("finish");
+      this.$router.push({ path: "/student" });
+    },
+    backStep() {
+      this.id = 0;
+      const params = this.paths[this.id];
+      this.$router.push({ path: `/addStudent/${params}` });
+      this.$nextTick(function () {
+        this.active = this.paths.indexOf(this.$route.name);
+      })
     }
   },
     // computed: {

@@ -1,11 +1,11 @@
 #_parent {
-  margin: 1rem 2rem;
+  margin: 1rem 2rem .5rem;
   .parent-form {
     margin-top: 1rem;
-    margin-bottom: .8rem;
 
-    &:last-child {
-      margin-bottom: 0;
+    .form-container {
+      display: flex;
+      justify-content: space-between;
     }
   }
 }

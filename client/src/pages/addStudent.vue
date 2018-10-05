@@ -18,10 +18,10 @@
       <div class="btn-group" v-if="active != 4">
         <el-button-group>
           <el-button type="primary" class="btnn" size="small" @click="prevStep">
-            <i class="el-icon-arrow-left"></i> previous
+            <i class="el-icon-arrow-left"></i> 上一个
           </el-button>
           <el-button type="primary" class="btnn" size="small" @click="nextStep">
-            next <i class="el-icon-arrow-right"></i>
+            下一个 <i class="el-icon-arrow-right"></i>
           </el-button>
         </el-button-group>
       </div>

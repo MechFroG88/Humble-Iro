@@ -11,7 +11,7 @@ class Finance_expenditure_cms extends HI_Model{
     private $rules = [
         "finance_expenditure_id" => "required|integer",
         "object" => "required",
-        "expenditure" => "required|integer"
+        "expenditure" => "required|numeric"
     ];
 
     /**

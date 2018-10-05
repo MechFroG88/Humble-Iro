@@ -16,14 +16,8 @@
     placeholder="password">
       <i slot="prefix" class="el-input__icon icon icon-lock"></i>
     </el-input>
-
-    <div class="rmb"> 
-      <input 
-      type="checkbox" 
-      class="input-checkbox">   
-      <span class="rmb-me">记得我</span>
-    </div>
-      <button class="button-signin">登入</button>
+    
+    <button class="button-signin">登入</button>
 
     </div>
   </div>

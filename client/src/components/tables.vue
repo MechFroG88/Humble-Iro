@@ -39,7 +39,6 @@
           :placeholder="stuffs.placeholder">
         </div>
       </div>
-
       <div slot="footer">
         <button class="btn btn-primary btn-error btn-lg" @click="$refs.edit.active = false">取消</button>
         <button class="btn btn-primary btn-lg" @click="confirmClick()">确认</button>

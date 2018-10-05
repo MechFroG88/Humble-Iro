@@ -11,5 +11,5 @@ export let listModal = [
 
 export let usersModal = [
   { name: '用户名'  , placeholder: '请输入用户名...'   , type: 'text' },
-  { name: '中文姓名' , placeholder: '请输入用户中文姓名', type: 'text' }
+  { name: '中文姓名' , placeholder: '请输入用户中文姓名...', type: 'text' }
 ]

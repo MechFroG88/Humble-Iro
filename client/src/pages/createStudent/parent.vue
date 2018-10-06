@@ -36,7 +36,7 @@
         <div class="form-group relationship column col-3">
           <label class="form-label" for="relationship">关系：</label>
           <select class="form-select" id="relationship" v-model="value.relation">
-            <option value="" disabled>请选择关系</option>
+            <option :value="null" disabled>请选择关系</option>
             <option :value="0">父亲</option>
             <option :value="1">母亲</option>
             <option :value="2">监护人</option>
@@ -81,23 +81,23 @@
           placeholder="职业"
           v-model="value.occupation">
         </div>
-        <div class="form-group occupation-name column col-4">
-          <label class="form-label" for="occupation-name">雇主/公司/工作单位名称：</label>
+        <div class="form-group work_place column col-4">
+          <label class="form-label" for="work_place">雇主/公司/工作单位名称：</label>
           <input 
           class="form-input" 
           type="text" 
-          id="occupation-name" 
+          id="work_place" 
           placeholder="雇主/公司/工作单位名称"
-          v-model="value.occupation_name">
+          v-model="value.work_place">
         </div>
-        <div class="form-group head-phone column col-4">
-          <label class="form-label" for="head-phone">雇主联络号码：</label>
+        <div class="form-group boss_contact column col-4">
+          <label class="form-label" for="boss_contact">雇主联络号码：</label>
           <input 
           class="form-input" 
           type="text" 
-          id="head-phone" 
+          id="boss_contact" 
           placeholder="雇主联络号码"
-          v-model="value.head_phone">
+          v-model="value.boss_contact">
         </div>
       </div>
 
@@ -122,13 +122,13 @@ export default {
       value: {
         cn_name: '',
         en_name: '',
-        relation: '',
-        contact: '',
+        relation: null,
+        contact: null,
         ic: '',
-        age: '',
+        age: null,
         occupation: '',
-        occupation_name: '',
-        head_phone: '',
+        work_place: '',
+        boss_contact: null,
         occuspation_address: ''
       }
     }
@@ -138,9 +138,7 @@ export default {
       this.quantity++;
     },
     dltParent() {
-      if (this.quantity == 1) {
-        this.quantity = 1;
-      } else {
+      if (this.quantity != 1) {
         this.quantity--;
       }
     }

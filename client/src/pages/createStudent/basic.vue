@@ -26,13 +26,13 @@
       </div>
       <div class="column col-4">
         <div class="form-group">
-          <label class="form-label" for="student-id">学号</label>
+          <label class="form-label" for="number">学号</label>
           <input 
             class="form-input" 
             type="text" 
-            id="student-id" 
+            id="number" 
             placeholder="学号"
-            v-model="value.studentId">
+            v-model="value.number">
         </div>
       </div>
       <div class="column col-4">
@@ -161,15 +161,15 @@ export default {
       value: {
         cn_name: '',
         en_name: '',
-        studentId: '',
+        number: null,
         classroom: '',
-        gender: '',
+        gender: null,
         ic_num: '',
-        contact: '',
+        contact: null,
         ancestor: '',
-        birth: '',
-        attitude: '',
-        score: '',
+        birth: null,
+        attitude: null,
+        score: null,
         aid: '',
         address: ''
       }

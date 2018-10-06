@@ -64,7 +64,7 @@ export default {
       ],
       output: {
         basic  : {},
-        parent : {},
+        parent : [],
         family : {},
         siblings: {},
         finance: {}
@@ -111,15 +111,17 @@ export default {
     },
     postData() {
       console.log("post");
-      //POST input data
+      /////POST input data/////
       if (this.id == 0) {
         this.output.basic = this.$refs.basic.value;
       } else if (this.id == 1) {
-        this.output.parent = this.$refs.parent.value;
+        this.output.parent = this.$refs.parent.output_value;
       } else if (this.id == 2) {
         this.output.family = this.$refs.family.family_value;
         this.output.siblings = this.$refs.family.siblings_value;
       }
+      /////POST input data/////
+
       // console.log(this);
       this.nextStep();
     },

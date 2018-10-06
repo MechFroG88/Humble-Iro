@@ -10,10 +10,6 @@
 
     <form class="parent-form" v-for="num in quantity" :key="num">
       <h4>监护人{{num}}</h4>
-      <div>{{output_value[num-1].cn_name}}</div>
-      <div>{{output_value}}</div>
-      <div>{{num-1}}</div>
-      <div>{{output_value[num-1]}}</div>
       <div class="form-container names columns">
         <div class="form-group cn_name column col-6">
           <label class="form-label" for="cn_name">中文姓名：</label>
@@ -120,9 +116,8 @@
 <script>
 export default {
   mounted() {
-    const first = Object.assign({}, this.value);
+    var first = Object.assign({}, this.value);
     this.output_value.push(first);
-    console.log(this.output_value);
   },
   data() {
     return {
@@ -144,7 +139,6 @@ export default {
   },
   methods: {
     addParent() {
-      console.log(this.output_value[0]);
       this.output_value.push(Object.assign({}, this.value));
       this.quantity++;
     },

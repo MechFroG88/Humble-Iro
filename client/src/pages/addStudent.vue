@@ -118,11 +118,11 @@ export default {
         this.output.parent = this.$refs.parent.output_value;
       } else if (this.id == 2) {
         this.output.family = this.$refs.family.family_value;
-        this.output.siblings = this.$refs.family.siblings_value;
+        this.output.siblings = this.$refs.family.siblings_array;
       }
       /////POST input data/////
 
-      // console.log(this);
+      console.log(this);
       this.nextStep();
     },
     finishStep() {

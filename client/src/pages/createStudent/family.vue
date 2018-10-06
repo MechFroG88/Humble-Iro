@@ -127,7 +127,7 @@
           type="text" 
           id="cn_name" 
           placeholder="中文姓名"
-          v-model="siblings_value.cn_name">
+          v-model="siblings_array[sibling-1].cn_name">
         </div>
         <div class="form-group age column col-4">
           <label class="form-label" for="age">年龄</label>
@@ -136,11 +136,11 @@
           type="number" 
           id="age" 
           placeholder="年龄"
-          v-model="siblings_value.age">
+          v-model="siblings_array[sibling-1].age">
         </div>
         <div class="form-group relation column col-4">
           <label class="form-label" for="relation">关系</label>
-          <select class="form-select" id="relation" v-model="siblings_value.relation">
+          <select class="form-select" id="relation" v-model="siblings_array[sibling-1].relation">
             <option :value="null" disabled>请选择一个关系</option>
             <option :value="0">哥哥</option>
             <option :value="1">弟弟</option>
@@ -157,7 +157,7 @@
               <input 
               type="radio" 
               name="aid"
-              v-model="siblings_value.aid" 
+              v-model="siblings_array[sibling-1].aid" 
               :value="1">
               <i class="form-icon"></i> 是
             </label>
@@ -165,7 +165,7 @@
               <input 
               type="radio" 
               name="aid" 
-              v-model="siblings_value.aid" 
+              v-model="siblings_array[sibling-1].aid" 
               :value="0">
               <i class="form-icon"></i> 否
             </label>
@@ -178,7 +178,7 @@
           type="text" 
           id="aid_name" 
           placeholder="助学金名称"
-          v-model="siblings_value.aid_name">
+          v-model="siblings_array[sibling-1].aid_name">
         </div>
         <div class="form-group aid_total column col-4">
           <label class="form-label" for="aid_total">助学金数额（以年份计算）</label>
@@ -187,7 +187,7 @@
           type="number" 
           id="aid_total" 
           placeholder="助学金名称"
-          v-model="siblings_value.aid_total">
+          v-model="siblings_array[sibling-1].aid_total">
         </div>
       </div>
     </form>
@@ -218,15 +218,18 @@ export default {
         aid: null,
         aid_name: '',
         aid_total: null
-      }
+      },
+      siblings_array: []
     }
   },
   methods: {
     addSibling() {
+      this.siblings_array.push(Object.assign({}, this.siblings_value));
       this.sibling_number++;
     },
     dltSibling() {
       if (this.sibling_number != 0) {
+        this.siblings_array.pop();
         this.sibling_number--;
       }
     }

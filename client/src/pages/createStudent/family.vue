@@ -116,15 +116,27 @@
     </el-button>
   
     <form class="sibling-form" v-for="sibling in sibling_number" :key="sibling">
-      <div class="title">{{sibling}}.</div>
+      <div class="title">
+        <i class="icon icon-user" v-for="i in sibling" :key="i"></i>
+      </div>
       <div class="form-container basic_info columns">
         <div class="form-group cn_name column col-4">
           <label class="form-label" for="cn_name">中文姓名</label>
-          <input class="form-input" type="text" id="cn_name" placeholder="中文姓名">
+          <input 
+          class="form-input" 
+          type="text" 
+          id="cn_name" 
+          placeholder="中文姓名"
+          v-model="siblings_value.cn_name">
         </div>
         <div class="form-group age column col-4">
           <label class="form-label" for="age">年龄</label>
-          <input class="form-input" type="number" id="age" placeholder="年龄">
+          <input 
+          class="form-input" 
+          type="number" 
+          id="age" 
+          placeholder="年龄"
+          v-model="siblings_value.age">
         </div>
         <div class="form-group relation column col-4">
           <label class="form-label" for="relation">关系</label>
@@ -142,18 +154,40 @@
           <div class="form-group aid columns col-gapless">
             <label class="form-label col-12">是否申请助学金</label>
             <label class="form-radio col-6">
-              <input type="radio" name="aid" :value="1">
+              <input 
+              type="radio" 
+              name="aid"
+              v-model="siblings_value.aid" 
+              :value="1">
               <i class="form-icon"></i> 是
             </label>
             <label class="form-radio col-6">
-              <input type="radio" name="aid" :value="0">
+              <input 
+              type="radio" 
+              name="aid" 
+              v-model="siblings_value.aid" 
+              :value="0">
               <i class="form-icon"></i> 否
             </label>
           </div>
         </div>
         <div class="form-group aid_name column col-4">
           <label class="form-label" for="aid_name">助学金名称</label>
-          <input class="form-input" type="text" id="aid_name" placeholder="助学金名称">
+          <input 
+          class="form-input" 
+          type="text" 
+          id="aid_name" 
+          placeholder="助学金名称"
+          v-model="siblings_value.aid_name">
+        </div>
+        <div class="form-group aid_total column col-4">
+          <label class="form-label" for="aid_total">助学金数额（以年份计算）</label>
+          <input 
+          class="form-input" 
+          type="number" 
+          id="aid_total" 
+          placeholder="助学金名称"
+          v-model="siblings_value.aid_total">
         </div>
       </div>
     </form>
@@ -178,7 +212,12 @@ export default {
         disabled_member  : null,
       },
       siblings_value: {
+        cn_name: '',
+        age: null,
         relation: null,
+        aid: null,
+        aid_name: '',
+        aid_total: null
       }
     }
   },

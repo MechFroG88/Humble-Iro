@@ -7,4 +7,17 @@
   .el-button {
     margin-bottom: .8rem;
   }
+
+  .sibling-form {
+    margin-bottom: .8rem;
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .title {
+      display: flex;
+      font-size: 1.2rem;
+      margin-bottom: -.2rem;
+    }
+  }
 }

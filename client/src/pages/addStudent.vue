@@ -12,6 +12,7 @@
       <basic v-if="$route.name === 'basic'" ref="basic"></basic>
       <parent v-if="$route.name === 'parent'" ref="parent"></parent>
       <family v-if="$route.name === 'family'" ref="family"></family>
+      <finance v-if="$route.name === 'finance'" ref="finance"></finance>
       <finish v-if="$route.name === 'finish'"></finish>
       <!-- form stuffs -->
       
@@ -42,9 +43,10 @@
 <script>
 import layout from '@/layout/default'
 //form pages
-import basic  from '@/pages/createStudent/basic'
-import parent from '@/pages/createStudent/parent'
-import family from '@/pages/createStudent/family'
+import basic   from '@/pages/createStudent/basic'
+import parent  from '@/pages/createStudent/parent'
+import family  from '@/pages/createStudent/family'
+import finance from '@/pages/createStudent/finance'
 //finish pages
 import finish from '@/pages/createStudent/finish'
 export default {
@@ -53,6 +55,7 @@ export default {
     basic,
     parent,
     family,
+    finance,
     finish
   },
   data() {

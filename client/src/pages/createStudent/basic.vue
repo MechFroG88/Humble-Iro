@@ -156,6 +156,12 @@
 
 <script>
 export default {
+  props: {
+    getData: Object
+  },
+  beforeMount() {
+    this.value = this.getData;
+  },
   data() {
     return {
       value: {

@@ -196,6 +196,17 @@
 
 <script>
 export default {
+  props: {
+    familyData: Object,
+    siblingsData: Array
+  },
+  beforeMount() {
+    this.family_value = this.familyData;
+    if (this.siblingsData.length != 0) {
+      this.siblings_array = this.siblingsData;
+      this.sibling_number = this.siblingsData.length;
+    }
+  },
   data() {
     return {
       sibling_number: 0,

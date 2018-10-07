@@ -116,9 +116,17 @@
 
 <script>
 export default {
+  props: {
+    getData: Array
+  },
   beforeMount() {
-    var first = this.value;
-    this.output_value.push(Object.assign({}, first));
+    if (this.getData.length == 0) {
+      var first = this.value;
+      this.output_value.push(Object.assign({}, first));
+    } else {
+      this.output_value = this.getData;
+      this.quantity = this.getData.length;
+    }
   },
   data() {
     var value = {

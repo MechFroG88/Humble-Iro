@@ -9,9 +9,9 @@
       </el-steps>
 
       <!-- form stuffs -->
-      <basic v-if="$route.name === 'basic'" ref="basic"></basic>
-      <parent v-if="$route.name === 'parent'" ref="parent"></parent>
-      <family v-if="$route.name === 'family'" ref="family"></family>
+      <basic v-if="$route.name === 'basic'" ref="basic" :getData="output.basic"></basic>
+      <parent v-if="$route.name === 'parent'" ref="parent" :getData="output.parent"></parent>
+      <family v-if="$route.name === 'family'" ref="family" :familyData="output.family" :siblingsData="output.siblings"></family>
       <finance v-if="$route.name === 'finance'" ref="finance"></finance>
       <finish v-if="$route.name === 'finish'"></finish>
       <!-- form stuffs -->
@@ -69,7 +69,7 @@ export default {
         basic  : {},
         parent : [],
         family : {},
-        siblings: {},
+        siblings: [],
         finance: {}
       }
     }
@@ -116,20 +116,27 @@ export default {
       console.log("post");
       /////POST input data/////
       if (this.id == 0) {
+        ///POST basic///
         this.output.basic = this.$refs.basic.value;
       } else if (this.id == 1) {
+        ///POST parent///
         this.output.parent = this.$refs.parent.output_value;
       } else if (this.id == 2) {
+        ///POST family and siblings///
         this.output.family = this.$refs.family.family_value;
         this.output.siblings = this.$refs.family.siblings_array;
+      } else if (this.id == 3) {
+
       }
       /////POST input data/////
 
-      console.log(this);
+      // console.log(this);
+      
       this.nextStep();
     },
     finishStep() {
       console.log("finish");
+      console.log(this.output);
       this.$router.push({ path: "/student" });
     },
     backStep() {

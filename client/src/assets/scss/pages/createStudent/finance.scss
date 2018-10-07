@@ -1,3 +1,49 @@
 #_finance {
   margin: 1rem 2rem .5rem;
+  .financial_detail {
+    .income {
+      .income-title {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+      }
+      .aid-title {
+        display: flex;
+        align-items: center;
+      }
+      .aid-inputs {
+        display: flex;
+        margin-bottom: .2rem;
+        &:last-child {
+          margin-bottom: 0;
+        }
+        .aid-name {
+          display: flex;
+          align-items: center;
+        }
+      }
+      .total_income {
+        display: flex;
+        .title {
+          display: flex;
+          justify-content: flex-end;
+          padding-right: .8rem;
+        }
+        .input-group {
+          cursor: pointer;
+        }
+      }
+      .divider {
+        border-top: 0.05rem solid $font-color;
+      }
+    } 
+    .divider-vert::before {
+      border-left: 0.05rem solid $font-color;
+    }
+    .expenditure {
+      .expenditure-title {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+      }
+    }
+  }
 }

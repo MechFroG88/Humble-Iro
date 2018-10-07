@@ -97,7 +97,8 @@ class User_model extends HI_Model{
 
     private function get_token()
     {
-        return isset($_SERVER['HTTP_AUTHORIZATION']) ? $_SERVER['HTTP_AUTHORIZATION'] : false;
+        return isset($_SERVER['HTTP_AUTHORIZATION']) ? $_SERVER['HTTP_AUTHORIZATION'] : 
+               isset($_COOKIE['token']) ? $_COOKIE['token'] : false;
     }
 
     private function update_token($user_id)

@@ -115,26 +115,23 @@
 
 <script>
 export default {
-  mounted() {
-    var first = Object.assign({}, this.value);
-    this.output_value.push(first);
-  },
   data() {
+    var value = {
+      cn_name: '',
+      en_name: '',
+      relation: null,
+      contact: null,
+      ic: '',
+      age: null,
+      occupation: '',
+      work_place: '',
+      boss_contact: null,
+      occupation_address: ''
+    };
     return {
       quantity: 1,
-      value: {
-        cn_name: '',
-        en_name: '',
-        relation: null,
-        contact: null,
-        ic: '',
-        age: null,
-        occupation: '',
-        work_place: '',
-        boss_contact: null,
-        occupation_address: ''
-      },
-      output_value: [],
+      value,
+      output_value: [value],
     }
   },
   methods: {

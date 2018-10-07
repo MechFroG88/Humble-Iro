@@ -10,6 +10,7 @@
 
     <form class="parent-form" v-for="num in quantity" :key="num">
       <h4>监护人{{num}}</h4>
+      <!-- <div>{{output_value}}</div> -->
       <div class="form-container names columns">
         <div class="form-group cn_name column col-6">
           <label class="form-label" for="cn_name">中文姓名：</label>
@@ -115,6 +116,10 @@
 
 <script>
 export default {
+  beforeMount() {
+    var first = this.value;
+    this.output_value.push(Object.assign({}, first));
+  },
   data() {
     var value = {
       cn_name: '',
@@ -131,7 +136,7 @@ export default {
     return {
       quantity: 1,
       value,
-      output_value: [value],
+      output_value: [],
     }
   },
   methods: {

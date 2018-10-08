@@ -8,16 +8,20 @@
     margin-bottom: .8rem;
   }
 
+  .control-buttons {
+    padding: 0 .8rem 0;
+  }
   .sibling-form {
-    margin-bottom: .8rem;
-    &:last-child {
-      margin-bottom: 0;
-    }
-
     .title {
       display: flex;
       font-size: 1.2rem;
-      margin-bottom: -.2rem;
+      margin-bottom: .1rem;
+      padding: 0 .8rem 0;
+      .active {
+        i {
+          color: $primary-color;
+        }
+      }
     }
   }
 }

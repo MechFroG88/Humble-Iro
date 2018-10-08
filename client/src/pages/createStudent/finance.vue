@@ -43,11 +43,13 @@
           <div class="form-group">
             <div class="col-12 aid-title mb-2">
               <label class="form-label" for="other_aid">其他福利支援</label>
-              <div class="btn btn-sm btn-primary ml-2" @click="addAid">
-                <i class="icon icon-plus"></i>
-              </div>
-              <div class="btn btn-sm btn-primary ml-2" @click="dltAid">
-                <i class="icon icon-minus"></i>
+              <div class="control-buttons">
+                <div class="btn btn-sm btn-primary ml-2" @click="addAid">
+                  <i class="icon icon-plus"></i>
+                </div>
+                <div class="btn btn-sm btn-primary ml-2" @click="dltAid">
+                  <i class="icon icon-minus"></i>
+                </div>
               </div>
             </div>
             <div class="aid-inputs" v-for="i in aidNum" :key="i">
@@ -105,30 +107,49 @@
             </div>
           </div>
           <div class="form-group">
-            <div class="col-7 col-sm-12">
-              <label class="form-label" for="car">车贷</label>
+            <div class="col-12 fee-title mb-2">
+              <label class="form-label" for="school">学费</label>
+              <div class="control-buttons">
+                <div class="btn btn-sm btn-primary ml-2" @click="addFee">
+                  <i class="icon icon-plus"></i>
+                </div>
+                <div class="btn btn-sm btn-primary ml-2" @click="dltFee">
+                  <i class="icon icon-minus"></i>
+                </div>
+              </div>
             </div>
-            <div class="col-5 col-sm-12 input-group">
-              <span class="input-group-addon">RM</span>
-              <input class="form-input" type="text" id="car">
+            <div class="fee-inputs" v-for="f in feeNum" :key="f">
+              <div class="col-7 col-sm-12 fee-name">
+                {{f}}
+                <input class="form-input input-sm ml-2 mr-2" type="text">
+              </div>
+              <div class="col-5 col-sm-12 input-group">
+                <span class="input-group-addon addon-sm">RM</span>
+                <input class="form-input input-sm" type="text" id="school">
+              </div>
             </div>
           </div>
           <div class="form-group">
-            <div class="col-7 col-sm-12">
-              <label class="form-label" for="car">车贷</label>
+            <div class="col-12 talent-title mb-2">
+              <label class="form-label" for="talent">补习费/才艺学费</label>
+              <div class="control-buttons">
+                <div class="btn btn-sm btn-primary ml-2" @click="addTalent">
+                  <i class="icon icon-plus"></i>
+                </div>
+                <div class="btn btn-sm btn-primary ml-2" @click="dltTalent">
+                  <i class="icon icon-minus"></i>
+                </div>
+              </div>
             </div>
-            <div class="col-5 col-sm-12 input-group">
-              <span class="input-group-addon">RM</span>
-              <input class="form-input" type="text" id="car">
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-7 col-sm-12">
-              <label class="form-label" for="car">车贷</label>
-            </div>
-            <div class="col-5 col-sm-12 input-group">
-              <span class="input-group-addon">RM</span>
-              <input class="form-input" type="text" id="car">
+            <div class="talent-inputs" v-for="t in talentNum" :key="t">
+              <div class="col-7 col-sm-12 talent-name">
+                {{t}}
+                <input class="form-input input-sm ml-2 mr-2" type="text">
+              </div>
+              <div class="col-5 col-sm-12 input-group">
+                <span class="input-group-addon addon-sm">RM</span>
+                <input class="form-input input-sm" type="text" id="talent">
+              </div>
             </div>
           </div>
         </form>
@@ -142,6 +163,8 @@ export default {
   data() {
     return {
       aidNum: 0,
+      feeNum: 1,
+      talentNum: 1
     }
   },
   methods: {
@@ -151,6 +174,22 @@ export default {
     dltAid() {
       if (this.aidNum != 0) {
         this.aidNum--;
+      }
+    },
+    addFee() {
+      this.feeNum++;
+    },
+    dltFee() {
+      if (this.feeNum != 1) {
+        this.feeNum--;
+      }
+    },
+    addTalent() {
+      this.talentNum++;
+    },
+    dltTalent() {
+      if (this.talentNum != 0) {
+        this.talentNum--;
       }
     }
   }

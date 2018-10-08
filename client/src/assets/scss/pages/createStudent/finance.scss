@@ -9,6 +9,7 @@
       .aid-title {
         display: flex;
         align-items: center;
+        justify-content: space-between;
       }
       .aid-inputs {
         display: flex;
@@ -44,6 +45,45 @@
         font-size: 1.2rem;
         margin-bottom: 1rem;
       }
+      .form-group {
+        width: 100%;
+      }
+
+      // school fee
+      .fee-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .fee-inputs {
+        display: flex;
+        margin-bottom: .2rem;
+        &:last-child {
+          margin-bottom: 0;
+        }
+        .fee-name {
+          display: flex;
+          align-items: center;
+        }
+      }
+      // talent fee
+      .talent-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .talent-inputs {
+        display: flex;
+        margin-bottom: .2rem;
+        &:last-child {
+          margin-bottom: 0;
+        }
+        .talent-name {
+          display: flex;
+          align-items: center;
+        }
+      }
+
     }
   }
 }

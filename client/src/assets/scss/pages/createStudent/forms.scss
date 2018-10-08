@@ -1,0 +1,19 @@
+form {
+    .form-group {
+        padding: 0 .8rem .8rem;
+        margin-bottom: 0 !important;
+        transition-timing-function: ease;
+        transition: background-color .1s;
+        .form-label {
+            color: lighten($gray-color-dark, 20%);
+        }
+        &:hover {
+            background-color: lighten(#6A7EFC, 25%);
+            .form-label {
+                transition-timing-function: ease;
+                transition: color .1s;
+                color: $primary-color;
+            }
+        }
+    }
+}

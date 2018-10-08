@@ -12,6 +12,7 @@
     </el-form-item>
     <el-form-item label="密码" prop="password">
       <el-input
+      type="password"
       class="el-input-box"
       v-model="user.password"
       placeholder="密码">

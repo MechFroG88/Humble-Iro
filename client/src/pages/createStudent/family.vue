@@ -5,12 +5,12 @@
         <label class="form-label col-12">单亲家庭</label>
         <label class="form-radio col-2">
           <input type="radio" name="single_parent" checked
-          v-model="family_value.single_parent" :value="1" @click="gotSingle">
+          v-model="family_value.single_parent" :value="1" @click="showSingle = true">
           <i class="form-icon"></i> 是
         </label>
         <label class="form-radio col-10">
           <input type="radio" name="single_parent"
-          v-model="family_value.single_parent" :value="0" @click="removeSingle">
+          v-model="family_value.single_parent" :value="0" @click="showSingle = false">
           <i class="form-icon"></i> 否
         </label>
       </div>
@@ -28,12 +28,12 @@
         <label class="form-label col-12">残障家人</label>
         <label class="form-radio col-2">
           <input type="radio" name="disabled_member" checked
-          v-model="family_value.disabled_member" :value="1" @click="gotDisabled">
+          v-model="family_value.disabled_member" :value="1" @click="showDisabled = true">
           <i class="form-icon"></i> 有
         </label>
         <label class="form-radio col-10">
           <input type="radio" name="disabled_member"
-          v-model="family_value.disabled_member" :value="0" @click="removeDisabled">
+          v-model="family_value.disabled_member" :value="0" @click="showDisabled = false">
           <i class="form-icon"></i> 无
         </label>
       </div>
@@ -121,7 +121,7 @@
         :class="isSelected(index)"
         v-for="(sibling, index) in sibling_number" 
         :key="sibling" 
-        @click="openForm(index)">
+        @click="formIndex = index;">
           <i class="icon icon-user"></i>
         </div>
       </div>
@@ -201,14 +201,14 @@
 <script>
 export default {
   props: {
-    familyData: Object,
-    siblingsData: Array
+    getFamilyData: Object,
+    getSiblingsData: Array
   },
   beforeMount() {
-    this.family_value = this.familyData;
-    if (this.siblingsData.length != 0) {
-      this.siblings_array = this.siblingsData;
-      this.sibling_number = this.siblingsData.length;
+    this.family_value = this.getFamilyData;
+    if (this.getSiblingsData.length != 0) {
+      this.siblings_array = this.getSiblingsData;
+      this.sibling_number = this.getSiblingsData.length;
     }
   },
   data() {
@@ -241,18 +241,6 @@ export default {
     }
   },
   methods: {
-    gotSingle() {
-      this.showSingle = true;
-    },
-    removeSingle() {
-      this.showSingle = false;
-    },
-    gotDisabled() {
-      this.showDisabled = true;
-    },
-    removeDisabled() {
-      this.showDisabled = false;
-    },
     addSibling() {
       this.siblings_array.push(Object.assign({}, this.siblings_value));
       this.sibling_number++;
@@ -262,9 +250,6 @@ export default {
         this.siblings_array.pop();
         this.sibling_number--;
       }
-    },
-    openForm(index) {
-      this.formIndex = index;
     },
     isSelected(index) {
       return this.formIndex == index ? "active" : "";

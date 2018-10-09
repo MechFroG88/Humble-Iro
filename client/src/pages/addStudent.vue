@@ -11,7 +11,7 @@
       <!-- form stuffs -->
       <basic v-if="$route.name === 'basic'" ref="basic" :getData="output.basic"></basic>
       <parent v-if="$route.name === 'parent'" ref="parent" :getData="output.parent"></parent>
-      <family v-if="$route.name === 'family'" ref="family" :familyData="output.family" :siblingsData="output.siblings"></family>
+      <family v-if="$route.name === 'family'" ref="family" :getFamilyData="output.family" :getSiblingsData="output.siblings"></family>
       <finance v-if="$route.name === 'finance'" ref="finance"></finance>
       <finish v-if="$route.name === 'finish'"></finish>
       <!-- form stuffs -->

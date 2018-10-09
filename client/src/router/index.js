@@ -7,6 +7,9 @@ export default new Router({
   mode: 'history',
   linkExactActiveClass: 'active',
   linkActiveClass: 'active',
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 };
+  },
   routes: [
     {
       path: '/',

@@ -76,11 +76,74 @@
           align-items: center;
         }
       }
+
+      // other fee
+      .other-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .other-inputs {
+        display: flex;
+        margin-bottom: .2rem;
+        &:last-child {
+          margin-bottom: 0;
+        }
+        .other-name {
+          display: flex;
+          align-items: center;
+        }
+      }
     }
 
     .details {
       .form-group {
         cursor: pointer;
+        .input-group {
+          .form-input {
+            display: flex;
+            justify-content: flex-end;
+          }
+        }
+      }
+    }
+
+    .house {
+      .house-title {
+        font-size: 1.2rem;
+        margin-top: 1rem;
+      }
+      .house-detail {
+        display: flex;
+        flex-wrap: wrap;
+        
+        .form-select {
+          width: calc(50% - .15rem);
+        }
+        .house_state {
+          margin-right: .3rem;
+        }
+      }
+      .transport-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .transport-inputs {
+        display: flex;
+        margin-bottom: .2rem;
+        &:last-child {
+          margin-bottom: 0;
+        }
+        .transport-name {
+          display: flex;
+          align-items: center;
+          .active {
+            color: $primary-color-light;
+            transition-duration: .1s;
+            font-size: $font-size-lg;
+          }
+        }
       }
     }
   }

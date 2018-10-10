@@ -64,17 +64,22 @@ export default {
     title: String,
     columns: Array,
     tableData: Array,
-    modal: Boolean,
+    modal: {
+      type: Boolean,
+      default: false
+    },
     modalTitle: String,
     modalData: Array
   },
   beforeMount() {
-    for (let i = 0; i < this.modalData.length; i++) {
-      this.showModalData[this.modalData[i].data] = null;
-      this.modalArr.push({
-        title: this.modalData[i].data,
-        value: null
-      });
+    if (this.modal == true) {
+      for (let i = 0; i < this.modalData.length; i++) {
+        this.showModalData[this.modalData[i].data] = null;
+        this.modalArr.push({
+          title: this.modalData[i].data,
+          value: null
+        });
+      }
     }
   },
   data() {

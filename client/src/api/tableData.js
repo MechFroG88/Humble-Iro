@@ -6,3 +6,10 @@ export function getStudentBasic() {
     method: 'GET'
   })
 }
+
+export function getAid() {
+  return request({
+    url: '/financial_aid',
+    method: 'GET'
+  })
+}

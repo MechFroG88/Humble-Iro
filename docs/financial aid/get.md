@@ -1,6 +1,6 @@
 # Get all financial aid information
 
-`GET` /finance
+`GET` /financial_aid
 
 ```json
 [

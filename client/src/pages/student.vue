@@ -20,8 +20,6 @@ import layout    from '@/layout/default'
 import crudTable from '@/components/tables'
 import { getStudentBasic } from '@/api/tableData'
 import { studentColumns } from '../../api/tableColumns'
-
-// import { studentData } from '../../api/mock/tableData'
 export default {
   components: {
     crudTable,

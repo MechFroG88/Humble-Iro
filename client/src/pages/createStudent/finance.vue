@@ -341,21 +341,29 @@
           </div>
         </div>
       </div>
+      
       <form class="extra">
         <div class="form-group auto_transfer">
           <label class="form-label">申请学校自动转账服务</label>
           <label class="form-radio">
-            <input type="radio" name="auto_transfer" checked :value="1">
+            <input type="radio" name="auto_transfer" checked 
+            v-model="finance.auto_transfer" :value="1">
             <i class="form-icon"></i> 是
           </label>
           <label class="form-radio">
-            <input type="radio" name="auto_transfer" :value="0">
+            <input type="radio" name="auto_transfer" 
+            v-model="finance.auto_transfer" :value="0">
             <i class="form-icon"></i> 否
           </label>
         </div>
         <div class="form-group remarks">
           <label class="form-label" for="remarks">备注</label>
-          <textarea class="form-input" id="remarks" placeholder="备注" rows="3"></textarea>
+          <textarea 
+          class="form-input" 
+          id="remarks" 
+          placeholder="备注" 
+          rows="3"
+          v-model="finance.remarks"></textarea>
         </div>
       </form>
 
@@ -363,33 +371,34 @@
         <div class="house-title">其他</div>
         <div class="form-group house-detail">
           <label class="form-label col-12">房屋种类</label>
-          <select class="form-select house_state" v-model="house.house_state">
+          <select class="form-select house_state" v-model.number="house.house_state">
             <option :value="0">租赁</option>
             <option :value="1">已供完</option>
             <option :value="2">正供着</option>
           </select>
           <select class="form-select house_type" v-model="house.house_type">
-            <option :value="0">独立式</option>
-            <option :value="1">半独立式</option>
-            <option :value="2">双层排屋</option>
-            <option :value="3">单层排屋</option>
-            <option :value="4">高级公寓</option>
-            <option :value="5">公管公寓</option>
-            <option :value="6">普通公寓</option>
-            <option :value="7">组屋</option>
-            <option :value="8">板屋</option>
-            <option :value="9">其他</option>
+            <option value="独立式">独立式</option>
+            <option value="双层排屋">双层排屋</option>
+            <option value="单层排屋">单层排屋</option>
+            <option value="高级公寓">高级公寓</option>
+            <option value="公管公寓">公管公寓</option>
+            <option value="普通公寓">普通公寓</option>
+            <option value="组屋">组屋</option>
+            <option value="板屋">板屋</option>
+            <option value="其他">其他</option>
           </select>
           <input 
           class="form-input mt-2" 
           type="text" 
           id="other_house_type" 
           placeholder="其他房屋种类"
-          v-if="house.house_type == 9">
+          v-model="house.other_house_type"
+          v-if="house.house_type == '其他'"
+          v-once>
         </div>
         <div class="form-group aircond">
           <label class="form-label" for="aircond">冷气机数量</label>
-          <input class="form-input" type="number" id="aircond" placeholder="冷气机数量">
+          <input class="form-input" type="number" id="aircond" placeholder="冷气机数量" v-model="aircond.amount">
         </div>
         <div class="form-group">
           <div class="col-7 transport-title mb-2">
@@ -406,21 +415,30 @@
           <div class="transport-inputs col-12" v-for="(tr, index) in transportArr.length" :key="tr">
             <div class="col-7 col-sm-12 transport-name">
               <div 
-              class="transport-buttons"
+              class="transport-buttons col-1"
               :class="isTransport(index, 1)"
               @click="transportArr[index].type = 1">
                 <i class="fas fa-car mr-2"></i>
               </div>
               <div 
-              class="transport-buttons"
+              class="transport-buttons col-1"
               :class="isTransport(index, 0)"
               @click="transportArr[index].type = 0">
                 <i class="fas fa-motorcycle"></i>
               </div>
-              <input class="form-input input-sm ml-2 mr-2" type="text" placeholder="汽车/摩托款式">
+              <input 
+              class="form-input input-sm ml-2 mr-2" 
+              type="text" 
+              placeholder="汽车/摩托款式"
+              v-model="transportArr[index].model">
             </div>
             <div class="col-5 col-sm-12 input-group">
-              <input class="form-input input-sm" type="text" id="transport" placeholder="（年份）">
+              <input 
+              class="form-input input-sm" 
+              type="text" 
+              id="transport" 
+              placeholder="（年份）"
+              v-model="transportArr[index].year">
             </div>
           </div>
         </div>
@@ -433,14 +451,29 @@
 
 <script>
 export default {
+  props: {
+    getIncome: Object,
+    getExpenditure: Object,
+    getFinance: Object,
+    getHouse: Object,
+    getAircond: Object,
+    getTransport: Array
+  },
   beforeMount() {
-    var firstTransport = this.transport;
-    this.transportArr.push(Object.assign({}, firstTransport));
+    this.income = this.getIncome; 
+    this.expenditure = this.getExpenditure; 
+    this.finance = this.getFinance;
+    this.house = this.getHouse;
+    this.aircond = this.getAircond;
+    if (this.getTransport.length == 0) {
+      var firstTransport = this.transport;
+      this.transportArr.push(Object.assign({}, firstTransport));
+    } else {
+      this.transportArr = this.getTransport;
+    }
   },
   data() {
     return {
-      talentNum: 0,
-      otherNum: 0,
       income: {
         dad: null,
         mom: null,
@@ -464,11 +497,17 @@ export default {
         other_spend: []
       },
       finance: {
+        auto_transfer: null,
+        remarks: '',
         balance: 0,
       },
       house: {
         house_state: null,
-        house_type: null
+        house_type: '',
+        other_house_type: ''
+      },
+      aircond: {
+        amount: null
       },
       transportArr: [], //output transport
 
@@ -478,7 +517,7 @@ export default {
         value: null
       },
       transport: {
-        type: null,
+        type: 1,
         model: '',
         year : null
       },
@@ -501,7 +540,7 @@ export default {
       this.expenditure.school.push(Object.assign({}, this.arrayObject));
     },
     dltFee() {
-      if (this.expenditure.school.length != 1) {
+      if (this.expenditure.school.length != 0) {
         this.expenditure.school.pop();
       }
       this.updateExpenditureTotal();

@@ -9,11 +9,34 @@
       </el-steps>
 
       <!-- form stuffs -->
-      <basic v-if="$route.name === 'basic'" ref="basic" :getData="output.basic"></basic>
-      <parent v-if="$route.name === 'parent'" ref="parent" :getData="output.parent"></parent>
-      <family v-if="$route.name === 'family'" ref="family" :getFamilyData="output.family" :getSiblingsData="output.siblings"></family>
-      <finance v-if="$route.name === 'finance'" ref="finance"></finance>
-      <finish v-if="$route.name === 'finish'"></finish>
+      <basic 
+      v-if="$route.name === 'basic'" 
+      ref="basic" 
+      :getData="output.basic"></basic>
+
+      <parent 
+      v-if="$route.name === 'parent'" 
+      ref="parent" 
+      :getData="output.parent"></parent>
+
+      <family 
+      v-if="$route.name === 'family'" 
+      ref="family" 
+      :getFamilyData="output.family" 
+      :getSiblingsData="output.siblings"></family>
+      
+      <finance 
+      v-if="$route.name === 'finance'" 
+      ref="finance"
+      :getIncome="output.finance_income"
+      :getExpenditure="output.finance_expenditure"
+      :getFinance="output.finance"
+      :getHouse="output.house"
+      :getAircond="output.aircond"
+      :getTransport="output.transport"></finance>
+
+      <finish 
+      v-if="$route.name === 'finish'"></finish>
       <!-- form stuffs -->
       
       <div class="btn-group" v-if="active != 4">
@@ -21,7 +44,7 @@
           <el-button type="primary" class="btnn" size="small" @click="prevStep">
             <i class="el-icon-arrow-left"></i> 上一个
           </el-button>
-          <el-button type="primary" class="btnn" size="small" @click="postData">
+          <el-button type="primary" class="btnn" size="small" @click="nextStep">
             下一个 <i class="el-icon-arrow-right"></i>
           </el-button>
         </el-button-group>
@@ -70,7 +93,32 @@ export default {
         parent : [],
         family : {},
         siblings: [],
-        finance: {}
+        finance: {},
+        finance_income: {
+          dad: null,
+          mom: null,
+          guardian: null,
+          other_member: null,
+          total: 0,
+          other_aid: []
+        },
+        finance_expenditure: {
+          car: null,
+          food: null,
+          house: null,
+          medic: null,
+          astro: null,
+          total: 0,
+          utility: null,
+          telecomm: null,
+          transport: null,
+          school: [],
+          tuition: [],
+          other_spend: []
+        },
+        aircond: {},
+        house: {},
+        transport: []
       }
     }
   },
@@ -84,6 +132,7 @@ export default {
   },
   methods: {
     prevStep() {
+      this.postData();
       if (this.id == 0) {
         this.id = 0;
       } else {
@@ -96,6 +145,7 @@ export default {
       })
     },
     nextStep() {
+      this.postData();
       if (this.id == 3) {
         this.id++;
         this.active = 4;
@@ -123,16 +173,19 @@ export default {
         this.output.parent = this.$refs.parent.output_value;
       } else if (this.id == 2) {
         ///POST family and siblings///
-        this.output.family = this.$refs.family.family_value;
+        this.output.family   = this.$refs.family.family_value;
         this.output.siblings = this.$refs.family.siblings_array;
       } else if (this.id == 3) {
-
+        ///POST finance///
+        this.output.house               = this.$refs.finance.house;
+        this.output.finance             = this.$refs.finance.finance;
+        this.output.aircond             = this.$refs.finance.aircond;
+        this.output.transport           = this.$refs.finance.transportArr;
+        this.output.finance_income      = this.$refs.finance.income;
+        this.output.finance_expenditure = this.$refs.finance.expenditure;
       }
-      /////POST input data/////
 
       // console.log(this);
-      
-      this.nextStep();
     },
     finishStep() {
       console.log("finish");

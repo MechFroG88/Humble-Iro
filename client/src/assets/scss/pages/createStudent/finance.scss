@@ -131,7 +131,7 @@
       }
       .transport-inputs {
         display: flex;
-        margin-bottom: .2rem;
+        margin-bottom: .5rem;
         &:last-child {
           margin-bottom: 0;
         }
@@ -139,9 +139,12 @@
           display: flex;
           align-items: center;
           .active {
+            display: block; 
+            height: 1.2rem;
             color: $primary-color-light;
-            transition-duration: .1s;
-            font-size: $font-size-lg;
+            transition-timing-function: ease-out;
+            transition-duration: 250ms;
+            font-size: 1rem;
           }
         }
       }

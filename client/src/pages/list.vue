@@ -79,7 +79,6 @@ export default {
       this.$emit('close');
       console.log("post")
       //POST
-      console.log(this.value);
     }
   }
 }

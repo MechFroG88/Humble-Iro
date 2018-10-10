@@ -12,7 +12,7 @@
         @command="goTo">
           <span class="el-dropdown-link">
             <i class="icon icon-user"></i>
-            某某某 <i class="el-icon-arrow-down el-icon--right"></i>
+            {{user.username}} <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="a">
@@ -59,7 +59,19 @@
 </template>
 
 <script>
+import { getUser } from '@/api/user'
+
 export default {
+  data: () => ({
+    user: {
+      username: ""
+    }
+  }),
+  mounted() {
+    getUser().then(({data}) => {
+      this.user = data.data[0]
+    })    
+  },
   methods: {
     goTo(command) {
       const url = command;
@@ -71,6 +83,3 @@ export default {
   }
 };
 </script>
-
-<style>
-</style>

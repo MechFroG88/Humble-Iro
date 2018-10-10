@@ -19,24 +19,25 @@
           <el-button
           class="mr-2"
           size="mini"
-          @click="openEdit()">编辑</el-button>
+          @click.native="openEdit(scope.$index)">编辑</el-button>
 
           <el-button
           size="mini"
           type="danger"
-          @click="openDelete()">删除</el-button>
+          @click="openDelete(scope.$index)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
 
     <edit-modal ref="edit" :title="modalTitle">
       <div slot="content">
-        <div class="form-group" v-for="stuffs in modalData" :key="stuffs.name">
+        <div class="form-group" v-for="(stuffs, index) in modalData" :key="stuffs.name">
           <label class="form-label">{{stuffs.name}}</label>
           <input 
           class="form-input" 
           :type="stuffs.type" 
-          :placeholder="stuffs.placeholder">
+          :placeholder="stuffs.placeholder"
+          v-model="modalArr[index].value">
         </div>
       </div>
       <div slot="footer">
@@ -67,6 +68,15 @@ export default {
     modalTitle: String,
     modalData: Array
   },
+  beforeMount() {
+    for (let i = 0; i < this.modalData.length; i++) {
+      this.showModalData[this.modalData[i].data] = null;
+      this.modalArr.push({
+        title: this.modalData[i].data,
+        value: null
+      });
+    }
+  },
   data() {
     return{
       search: {
@@ -75,21 +85,29 @@ export default {
       },
       loading: true,
       originalData: [],
-      displayData : []
+      displayData : [],
+      showModalData: {},
+      modalArr: [],
+      editIndex: null,
+      deleteIndex: null,
     }
   },
   methods: {
-    openDelete() {
+    openDelete(index) {
       this.$refs.del.active = true;
+      this.deleteIndex = index;
     },
-    openEdit() {
+    openEdit(index) {
       if (this.modal == true) {
+        this.editIndex = index;
         this.$refs.edit.active = true;
+        // this.modalData[index] = this.modalOutput;
       } else {
         this.$router.push({ path: 'addStudent'});
       }
     },
-    handleDelete(index, row) {
+    handleDelete(index) {
+      console.log(this.deleteIndex);
       console.log("delete")
       //DELETE
     },
@@ -98,7 +116,11 @@ export default {
       this.$refs.edit.loading = false;
       this.$refs.edit.error   = false;
       this.$emit('close');
-      console.log("post")
+      console.log("post");
+      for (let i = 0; i < this.modalArr.length; i++) {
+        this.showModalData[this.modalArr[i].title] = this.modalArr[i].value;
+      }
+      console.log(this.showModalData);
       //POST
     }
   },

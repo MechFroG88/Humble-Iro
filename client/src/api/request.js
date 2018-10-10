@@ -1,7 +1,5 @@
 import { getToken, deleteToken } from '@/utils/auth';
 import router from '@/router'
-import store from '@/store'
-import app   from '../main'
 import axios from 'axios'
 import qs    from 'qs'
 
@@ -19,22 +17,20 @@ const service = axios.create({
 })
 
 service.interceptors.request.use(function (config) {
-  app.$Progress.start();
-  config.headers['Authorization'] = getToken()
+  config.headers['Authorization'] = getToken() ? getToken() : (window.token ? window.token : "")
   return config
 }, function (error) {
   return Promise.reject(error)
 })
 
 service.interceptors.response.use(function (response) {
-  app.$Progress.finish();
   return response;
-}, function (error) {
-  app.$Progress.fail()
-  if(error.response.status == 401 && window.location.pathname != '/'){
-    store.dispatch('userLogout').then(() => {
-      router.push('/login')
-    })
+}, function (error) { 
+  if(error.response.status == 401 
+    && window.location.pathname != '/'
+    && window.location.pathname != '/login'
+    ){
+    router.push('/login')
   }
   return Promise.reject(error);
 });

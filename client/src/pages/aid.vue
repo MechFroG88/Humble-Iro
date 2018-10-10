@@ -38,7 +38,7 @@
           <label class="form-label">截止日期</label>
           <input 
           class="form-input" 
-          type="text" 
+          type="date" 
           placeholder="请输入赞助截止日期..."
           v-model="value.expired_date">
         </div>

@@ -1,9 +1,10 @@
 import Vue from 'vue'
+import { getToken } from '@/utils/auth'
 import Router from 'vue-router'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   linkExactActiveClass: 'active',
   linkActiveClass: 'active',
@@ -77,3 +78,19 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if(getToken() && to.path == "/login"){
+    return next({
+      path: '/student'
+    })
+  }
+  if(!getToken() && to.path != '/login'){
+    return next({
+      path: '/login'
+    })
+  }
+  return next()
+})
+
+export default router;

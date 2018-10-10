@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import ElementUI from 'element-ui';
+import { getToken } from '@/utils/auth'
 import './assets/scss/icons/style.css'
 import './assets/scss/style.scss'
 import './assets/element-ui.scss'
@@ -19,3 +20,5 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+
+window.token = getToken()

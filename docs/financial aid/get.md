@@ -4,12 +4,12 @@
 
 ```json
 [
-  [
-      "financial_aid_id"   : 1,
-      "supplier"           : "呵呵呵会馆",
-      "expired_date"       : "datetime",
-      "financial_aid_type" : "lol"
-  ],...
+  {
+    "financial_aid_id"   : 1,
+    "supplier"           : "呵呵呵会馆",
+    "expired_date"       : "datetime",
+    "financial_aid_type" : "lol"
+  },...
 ]
 ```
 

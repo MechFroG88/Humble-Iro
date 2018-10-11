@@ -55,16 +55,16 @@
 import layout    from '@/layout/default'
 import crudTable from '@/components/tables'
 import modal     from '@/components/modal/modal'
-import { getAid, addAid } from '@/api/tableData'
+// import { getAid, addAid } from '@/api/tableData'
 import { aidModal } from '../../api/modalData'
 import { aidColumns } from '../../api/tableColumns'
 
 // import { aidData } from '../../api/mock/tableData'
 export default {
   mounted() {
-    getAid().then(({data}) => {
-      this.aidData = data.data;
-    })
+    // getAid().then(({data}) => {
+    //   this.aidData = data.data;
+    // })
   },
   components: {
     layout,

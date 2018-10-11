@@ -62,9 +62,9 @@ const router = new Router({
       ]
     },
     {
-      path: '/aid',
-      name: 'aid',
-      component: () => import('@/pages/aid')
+      path: '/financial_aid',
+      name: 'financial_aid',
+      component: () => import('@/pages/financial_aid')
     },
     {
       path: '/list',

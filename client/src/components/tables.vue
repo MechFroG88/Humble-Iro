@@ -64,6 +64,7 @@ import deleteModal from '@/components/modal/confirmation'
 import editModal   from '@/components/modal/modal'
 import { getStudentBasic } from '@/api/student'
 import { getUser, editUser, deleteUser } from '@/api/user'
+import { getAid, deleteAid } from '@/api/financial_aid'
 export default {
   components: {
     deleteModal,
@@ -94,6 +95,7 @@ export default {
           value: null
         });
       }
+      // console.log(this.modalArr);
     }
     if (this.check == true) {
       getStudentBasic().then(({data}) => {
@@ -128,7 +130,6 @@ export default {
     getModalData(index) {
       if (this.type == 'users') {
         getUser().then(({data}) => {
-          // this.modalArr = data.data[index];
           for (let i = 0; i < this.modalArr.length; i++) {
             this.modalArr[i].value = data.data[index][this.modalArr[i].title];
           }
@@ -147,13 +148,25 @@ export default {
     handleDelete(index) {
       console.log(this.deleteIndex);
       console.log("delete")
-      getUser().then(({data}) => {
-        deleteUser(data.data[this.deleteIndex].user_id).then(({data}) => {
-          if (data.status == 200) {
-            location.reload();
-          }
+
+      if (this.type == "financial_aid") {
+        getAid().then(({data}) => {
+          console.log(data.data)
+          deleteAid(data.data[this.deleteIndex].financial_aid_id).then((data) => {
+            console.log(data);
+          })
         })
-      })
+      }
+
+      if (this.type == "users") {
+        getUser().then(({data}) => {
+          deleteUser(data.data[this.deleteIndex].user_id).then(({data}) => {
+            if (data.status == 200) {
+              location.reload();
+            }
+          })
+        })
+      }
       //DELETE
     },
     confirmClick() {

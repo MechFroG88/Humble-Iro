@@ -1,12 +1,5 @@
 import request from '@/api/request'
 
-export function getStudentBasic() {
-  return request({
-    url: '/student/basic',
-    method: 'GET'
-  })
-}
-
 export function getAid() {
   return request({
     url: '/financial_aid',
@@ -23,5 +16,11 @@ export function addAid({supplier, aid_type, expired_date}) {
       aid_type,
       expired_date
     }
+  })
+}
+
+export function deleteAid(id) {
+  return request({
+    url: ''
   })
 }

@@ -20,6 +20,19 @@ export function addAid({supplier, financial_aid_type, requirements, expired_date
   })
 }
 
+export function editAid({supplier, financial_aid_type, requirements, expired_date}, id) {
+  return request({
+    url: '/financial_aid/edit/' + id,
+    method: 'POST',
+    data: {
+      supplier,
+      financial_aid_type,
+      requirements,
+      expired_date
+    }
+  })
+}
+
 export function deleteAid(id) {
   return request({
     url: '/financial_aid/delete/' + id,

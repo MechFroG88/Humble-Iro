@@ -44,7 +44,7 @@
           <el-button type="primary" class="btnn" size="small" @click="prevStep">
             <i class="el-icon-arrow-left"></i> 上一个
           </el-button>
-          <el-button type="primary" class="btnn" size="small" @click="nextStep">
+          <el-button type="primary" class="btnn" size="small" @click="postData">
             下一个 <i class="el-icon-arrow-right"></i>
           </el-button>
         </el-button-group>
@@ -72,6 +72,8 @@ import family  from '@/pages/createStudent/family'
 import finance from '@/pages/createStudent/finance'
 //finish pages
 import finish from '@/pages/createStudent/finish'
+//API
+import { editStudentBasic } from '@/api/student'
 export default {
   components: {
     layout,
@@ -85,6 +87,7 @@ export default {
     return {
       active: 0,
       id    : 0,
+      student_id: null,
       paths : [
         'basic', 'parent', 'family', 'finance'
       ],
@@ -123,6 +126,7 @@ export default {
     }
   },
   mounted() {
+    this.student_id = this.$route.params.id;
     this.active = this.paths.indexOf(this.$route.name);
     this.id = this.active;
     if (this.active == -1 || this.id == -1) {
@@ -132,6 +136,7 @@ export default {
   },
   methods: {
     prevStep() {
+      const id = this.student_id;
       this.postData();
       if (this.id == 0) {
         this.id = 0;
@@ -139,28 +144,28 @@ export default {
         this.id--;
       }
       const params = this.paths[this.id];
-      this.$router.push({ path: `/addStudent/${params}` });
+      this.$router.push(`/addStudent/${id}/${params}`);
       this.$nextTick(function () {
         this.active = this.paths.indexOf(this.$route.name);
       })
     },
     nextStep() {
-      this.postData();
+      const id = this.student_id;
       if (this.id == 3) {
         this.id++;
         this.active = 4;
         const params = "finish";
-        this.$router.push({ path: `/addStudent/${params}` });
+        this.$router.push({ path: `/addStudent/${id}/${params}` });
         return;
         //finish upload
       } else {
         this.id++;
       }
       const params = this.paths[this.id];
-      this.$router.push({ path: `/addStudent/${params}` });
-      this.$nextTick(function () {
-        this.active = this.paths.indexOf(this.$route.name);
-      })
+      this.$router.push({ path: `/addStudent/${id}/${params}` });
+      this.$nextTick(function() {
+        this.active = this.paths.indexOf(params);
+      });
     },
     postData() {
       console.log("post");
@@ -168,6 +173,9 @@ export default {
       if (this.id == 0) {
         ///POST basic///
         this.output.basic = this.$refs.basic.value;
+        editStudentBasic(this.output.basic, this.student_id).then(({data}) => {
+          this.nextStep();
+        })
       } else if (this.id == 1) {
         ///POST parent///
         this.output.parent = this.$refs.parent.output_value;

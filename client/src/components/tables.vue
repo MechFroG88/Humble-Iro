@@ -18,7 +18,6 @@
       <el-table-column label="操作" min-width="180">
         <template slot-scope="scope">
           <el-button
-          class="mr-2"
           size="mini"
           v-if="check == true"
           @click="openCheck">查看</el-button>
@@ -62,9 +61,9 @@
 <script>
 import deleteModal from '@/components/modal/confirmation'
 import editModal   from '@/components/modal/modal'
-import { getStudentBasic } from '@/api/student'
+import { getStudentBasic, deleteStudent } from '@/api/student'
 import { getUser, editUser, deleteUser } from '@/api/user'
-import { getAid, deleteAid } from '@/api/financial_aid'
+import { getAid, editAid, deleteAid } from '@/api/financial_aid'
 export default {
   components: {
     deleteModal,
@@ -88,13 +87,7 @@ export default {
   },
   beforeMount() {
     if (this.modal == true) {
-      for (let i = 0; i < this.modalData.length; i++) {
-        this.showModalData[this.modalData[i].data] = null;
-        this.modalArr.push({
-          title: this.modalData[i].data,
-          value: null
-        });
-      }
+      this.resetData();
       // console.log(this.modalArr);
     }
     if (this.check == true) {
@@ -120,21 +113,17 @@ export default {
     }
   },
   methods: {
+    resetData() {
+      for (let i = 0; i < this.modalData.length; i++) {
+        this.showModalData[this.modalData[i].data] = null;
+        this.modalArr.push({
+          title: this.modalData[i].data,
+          value: null
+        });
+      }
+    },
     openCheck() {
       this.$router.push('/check/' + this.studentId);
-    },
-    openDelete(index) {
-      this.$refs.del.active = true;
-      this.deleteIndex = index;
-    },
-    getModalData(index) {
-      if (this.type == 'users') {
-        getUser().then(({data}) => {
-          for (let i = 0; i < this.modalArr.length; i++) {
-            this.modalArr[i].value = data.data[index][this.modalArr[i].title];
-          }
-        })
-      }
     },
     openEdit(index) {
       if (this.modal == true) {
@@ -145,13 +134,70 @@ export default {
         this.$router.push({ path: 'addStudent'});
       }
     },
+    getModalData(index) {
+      if (this.type == 'financial_aid') {
+        getAid().then(({data}) => {
+          for (let i = 0; i < this.modalArr.length; i++) {
+            this.modalArr[i].value = data.data[index][this.modalArr[i].title];
+          }
+        })
+      }
+      if (this.type == 'users') {
+        getUser().then(({data}) => {
+          for (let i = 0; i < this.modalArr.length; i++) {
+            this.modalArr[i].value = data.data[index][this.modalArr[i].title];
+          }
+        })
+      }
+    },
+    confirmClick() {
+      for (let i = 0; i < this.modalArr.length; i++) {
+        this.showModalData[this.modalArr[i].title] = this.modalArr[i].value;
+      }
+      //POST
+      if (this.type == 'financial_aid') {
+        getAid().then(({data}) => {
+          editAid(this.showModalData, data.data[this.editIndex].financial_aid_id).then((data) => {
+            if (data.status == 200) {
+              this.$refs.edit.active  = false;
+              this.$refs.edit.loading = false;
+              this.$refs.edit.error   = false;
+              this.$emit('close');
+              location.reload();
+            }
+          })
+        })
+      }
+      if (this.type == "users") {
+        getUser().then(({data}) => {
+          editUser(this.showModalData, data.data[this.editIndex].user_id).then((data) => {
+            if (data.status == 200) {
+              this.$refs.edit.active  = false;
+              this.$refs.edit.loading = false;
+              this.$refs.edit.error   = false;
+              this.$emit('close');
+              location.reload();
+            }
+          })
+        })
+      }
+    },
+    openDelete(index) {
+      this.$refs.del.active = true;
+      this.deleteIndex = index;
+    },
     handleDelete(index) {
-      console.log(this.deleteIndex);
-      console.log("delete")
-
+      if (this.type == "student") {
+        getStudentBasic().then(({data}) => {
+          deleteStudent(data.data[this.deleteIndex].student_id).then(({data}) => {
+            if (data.status == 200) {
+              location.reload();
+            }
+          })
+        })
+      }
       if (this.type == "financial_aid") {
         getAid().then(({data}) => {
-          console.log(data.data[this.deleteIndex].financial_aid_id);
           deleteAid(data.data[this.deleteIndex].financial_aid_id).then(({data}) => {
             if (data.status == 200) {
               location.reload();
@@ -159,7 +205,6 @@ export default {
           })
         })
       }
-
       if (this.type == "users") {
         getUser().then(({data}) => {
           deleteUser(data.data[this.deleteIndex].user_id).then(({data}) => {
@@ -169,32 +214,7 @@ export default {
           })
         })
       }
-      //DELETE
     },
-    confirmClick() {
-      for (let i = 0; i < this.modalArr.length; i++) {
-        this.showModalData[this.modalArr[i].title] = this.modalArr[i].value;
-      }
-      //POST
-      getUser().then(({data}) => {
-        var edited = data.data[this.editIndex];
-        editUser(this.showModalData, edited.user_id).then((data) => {
-          if (data.status == 200) {
-            this.$refs.edit.active  = false;
-            this.$refs.edit.loading = false;
-            this.$refs.edit.error   = false;
-            this.$emit('close');
-            location.reload();
-          }
-        })
-        // console.log(this.tableData);
-        // this.$forceUpdate();
-      }).then(() => {
-        this.editIndex = null;
-      })
-
-      console.log("hi")
-    }
   },
   watch: {
     tableData(data) {

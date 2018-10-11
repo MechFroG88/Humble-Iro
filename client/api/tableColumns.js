@@ -1,6 +1,6 @@
 export let studentColumns = [
   { label: '学生姓名'  , field: 'cn_name', search: true },
-  { label: '班级'     , field: 'class'    },
+  { label: '班级'     , field: 'classroom'    },
   { label: '助学金种类', field: 'aid_type' }
 ];
 

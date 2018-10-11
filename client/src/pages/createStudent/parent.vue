@@ -100,25 +100,46 @@
         id="occupation-address" 
         placeholder="工作地址" 
         rows="3"
-        v-model="output_value[num - 1].occupation_address"></textarea>
+        v-model="output_value[num - 1].work_address"></textarea>
       </div>
     </form>
   </div>
 </template>
 
 <script>
+import { getParent, getParentBasic, createParent, editParent, deleteParent } from '@/api/student'
 export default {
   props: {
     getData: Array
   },
   beforeMount() {
-    if (this.getData.length == 0) {
-      var first = this.value;
-      this.output_value.push(Object.assign({}, first));
-    } else {
-      this.output_value = this.getData;
-      this.quantity = this.getData.length;
-    }
+    // deleteParent(2);
+    getParentBasic(this.$route.params.id).then(({data}) => {
+      console.log(data.data)
+      if (data.data.length == 0) {
+        this.output_value.push(Object.assign({}, this.value));
+        // console.log(this.output_value);
+        createParent(this.$route.params.id).then(({data}) => {
+          if (data.status == 200) {
+            this.output_value[0].parent_id = data.data;
+          }
+          console.log(this.output_value);
+        })
+      } else {
+        this.output_value = data.data;
+        this.quantity = data.data.length;
+        console.log(this.output_value);
+      }
+      editParent(this.output_value, this.$route.params.id);
+    })
+
+    // if (this.getData.length == 0) {
+    //   var first = this.value;
+    //   this.output_value.push(Object.assign({}, first));
+    // } else {
+    //   this.output_value = this.getData;
+    //   this.quantity = this.getData.length;
+    // }
   },
   data() {
     var value = {
@@ -131,7 +152,8 @@ export default {
       occupation: '',
       work_place: '',
       boss_contact: null,
-      occupation_address: ''
+      work_address: '',
+      parent_id: null
     };
     return {
       quantity: 1,

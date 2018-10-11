@@ -2,7 +2,7 @@
   <div id="_student">
     <layout>
       <div class="action-bar">
-        <el-button type="primary" @click="$router.push('/addStudent')">
+        <el-button type="primary" @click="addStudent">
           <i class="icon icon-plus"></i> 添加学生
         </el-button>
       </div>
@@ -10,7 +10,8 @@
       title="学生列表"
       :columns="studentColumns"
       :tableData="studentData"
-      :check="true">
+      :check="true"
+      type="student">
       </crudTable>
     </layout>
   </div>
@@ -19,7 +20,7 @@
 <script>
 import layout    from '@/layout/default'
 import crudTable from '@/components/tables'
-import { getStudentBasic } from '@/api/student'
+import { getStudentBasic, createStudent } from '@/api/student'
 import { studentColumns } from '../../api/tableColumns'
 
 // import { studentData } from '../../api/mock/tableData'
@@ -30,6 +31,7 @@ export default {
   },
   mounted() {
     getStudentBasic().then(({data}) => {
+      console.log(data.data);
       this.studentData = data.data;
     })
   },
@@ -37,6 +39,17 @@ export default {
     return {
       studentColumns, 
       studentData: [],
+      id: null,
+    }
+  },
+  methods: {
+    addStudent() {
+      var id;
+      createStudent().then(({data}) => {
+        id = data.data
+      }).then(() => {
+        this.$router.push(`/addStudent/${id}`);
+      })
     }
   }
 }

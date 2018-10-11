@@ -27,7 +27,7 @@ const router = new Router({
       component: () => import('@/pages/student'),
     },
     {
-      path: '/addStudent/',
+      path: '/addStudent/:id/',
       component: () => import('@/pages/addStudent'),
       children:[
         {
@@ -88,6 +88,11 @@ router.beforeEach((to, from, next) => {
   if(!getToken() && to.path != '/login'){
     return next({
       path: '/login'
+    })
+  }
+  if (from.name == "student" && to.name == "basic"){
+    return next({
+      
     })
   }
   return next()

@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import { getUser } from '@/api/user'
+import { getCurrentUser } from '@/api/user'
 import { deleteToken } from '@/utils/auth'
 
 export default {
@@ -69,10 +69,9 @@ export default {
     }
   }),
   mounted() {
-    getUser().then(({data}) => {
-      console.log(data.data);
-      this.user = data.data[1];
-    })    
+    getCurrentUser().then(({data}) => {
+      this.user.username = data.data.username;
+    }) 
   },
   methods: {
     goTo(command) {

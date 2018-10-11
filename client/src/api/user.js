@@ -46,3 +46,10 @@ export function deleteUser(id){
     method: 'POST'
   })
 }
+
+export function getCurrentUser(){
+  return request({
+    url: '/user/current',
+    method: 'GET'
+  })
+}

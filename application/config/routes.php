@@ -13,6 +13,7 @@ $route['translate_uri_dashes'] = FALSE;
 $route['user']['GET']                   = 'User/get';
 $route['user']['POST']                  = 'User/create';
 $route['user/change/password']['POST']  = 'User/change_password';
+$route['user/edit/(:num)']['POST']      = 'User/edit/$1';
 $route['user/delete/(:num)']['POST']    = 'User/delete/$1';
 $route['login']['POST']                 = 'User/login';
 

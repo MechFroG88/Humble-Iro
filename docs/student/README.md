@@ -18,11 +18,8 @@ student
 ├─ ancestor  -> (string)
 ├─ score     -> (int, [0, 100])
 ├─ attitude -> (int, [0, 100])
-├─ photo     -> (file, type = ".jpg .png .gif")
 ├─ gender(radio)       -> (0 = male; 1 = female)
-├─ birthdate(datepicker) -> (int year, month, day; format = DDMMYYYY)
-├─ financial_end(dropdown) -> (int year, month, day; format = DDMMYYYY)
-└─ financial_aid(dropdown) -> (id)
+└─ birthdate(datepicker) -> (int year, month, day; format = DDMMYYYY)
 ```
 
 ```
@@ -122,11 +119,7 @@ transport
 ```
 
 ## Basic information
-| status id | status |
-| :-------: | :----: |
-| **0**     | 不批准 |
-| **1**     | 已批准 |
-| **2**     | 未审核 |
+
 ```
 student
 ├─ cn_name  -> (string, chinese)

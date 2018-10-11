@@ -20,6 +20,7 @@ define("T_STUDENTS_CMS"            , "students_cms");
 define("T_SIBLINGS_CMS"            , "siblings_cms");
 define("T_HOUSE_CMS"               , "house_cms");
 define("T_TRANSPORT_CMS"           , "transport_cms");
+define("T_STUDENT_FINANCIAL"       , "student_financial");
 define("T_FINANCE_INCOME"          , "finance_income");
 define("T_FINANCE_EXPENDITURE"     , "finance_expenditure");
 define("T_FINANCE_INCOME_CMS"      , "finance_income_cms");

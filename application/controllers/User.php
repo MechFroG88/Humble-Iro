@@ -32,6 +32,21 @@ class User extends HI_Controller {
         }
     }
 
+    public function edit($user_id)
+    {
+        $data = $this->input->post();
+        if ($this->auth->is_logged_in()){
+            $status = $this->auth->edit($data, $user_id);
+            if ($status == 200){
+                $this->json('Edited successfully');
+            } else {
+                $this->error($status);
+            }
+        } else {
+          $this->error(401);
+        }
+    }
+
     public function change_password()
     {
         $data = $this->input->post();

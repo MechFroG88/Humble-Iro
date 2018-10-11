@@ -15,11 +15,6 @@ class Student extends HI_Controller {
         $this->json($this->student->get($student_id));
     }
 
-    public function get_current()
-    {
-        $this->json($this->student->get_current());
-    }
-
     public function get_basic()
     {
         $this->json($this->student->get_basic());

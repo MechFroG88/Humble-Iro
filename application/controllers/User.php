@@ -17,6 +17,15 @@ class User extends HI_Controller {
         }
     }
 
+    public function get_current()
+    {
+        if ($this->auth->is_logged_in()){
+            $this->json($this->auth->get_current());
+        } else {
+            $this->error(401);
+        }
+    }
+
     public function create()
     {
         $data = $this->input->post();

@@ -151,9 +151,11 @@ export default {
 
       if (this.type == "financial_aid") {
         getAid().then(({data}) => {
-          console.log(data.data)
-          deleteAid(data.data[this.deleteIndex].financial_aid_id).then((data) => {
-            console.log(data);
+          console.log(data.data[this.deleteIndex].financial_aid_id);
+          deleteAid(data.data[this.deleteIndex].financial_aid_id).then(({data}) => {
+            if (data.status == 200) {
+              location.reload();
+            }
           })
         })
       }

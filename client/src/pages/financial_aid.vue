@@ -1,41 +1,124 @@
 <template>
   <div id="_financial_aid">
-      <layout>
-        <crudTable
-        title="助学金列表"
-        :columns="financialAidColumns"
-        :tableData="financialAidData"
-        :modal="true"
-        modalTitle="编辑助学金"
-        :modalData="financialAidModal"
-        type="financial_aid">
-        </crudTable>
-      </layout>
+    <layout>
+      <div class="action-bar">
+        <el-button type="primary" @click="addModal">
+          <i class="icon icon-plus"></i> 添加赞助单位
+        </el-button>
+      </div>
+      <crudTable
+      title="助学金列表"
+      :columns="financialAidColumns"
+      :tableData="financialAidData"
+      :modal="true"
+      modalTitle="编辑助学金"
+      :modalData="financialAidModal"
+      type="financial_aid">
+      </crudTable>
+    </layout>
+
+    <modal title="添加助学金" ref="add">
+      <div slot="content">
+        <div class="form-group">
+          <label class="form-label">赞助者</label>
+          <input 
+          class="form-input" 
+          type="text" 
+          placeholder="请输入赞助单位名称..."
+          v-model="value.supplier">
+        </div>
+        <div class="form-group">
+          <label class="form-label">助学金种类</label>
+          <input 
+          class="form-input" 
+          type="text" 
+          placeholder="请输入所提供助学金名称..."
+          v-model="value.financial_aid_type">
+        </div>
+        <div class="form-group">
+          <label class="form-label">申请条件</label>
+          <input 
+          class="form-input" 
+          type="text" 
+          placeholder="请输入申请条件..."
+          v-model="value.requirements">
+        </div>
+        <div class="form-group">
+          <label class="form-label">截止日期</label>
+          <input 
+          class="form-input" 
+          type="date" 
+          placeholder="请输入赞助截止日期..."
+          v-model="value.expired_date">
+        </div>
+      </div>
+      <div slot="footer">
+        <button class="btn btn-primary btn-error btn-lg" @click="$refs.add.active = false">取消</button>
+        <button class="btn btn-primary btn-lg" @click="confirmAdd()">确认</button>
+      </div>
+    </modal>
   </div>
 </template>
 
 <script>
-import layout from '@/layout/default'
+import layout    from '@/layout/default'
 import crudTable from '@/components/tables'
+import modal     from '@/components/modal/modal'
 import { financialAidModal }   from '../../api/modalData'
 import { financialAidColumns } from '../../api/tableColumns'
-import { getAid } from '@/api/financial_aid'
+import { getAid, addAid } from '@/api/financial_aid'
 
 export default {
   beforeMount() {
-    getAid().then(({data}) => {
-      this.financialAidData = data.data;
-    })
+    this.get();
   },
   components: {
     layout,
-    crudTable
+    crudTable,
+    modal
   },
   data: () => ({
     financialAidColumns,
     financialAidModal,
-    financialAidData: []
-  })
+    financialAidData: [],
+    value: {
+      supplier: '',
+      financial_aid_type: '',
+      requirements: '',
+      expired_date: '',
+    }
+  }),
+  methods: {
+    get() {
+      getAid().then(({data}) => {
+        this.financialAidData = data.data;
+      })
+    },
+    reset() {
+      this.value.supplier = '';
+      this.value.financial_aid_type = '';
+      this.value.requirements = '';
+      this.value.expired_date = '';
+    },
+    addModal() {
+      this.$refs.add.active = true;
+    },
+    confirmAdd() {
+      this.$refs.add.active  = false;
+      this.$refs.add.loading = false;
+      this.$refs.add.error   = false;
+      this.$emit('close');
+      console.log("post")
+      addAid(this.value).then((data) => {
+        console.log(data.data);
+      }).then(() => {
+        this.get();
+        this.reset();
+      }).catch((err) => {
+        console.log(err);
+      })
+    }
+  }
 }
 </script>
 

@@ -7,13 +7,14 @@ export function getAid() {
   })
 }
 
-export function addAid({supplier, aid_type, expired_date}) {
+export function addAid({supplier, financial_aid_type, requirements, expired_date}) {
   return request({
     url: '/financial_aid',
     method: 'POST',
     data: {
       supplier,
-      aid_type,
+      financial_aid_type,
+      requirements,
       expired_date
     }
   })
@@ -21,6 +22,7 @@ export function addAid({supplier, aid_type, expired_date}) {
 
 export function deleteAid(id) {
   return request({
-    url: ''
+    url: '/financial_aid/delete/' + id,
+    method: 'POST'
   })
 }

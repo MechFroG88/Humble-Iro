@@ -17,11 +17,11 @@ class Student_financial_model extends HI_Model{
     {
         $this->check_existance($student_id, "student_id", T_STUDENTS);
         $financial_aid = $this->db->where("student_id", $student_id)
-                                      ->where("status = 1 OR status = 2")
-                                      ->order_by("status", "DESC")
-                                      ->select("financial_aid_id")
-                                      ->get(T_STUDENT_FINANCIAL)
-                                      ->result_array();
+                                  ->where("(status = 1 OR status = 2)")
+                                  ->order_by("status", "DESC")
+                                  ->select("financial_aid_id, status")
+                                  ->get(T_STUDENT_FINANCIAL)
+                                  ->result_array();
 
         foreach ($financial_aid as &$single_financial_aid){
             $financial_aid_type = $this->db->where("financial_aid_id", $single_financial_aid['financial_aid_id'])
@@ -30,7 +30,7 @@ class Student_financial_model extends HI_Model{
                                            ->get(T_FINANCIAL_AID)
                                            ->row();
 
-            $financial_aid_id['financial_aid_type'] = isset($financial_aid_type) ? $financial_aid_type->financial_aid_type : "";
+            $single_financial_aid['financial_aid_type'] = isset($financial_aid_type) ? $financial_aid_type->financial_aid_type : "";
         }
         return $financial_aid;
     }
@@ -56,7 +56,6 @@ class Student_financial_model extends HI_Model{
                      ->where("financial_aid_id", $data['financial_aid_id'])
                      ->set("status", 2)
                      ->update(T_STUDENT_FINANCIAL);
-
             return 200;
         } else {
             return 400;

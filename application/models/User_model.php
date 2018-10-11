@@ -35,7 +35,11 @@ class User_model extends HI_Model{
 
     public function get_current()
     {
-        return $this->user;
+        $user = [];
+        $user['user_id'] = $this->user->user_id;
+        $user['username'] = $this->user->username;
+        $user['cn_name'] = $this->user->cn_name;
+        return $user;
     }
 
     public function get()

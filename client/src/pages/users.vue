@@ -12,7 +12,8 @@
       :tableData="usersData"
       modalTitle="编辑用户"
       :modalData="usersModal"
-      :modal="true">
+      :modal="true"
+      type="users">
       </crudTable>
     </layout>
 
@@ -48,16 +49,14 @@
 import layout    from '@/layout/default'
 import crudTable from '@/components/tables'
 import modal     from '@/components/modal/modal'
-import { getUser } from '@/api/user'
+import { getUser, addUser } from '@/api/user'
 import { usersModal } from '../../api/modalData'
 import { usersColumns } from '../../api/tableColumns'
 
 // import {usersData} from '../../api/mock/tableData'
 export default {
   beforeMount() {
-    getUser().then(({data}) => {
-      this.usersData = data.data;
-    })
+    this.get();
   },
   components: {
     crudTable,
@@ -71,11 +70,22 @@ export default {
       usersModal,
       value: {
         username: '',
+        password: '',
         cn_name : ''
       }
     }
   },
   methods: {
+    reset() {
+      this.value.username = '';
+      this.value.password = '';
+      this.value.cn_name  = '';
+    },
+    get() {
+      getUser().then(({data}) => {
+        this.usersData = data.data;
+      })
+    },
     addModal() {
       this.$refs.add.active = true;
     },
@@ -86,7 +96,16 @@ export default {
       this.$emit('close');
       console.log("post")
       //POST
-      console.log(this.value);
+      this.value.password = this.value.username;
+      addUser(this.value).then(({data}) => {
+        if (data.status == 200) {
+          this.get();
+        }
+      }).then(() => {
+          this.reset();
+      }).catch((err) => {
+        console.log(err)
+      })
     }
   }
 }

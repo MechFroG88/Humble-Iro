@@ -60,6 +60,7 @@
 
 <script>
 import { getUser } from '@/api/user'
+import { deleteToken } from '@/utils/auth'
 
 export default {
   data: () => ({
@@ -69,16 +70,20 @@ export default {
   }),
   mounted() {
     getUser().then(({data}) => {
-      this.user = data.data[0]
+      console.log(data.data);
+      this.user = data.data[1];
     })    
   },
   methods: {
     goTo(command) {
       const url = command;
       if (url == "login") {
+        deleteToken();
         console.log("logged out");
       }
-      this.$router.push({ path: `/${url}` });
+      this.$nextTick(function() {
+        this.$router.push({ path: `/${url}` });
+      })
     }
   }
 };

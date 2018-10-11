@@ -48,11 +48,17 @@
 import layout    from '@/layout/default'
 import crudTable from '@/components/tables'
 import modal     from '@/components/modal/modal'
+import { getUser } from '@/api/user'
 import { usersModal } from '../../api/modalData'
 import { usersColumns } from '../../api/tableColumns'
 
-import {usersData} from '../../api/mock/tableData'
+// import {usersData} from '../../api/mock/tableData'
 export default {
+  beforeMount() {
+    getUser().then(({data}) => {
+      this.usersData = data.data;
+    })
+  },
   components: {
     crudTable,
     layout,
@@ -61,7 +67,7 @@ export default {
   data() {
     return {
       usersColumns,
-      usersData,
+      usersData: [],
       usersModal,
       value: {
         username: '',

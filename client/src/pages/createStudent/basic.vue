@@ -106,15 +106,6 @@
         v-model="value.score">
       </div>
       <div class="form-group">
-        <label class="form-label" for="financial-aid">今年所获得的助学金</label>
-        <input 
-          class="form-input" 
-          type="text" 
-          id="financial-aid" 
-          placeholder="今年所获得的助学金"
-          v-model="value.aid">
-      </div>
-      <div class="form-group">
         <label class="form-label" for="address">住址</label>
         <textarea
         class="form-input" 
@@ -150,7 +141,6 @@ export default {
         birth: null,
         attitude: null,
         score: null,
-        aid: '',
         address: ''
       }
     }

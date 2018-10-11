@@ -14,8 +14,14 @@
       :prop="column.field"
       :label="column.label">
       </el-table-column>
-      <el-table-column label="操作" min-width="120">
+      <el-table-column label="操作" min-width="180">
         <template slot-scope="scope">
+          <el-button
+          class="mr-2"
+          size="mini"
+          v-if="check == true"
+          @click="openCheck">查看</el-button>
+
           <el-button
           class="mr-2"
           size="mini"
@@ -55,6 +61,7 @@
 <script>
 import deleteModal from '@/components/modal/confirmation'
 import editModal   from '@/components/modal/modal'
+import { getStudentBasic } from '@/api/student'
 export default {
   components: {
     deleteModal,
@@ -65,6 +72,10 @@ export default {
     columns: Array,
     tableData: Array,
     modal: {
+      type: Boolean,
+      default: false
+    },
+    check: {
       type: Boolean,
       default: false
     },
@@ -81,7 +92,12 @@ export default {
         });
       }
     }
-  },
+    if (this.check == true) {
+      getStudentBasic().then(({data}) => {
+        this.studentId = data.data['student_id'];
+      })
+    }
+  }, 
   data() {
     return{
       search: {
@@ -95,9 +111,13 @@ export default {
       modalArr: [],
       editIndex: null,
       deleteIndex: null,
+      studentId: null,
     }
   },
   methods: {
+    openCheck() {
+      this.$router.push('/check/' + this.studentId);
+    },
     openDelete(index) {
       this.$refs.del.active = true;
       this.deleteIndex = index;

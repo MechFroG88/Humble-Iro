@@ -47,11 +47,17 @@
 import layout    from '@/layout/default'
 import crudTable from '@/components/tables'
 import modal     from '@/components/modal/modal'
+import { getAid } from '@/api/tableData'
 import { listModal } from '../../api/modalData'
 import { listColumns } from '../../api/tableColumns'
 
-import { listData } from '../../api/mock/tableData'
+// import { listData } from '../../api/mock/tableData'
 export default {
+  beforeMount() {
+    getAid().then(({data}) => {
+      this.listData = data.data;
+    })
+  },
   components: {
     layout,
     crudTable,
@@ -60,7 +66,7 @@ export default {
   data() {
     return {
       listColumns,
-      listData,
+      listData: [],
       listModal,
       value: {
         aid_type    : '',

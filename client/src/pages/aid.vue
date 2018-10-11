@@ -55,7 +55,7 @@
 import layout    from '@/layout/default'
 import crudTable from '@/components/tables'
 import modal     from '@/components/modal/modal'
-import { getAid } from '@/api/tableData'
+import { getAid, addAid } from '@/api/tableData'
 import { aidModal } from '../../api/modalData'
 import { aidColumns } from '../../api/tableColumns'
 
@@ -93,8 +93,14 @@ export default {
       this.$refs.add.error   = false;
       this.$emit('close');
       console.log("post")
-      //POST
-      console.log(this.value);
+      addAid(this.value).then((data) => {
+        if (data.status == 200) {
+          console.log(data);
+        }
+      }).catch((err) => {
+        console.log(err);
+      })
+      // console.log(this.value);
     }
   }
 }

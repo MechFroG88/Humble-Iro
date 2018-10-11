@@ -5,7 +5,8 @@
     </el-row>
     <el-table
       stripe
-      :data="tableData">
+      :data="tableData"
+      ref="table">
       <el-table-column 
       v-for="(column, index) in columns" 
       :fixed="index == 0 ? true : false"
@@ -14,8 +15,14 @@
       :prop="column.field"
       :label="column.label">
       </el-table-column>
-      <el-table-column label="操作" min-width="120">
+      <el-table-column label="操作" min-width="180">
         <template slot-scope="scope">
+          <el-button
+          class="mr-2"
+          size="mini"
+          v-if="check == true"
+          @click="openCheck">查看</el-button>
+
           <el-button
           class="mr-2"
           size="mini"
@@ -55,6 +62,8 @@
 <script>
 import deleteModal from '@/components/modal/confirmation'
 import editModal   from '@/components/modal/modal'
+import { getStudentBasic } from '@/api/student'
+import { getUser, editUser, deleteUser } from '@/api/user'
 export default {
   components: {
     deleteModal,
@@ -68,8 +77,13 @@ export default {
       type: Boolean,
       default: false
     },
+    check: {
+      type: Boolean,
+      default: false
+    },
     modalTitle: String,
-    modalData: Array
+    modalData: Array,
+    type: String
   },
   beforeMount() {
     if (this.modal == true) {
@@ -80,6 +94,11 @@ export default {
           value: null
         });
       }
+    }
+    if (this.check == true) {
+      getStudentBasic().then(({data}) => {
+        this.studentId = data.data.student_id;
+      })
     }
   },
   data() {
@@ -95,18 +114,32 @@ export default {
       modalArr: [],
       editIndex: null,
       deleteIndex: null,
+      studentId: null,
     }
   },
   methods: {
+    openCheck() {
+      this.$router.push('/check/' + this.studentId);
+    },
     openDelete(index) {
       this.$refs.del.active = true;
       this.deleteIndex = index;
     },
+    getModalData(index) {
+      if (this.type == 'users') {
+        getUser().then(({data}) => {
+          // this.modalArr = data.data[index];
+          for (let i = 0; i < this.modalArr.length; i++) {
+            this.modalArr[i].value = data.data[index][this.modalArr[i].title];
+          }
+        })
+      }
+    },
     openEdit(index) {
       if (this.modal == true) {
         this.editIndex = index;
+        this.getModalData(this.editIndex);
         this.$refs.edit.active = true;
-        // this.modalData[index] = this.modalOutput;
       } else {
         this.$router.push({ path: 'addStudent'});
       }
@@ -114,19 +147,38 @@ export default {
     handleDelete(index) {
       console.log(this.deleteIndex);
       console.log("delete")
+      getUser().then(({data}) => {
+        deleteUser(data.data[this.deleteIndex].user_id).then(({data}) => {
+          if (data.status == 200) {
+            location.reload();
+          }
+        })
+      })
       //DELETE
     },
     confirmClick() {
-      this.$refs.edit.active  = false;
-      this.$refs.edit.loading = false;
-      this.$refs.edit.error   = false;
-      this.$emit('close');
-      console.log("post");
       for (let i = 0; i < this.modalArr.length; i++) {
         this.showModalData[this.modalArr[i].title] = this.modalArr[i].value;
       }
-      console.log(this.showModalData);
       //POST
+      getUser().then(({data}) => {
+        var edited = data.data[this.editIndex];
+        editUser(this.showModalData, edited.user_id).then((data) => {
+          if (data.status == 200) {
+            this.$refs.edit.active  = false;
+            this.$refs.edit.loading = false;
+            this.$refs.edit.error   = false;
+            this.$emit('close');
+            location.reload();
+          }
+        })
+        // console.log(this.tableData);
+        // this.$forceUpdate();
+      }).then(() => {
+        this.editIndex = null;
+      })
+
+      console.log("hi")
     }
   },
   watch: {

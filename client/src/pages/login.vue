@@ -35,11 +35,11 @@ export default {
     },
     rules: {
       username: [
-      //  { required: true, message: "请输入用户名。" },
-      //  { min: 5, message: "用户名至少需5个字符。"   }
+        { required: true, message: "请输入用户名。" },
+        { min: 5, message: "用户名至少需5个字符。"   }
       ],
       password: [
-      //  { required: true, message: "请输入密码。" },
+        { required: true, message: "请输入密码。" },
       ]
     }
   }),

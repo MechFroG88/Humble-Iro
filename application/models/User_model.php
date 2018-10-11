@@ -13,6 +13,10 @@ class User_model extends HI_Model{
         "password"   => "required",
     ];
 
+    private $edit_rules = [
+        "cn_name"    => "required|regex_match[/[\x{4e00}-\x{9fa5}]+/u]"
+    ];
+
     public $user;
 
     public function __construct(){
@@ -30,7 +34,7 @@ class User_model extends HI_Model{
     public function get()
     {
         return $this->db->where("status",1)
-                        ->select("user_id, username, created")
+                        ->select("user_id, cn_name, username, created")
                         ->get(T_USERS)
                         ->result();
     }
@@ -42,6 +46,18 @@ class User_model extends HI_Model{
             $data['updated']   = $this->date();
             $data['password']  = password_hash($data['password'], PASSWORD_DEFAULT);
             $this->db->insert(T_USERS, $data);
+            return 200;
+        } else {
+            return 400;
+        }
+    }
+
+    public function edit($data, $user_id)
+    {
+        if ($this->form_validation->validate($this->register_rules,$data)){
+            $this->db->where("user_id", $user_id)
+                     ->set("cn_name", $data['cn_name'])
+                     ->update(T_USERS);
             return 200;
         } else {
             return 400;
@@ -98,7 +114,7 @@ class User_model extends HI_Model{
     private function get_token()
     {
         return isset($_SERVER['HTTP_AUTHORIZATION']) ? $_SERVER['HTTP_AUTHORIZATION'] : 
-               isset($_COOKIE['token']) ? $_COOKIE['token'] : false;
+               (isset($_COOKIE['token']) ? $_COOKIE['token'] : false);
     }
 
     private function update_token($user_id)

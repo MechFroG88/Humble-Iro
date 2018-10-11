@@ -28,6 +28,12 @@ class Downstream
         return $this;
     }
 
+    public function student_financial()
+    {
+        $this->db->drop("student_financial");
+        return $this;
+    }
+
     public function students_cms()
     {
         $this->db->drop("students_cms");
@@ -129,6 +135,7 @@ $down = new Downstream();
 
 $down->users()
      ->students()
+     ->student_financial()
      ->parents()
      ->siblings()
      ->family()

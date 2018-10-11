@@ -11,7 +11,8 @@ class Financial_aid_model extends HI_Model{
     private $rules = [
         "supplier" => "required",
         "expired_date"  => "",
-        "financial_aid_type" => ""
+        "financial_aid_type" => "",
+        "requirements" => ""
     ];
 
     public function get()

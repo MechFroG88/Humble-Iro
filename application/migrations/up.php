@@ -13,6 +13,7 @@ class Upstream
     public function users()
     {
         $this->db->column("user_id")     ->bigint(20)  ->primary()->unique()->autoIncrement()
+                 ->column("cn_name")     ->varchar(32)
                  ->column("username")    ->varchar(64) ->index()
                  ->column("password")    ->char(60)
                  ->column("token")       ->text()
@@ -22,7 +23,7 @@ class Upstream
                  ->create("users");
 
                  $this->table->insertMulti("users", [
-                    [ "username" => "admin", "password" => password_hash('admin', PASSWORD_DEFAULT), "token" => 0,
+                    [ "cn_name" => "干你", "username" => "admin", "password" => password_hash('admin', PASSWORD_DEFAULT), "token" => 0,
                       "created" => date("Y-m-d H:i:s"), "updated" => date("Y-m-d H:i:s") ]]);
 
         return $this;
@@ -33,6 +34,7 @@ class Upstream
         $this->db->column("financial_aid_id")   ->bigint(20) ->primary()->unique()->autoIncrement()
                  ->column("supplier")           ->text()
                  ->column("expired_date")       ->datetime()
+                 ->column("requirements")       ->text()
                  ->column("financial_aid_type") ->text()
                  ->column("status")             ->tinyint(2) ->default(1)
                  ->create("financial_aid");
@@ -47,6 +49,16 @@ class Upstream
                  ->column("updated")     ->datetime()
                  ->column("status")      ->tinyint(2)  ->default(1)
                  ->create("students");
+
+        return $this;
+    }
+
+    public function student_financial()
+    {
+        $this->db->column("student_id")       ->bigint(20) ->index()
+                 ->column("financial_aid_id") ->bigint(20) ->index()
+                 ->column("status")           ->tinyint(2)  ->default(1)
+                 ->create("student_financial");
 
         return $this;
     }
@@ -218,6 +230,7 @@ $up = new Upstream();
 $up->users()
    ->students()
    ->parents()
+   ->student_financial()
    ->siblings()
    ->family()
    ->finance_income()

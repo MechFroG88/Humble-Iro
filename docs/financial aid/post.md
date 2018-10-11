@@ -1,6 +1,6 @@
 # Add financial aid 
 
-`POST` /finance
+`POST` /financial_aid
 
 ```json
 {

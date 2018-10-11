@@ -15,7 +15,7 @@ class Transport_cms extends HI_Model{
         "year" => "integer",
         "model" => ""
     ];
-
+    
     /**
      * transport details
      * 

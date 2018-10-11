@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class User_model extends HI_Model{
 
     private $register_rules = [
+        "cn_name"    => "required|regex_match[/[\x{4e00}-\x{9fa5}]+/u]",
         "username"   => "required|min_length[5]|is_unique[users.username]",
         "password"   => "required",
     ];
@@ -14,6 +15,7 @@ class User_model extends HI_Model{
     ];
 
     private $edit_rules = [
+        "username"   => "required|min_length[5]|is_unique[users.username]",
         "cn_name"    => "required|regex_match[/[\x{4e00}-\x{9fa5}]+/u]"
     ];
 
@@ -29,6 +31,11 @@ class User_model extends HI_Model{
         if (isset($user)){
             $this->user = $user;
         }
+    }
+
+    public function get_current()
+    {
+        return $this->user;
     }
 
     public function get()
@@ -54,10 +61,23 @@ class User_model extends HI_Model{
 
     public function edit($data, $user_id)
     {
-        if ($this->form_validation->validate($this->register_rules,$data)){
+        $user = $this->db->where("user_id", $user_id)
+                         ->select("username, cn_name")
+                         ->get(T_USERS)
+                         ->row();
+
+        if (isset($user) && $user->username == $data["username"]){
+            unset($data["username"]);
+            unset($this->edit_rules["username"]);
+        }
+        if (isset($user) && $user->cn_name == $data["cn_name"]){
+            unset($data["cn_name"]);
+            unset($this->edit_rules["cn_name"]);
+        }
+        if ($this->form_validation->validate($this->edit_rules, $data)){
+            $data['updated'] = $this->date();
             $this->db->where("user_id", $user_id)
-                     ->set("cn_name", $data['cn_name'])
-                     ->update(T_USERS);
+                     ->update(T_USERS, $data);
             return 200;
         } else {
             return 400;

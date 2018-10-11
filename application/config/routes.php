@@ -10,6 +10,7 @@ $route['translate_uri_dashes'] = FALSE;
  * User CRUD 
  *
  */
+$route['user/current']['GET']           = 'User/get_current';
 $route['user']['GET']                   = 'User/get';
 $route['user']['POST']                  = 'User/create';
 $route['user/change/password']['POST']  = 'User/change_password';
@@ -26,6 +27,12 @@ $route['financial_aid']['POST']               = 'Financial_aid/create';
 $route['financial_aid/edit/(:num)']['POST']   = 'Financial_aid/edit/$1';
 $route['financial_aid/delete/(:num)']['POST'] = 'Financial_aid/delete/$1';
 
+/**
+ * Link financial_aid with student
+ */
+$route['student_financial']['POST']           = 'Student_financial/create';
+$route['student_financial/verify']['POST']    = 'Student_financial/verify';
+$route['student_financial/delete']['POST']    = 'Student_financial/delete';
 /**
  * FULL
  * 

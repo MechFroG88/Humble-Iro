@@ -48,6 +48,7 @@ class Student_cms extends HI_Model{
 
     public function get_basic()
     {
+        $this->load->model("Student_financial_model", "student_financial");
         $student_ids = $this->db->where("status", 1)
                                 ->select("student_id")
                                 ->get(T_STUDENTS)
@@ -75,6 +76,7 @@ class Student_cms extends HI_Model{
 
             $student->cn_name = $cn_name;
             $student->en_name = $en_name;
+            $student->financial_aid = $this->student_financial->get($student_id);
             array_push($students, $student);
         }
         return $students;

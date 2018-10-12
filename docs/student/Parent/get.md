@@ -1,6 +1,6 @@
 # Get parent detail
 
-`GET` /parent/:pid
+`GET` /parent/:sid
 
 ## Success response
 

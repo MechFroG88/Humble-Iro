@@ -65,6 +65,7 @@
 
 <script>
 import layout from '@/layout/default'
+import axios  from 'axios'
 //form pages
 import basic   from '@/pages/createStudent/basic'
 import parent  from '@/pages/createStudent/parent'
@@ -73,7 +74,7 @@ import finance from '@/pages/createStudent/finance'
 //finish pages
 import finish from '@/pages/createStudent/finish'
 //API
-import { editStudentBasic } from '@/api/student'
+import { editStudentBasic, editParent, editFamily, editSibling } from '@/api/student'
 export default {
   components: {
     layout,
@@ -179,10 +180,27 @@ export default {
       } else if (this.id == 1) {
         ///POST parent///
         this.output.parent = this.$refs.parent.output_value;
+        editParent(this.output.parent, this.student_id).then((data) => {
+          this.nextStep();
+        })
       } else if (this.id == 2) {
         ///POST family and siblings///
         this.output.family   = this.$refs.family.family_value;
         this.output.siblings = this.$refs.family.siblings_array;
+        // for (let i = 0; i < this.output.siblings.length; i++) {
+        //   if (this.output.siblings[i].)
+        // }
+        console.log(this.output.siblings);
+        editFamily(this.output.family, this.student_id).then(({data}) => {
+          editSibling(this.output.siblings, this.student_id).then(({data}) => {
+            this.nextStep();
+          })
+        })
+        // axios.all([editFamily(this.output.family, this.student_id), editSibling(this.output.siblings, this.student_id)])
+        //   .then(axios.spread(function(family, siblings) {
+        //     console.log(family);
+        //     console.log(siblings);
+        //   }));
       } else if (this.id == 3) {
         ///POST finance///
         this.output.house               = this.$refs.finance.house;

@@ -36,9 +36,9 @@ export function editStudentBasic(data, id) {
   })
 }
 
-export function getParent(id) {
+export function getParent(pid) {
   return request({
-    url: '/parent/' + id,
+    url: '/parent/' + pid,
     method: 'GET'
   })
 }
@@ -68,6 +68,56 @@ export function editParent(data, sid) {
 export function deleteParent(pid) {
   return request({
     url: '/parent/delete/' + pid,
+    method: 'POST'
+  })
+}
+
+export function getFamily(sid) {
+  return request({
+    url: '/family/' + sid,
+    method: 'GET'
+  })
+}
+export function editFamily(data, sid) {
+  return request({
+    url: '/family/edit/' + sid,
+    method: 'POST',
+    data
+  })
+}
+
+export function createSibling(sid) {
+  return request({
+    url: '/sibling/' + sid,
+    method: 'POST'
+  })
+}
+
+export function getSibling(sid) {
+  return request({
+    url: '/sibling/' + sid,
+    method: 'GET'
+  })
+}
+
+export function getSiblingBasic(sid) {
+  return request({
+    url: '/sibling/basic/' + sid,
+    method: 'GET'
+  })
+}
+
+export function editSibling(data, sid) {
+  return request({
+    url: '/sibling/edit/' + sid,
+    method: 'POST',
+    data
+  })
+}
+
+export function deleteSibling(siid) {
+  return request({
+    url: '/sibling/delete/' + siid,
     method: 'POST'
   })
 }

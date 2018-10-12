@@ -12,13 +12,14 @@ class Student_cms extends HI_Model{
         'cn_name'       => 'required|regex_match[/[\x{4e00}-\x{9fa5}]+/u]',
         'en_name'       => 'required',
         'number'        => 'integer',
-        'class'         => 'regex_match[/[\x{4e00}-\x{9fa5}]+/u]',
+        'classroom'     => 'regex_match[/[\x{4e00}-\x{9fa5}]+/u]',
         'contact'       => '',
         'address'       => '',
         'ancestor'      => '',
         'score'         => 'numeric',
         'attitude'      => 'numeric',
         'gender'        => 'integer',
+        'ic'            => '',
         'birthdate'     => '',
     ];
 
@@ -34,7 +35,7 @@ class Student_cms extends HI_Model{
         $student = new stdClass;
         $student_detail = $this->db->where("student_id", $student_id)
                                    ->select("title, value")
-                                   ->get(T_STUDENTS_CMS)
+                                   ->get(T_STUDENT_CMS)
                                    ->result_array();
 
         foreach ($student_detail as $single_detail){
@@ -59,21 +60,30 @@ class Student_cms extends HI_Model{
             $student_id = $studentss['student_id'];
             $student->student_id = $student_id;
             $cn_name = $this->db->where("student_id", $student_id)
-                                ->or_where("title", "cn_name")
+                                ->where("title", "cn_name")
                                 ->select("value")
-                                ->get(T_STUDENTS_CMS)
+                                ->get(T_STUDENT_CMS)
                                 ->row();
         
             $cn_name = isset($cn_name) ? $cn_name->value : "";
             
             $en_name = $this->db->where("student_id", $student_id)
-                                ->or_where("title", "en_name")
+                                ->where("title", "en_name")
                                 ->select("value")
-                                ->get(T_STUDENTS_CMS)
+                                ->get(T_STUDENT_CMS)
                                 ->row();
 
             $en_name = isset($en_name) ? $en_name->value : "";
 
+            $classroom = $this->db->where("student_id", $student_id)
+                                  ->where("title", "classroom")
+                                  ->select("value")
+                                  ->get(T_STUDENT_CMS)
+                                  ->row();
+
+            $classroom = isset($classroom) ? $classroom->value : "";
+
+            $student->classroom = $classroom;
             $student->cn_name = $cn_name;
             $student->en_name = $en_name;
             $student->financial_aid = $this->student_financial->get($student_id);
@@ -87,7 +97,7 @@ class Student_cms extends HI_Model{
         $data = [];
         $data['created'] = $this->date();
         $data['updated'] = $this->date();
-        $this->db->insert(T_STUDENTS,$data);
+        $this->db->insert(T_STUDENTS, $data);
         $student_id = $this->db->insert_id();
         return $student_id;
     }
@@ -110,19 +120,20 @@ class Student_cms extends HI_Model{
                 
                 $student_cms = $this->db->where("student_id", $student_id)
                                         ->where("title", $key)
-                                        ->get(T_STUDENTS_CMS)
+                                        ->get(T_STUDENT_CMS)
                                         ->row();
 
                 if (isset($student_cms)){
                     $this->db->where("student_id", $student_id)
                              ->where("title", $key)
-                             ->update(T_STUDENTS_CMS, $temp_data);
+                             ->update(T_STUDENT_CMS, $temp_data);
                 } else {
-                    $this->db->insert(T_STUDENTS_CMS, $temp_data);
+                    $this->db->insert(T_STUDENT_CMS, $temp_data);
                 }
             }
             return 200;
         } else {
+            echo validation_errors();
             return 400;
         }
     }

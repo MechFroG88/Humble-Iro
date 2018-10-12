@@ -25,7 +25,7 @@ class Finance_expenditure_cms extends HI_Model{
         $this->check_existance($student_id, "student_id", T_STUDENTS);
         $finance_expenditure_ids = $this->db->where("student_id", $student_id)
                                             ->where("status", 1)
-                                            ->get(T_FINANCE_EXPENDITURE)
+                                            ->get(T_FINANCE_EXPENDITURES)
                                             ->result_array();
         $finance_expenditures = [];
         foreach ($finance_expenditure_ids as $single_finance_expenditure){
@@ -35,13 +35,14 @@ class Finance_expenditure_cms extends HI_Model{
                                                    ->get(T_FINANCE_EXPENDITURE_CMS)
                                                    ->result_array();
 
-            $finance_expenditure = [];
+            $finance_expenditure = new stdClass;
             foreach ($finance_expenditure_detail as $single_finance_expenditure_detail){
                 $object = $single_finance_expenditure_detail['object'];
                 $expenditure = $single_finance_expenditure_detail['expenditure'];
-                $finance_expenditure[$object] = $expenditure;
+                $finance_expenditure->object = $object; 
+                $finance_expenditure->expenditure = $expenditure;
             }
-            $finance_expenditure['finance_expenditure_id'] = $finance_expenditure_id;
+            $finance_expenditure->finance_expenditure_id = $finance_expenditure_id;
             array_push($finance_expenditures, $finance_expenditure);
         }
 
@@ -58,7 +59,7 @@ class Finance_expenditure_cms extends HI_Model{
     {
         $this->check_existance($student_id, "student_id", T_STUDENTS);
         $this->db->set("student_id", $student_id)
-                 ->insert(T_FINANCE_EXPENDITURE);
+                 ->insert(T_FINANCE_EXPENDITURES);
 
         $finance_expenditure_id = $this->db->insert_id();
         return $finance_expenditure_id;
@@ -76,7 +77,7 @@ class Finance_expenditure_cms extends HI_Model{
         foreach ($data as $single_data){
             if ($this->form_validation->validate($this->rules, $single_data)){
                 $finance_expenditure_id = $single_data['finance_expenditure_id'];
-                $this->check_existance($finance_expenditure_id, "finance_expenditure_id", T_FINANCE_EXPENDITURE);
+                $this->check_existance($finance_expenditure_id, "finance_expenditure_id", T_FINANCE_EXPENDITURES);
                 $finance_expenditure_cms = $this->db->where("finance_expenditure_id", $finance_expenditure_id)
                                                     ->where("object", $single_data['object'])
                                                     ->get(T_FINANCE_EXPENDITURE_CMS)
@@ -103,10 +104,10 @@ class Finance_expenditure_cms extends HI_Model{
      */
     public function delete($finance_expenditure_id)
     {
-        $this->check_existance($finance_expenditure_id, "finance_expenditure_id", T_FINANCE_EXPENDITURE);
+        $this->check_existance($finance_expenditure_id, "finance_expenditure_id", T_FINANCE_EXPENDITURES);
         $this->db->where("finance_expenditure_id", $finance_expenditure_id)
                  ->set("status", 0)
-                 ->update(T_FINANCE_EXPENDITURE);
+                 ->update(T_FINANCE_EXPENDITURES);
 
         return 200;
     }

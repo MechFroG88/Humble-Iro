@@ -16,7 +16,7 @@ class Aircond_cms extends HI_Model{
     {
         $this->check_existance($student_id, "student_id", T_STUDENTS);
         $aircond = $this->db->where("student_id", $student_id)
-                            ->get(T_AIRCOND)
+                            ->get(T_AIRCONDS)
                             ->result_array();
 
         unset($aircond['student_id']);
@@ -29,16 +29,16 @@ class Aircond_cms extends HI_Model{
         if ($this->form_validation->validate($this->rules,$data)){
             
             $aircond = $this->db->where("student_id", $student_id)
-                                ->get(T_AIRCOND)
+                                ->get(T_AIRCONDS)
                                 ->row();
             
             if (isset($aircond)){
                 $this->db->where("student_id", $student_id)
                          ->set("amount", $data['amount'])
-                         ->update(T_AIRCOND);
+                         ->update(T_AIRCONDS);
             } else {
                 $data['student_id'] = $student_id;
-                $this->db->insert(T_AIRCOND, $data);
+                $this->db->insert(T_AIRCONDS, $data);
             }
 
             return 200;

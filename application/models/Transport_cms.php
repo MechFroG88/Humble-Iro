@@ -27,7 +27,7 @@ class Transport_cms extends HI_Model{
         $this->check_existance($student_id, "student_id", T_STUDENTS);
         $transport_ids = $this->db->where("student_id", $student_id)
                                   ->where("status", 1)
-                                  ->get(T_TRANSPORT)
+                                  ->get(T_TRANSPORTS)
                                   ->result_array();
         $transports = [];
         foreach ($transport_ids as $single_transport){
@@ -37,13 +37,13 @@ class Transport_cms extends HI_Model{
                                          ->get(T_TRANSPORT_CMS)
                                          ->result_array();
             
-            $transport = [];
+            $transport = new stdClass;
             foreach ($transport_detail as $single_transport_detail){
                 $title = $single_transport_detail['title'];
                 $value = $single_transport_detail['value'];
-                $transport[$title] = $value;
+                $transport->$title = $value;
             }
-            $transport['transport_id'] = $transport_id;
+            $transport->transport_id = $transport_id;
             array_push($transports, $transport);
         }
 
@@ -60,7 +60,7 @@ class Transport_cms extends HI_Model{
     {
         $this->check_existance($student_id, "student_id", T_STUDENTS);
         $this->db->set("student_id", $student_id)
-                 ->insert(T_TRANSPORT);
+                 ->insert(T_TRANSPORTS);
 
         $transport_id = $this->db->insert_id();
         return $transport_id;
@@ -79,7 +79,7 @@ class Transport_cms extends HI_Model{
             if ($this->form_validation->validate($this->rules, $single_data)){
                 $transport_id = $single_data['transport_id'];
                 unset($single_data['transport_id']);
-                $this->check_existance($transport_id, "transport_id", T_TRANSPORT);
+                $this->check_existance($transport_id, "transport_id", T_TRANSPORTS);
                 foreach ($single_data as $key => $value){
                     $temp_data = [];
                     $temp_data['transport_id'] = $transport_id;
@@ -114,10 +114,10 @@ class Transport_cms extends HI_Model{
      */
     public function delete($transport_id)
     {
-        $this->check_existance($transport_id, "transport_id", T_TRANSPORT);
+        $this->check_existance($transport_id, "transport_id", T_TRANSPORTS);
         $this->db->where("transport_id", $transport_id)
                  ->set("status", 0)
-                 ->update(T_TRANSPORT);
+                 ->update(T_TRANSPORTS);
                  
         return 200;
     }

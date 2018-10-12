@@ -25,7 +25,7 @@ class Finance_income_cms extends HI_Model{
         $this->check_existance($student_id, "student_id", T_STUDENTS);
         $finance_income_ids = $this->db->where("student_id", $student_id)
                                             ->where("status", 1)
-                                            ->get(T_FINANCE_INCOME)
+                                            ->get(T_FINANCE_INCOMES)
                                             ->result_array();
         $finance_incomes = [];
         foreach ($finance_income_ids as $single_finance_income){
@@ -35,13 +35,14 @@ class Finance_income_cms extends HI_Model{
                                                    ->get(T_FINANCE_INCOME_CMS)
                                                    ->result_array();
 
-            $finance_income = [];
+            $finance_income = new stdClass;
             foreach ($finance_income_detail as $single_finance_income_detail){
                 $member = $single_finance_income_detail['member'];
                 $income = $single_finance_income_detail['income'];
-                $finance_income[$member] = $income;
+                $finance_income->member = $member;
+                $finance_income->income = $income;
             }
-            $finance_income['finance_income_id'] = $finance_income_id;
+            $finance_income->finance_income_id = $finance_income_id;
             array_push($finance_incomes, $finance_income);
         }
 
@@ -58,7 +59,7 @@ class Finance_income_cms extends HI_Model{
     {
         $this->check_existance($student_id, "student_id", T_STUDENTS);
         $this->db->set("student_id", $student_id)
-                 ->insert(T_FINANCE_INCOME);
+                 ->insert(T_FINANCE_INCOMES);
 
         $finance_income_id = $this->db->insert_id();
         return $finance_income_id;
@@ -76,7 +77,7 @@ class Finance_income_cms extends HI_Model{
         foreach ($data as $single_data){
             if ($this->form_validation->validate($this->rules, $single_data)){
                 $finance_income_id = $single_data['finance_income_id'];
-                $this->check_existance($finance_income_id, "finance_income_id", T_FINANCE_INCOME);
+                $this->check_existance($finance_income_id, "finance_income_id", T_FINANCE_INCOMES);
                 $finance_income_cms = $this->db->where("finance_income_id", $finance_income_id)
                                                     ->where("member", $single_data['member'])
                                                     ->get(T_FINANCE_INCOME_CMS)
@@ -103,10 +104,10 @@ class Finance_income_cms extends HI_Model{
      */
     public function delete($finance_income_id)
     {
-        $this->check_existance($finance_income_id, "finance_income_id", T_FINANCE_INCOME);
+        $this->check_existance($finance_income_id, "finance_income_id", T_FINANCE_INCOMES);
         $this->db->where("finance_income_id", $finance_income_id)
                  ->set("status", 0)
-                 ->update(T_FINANCE_INCOME);
+                 ->update(T_FINANCE_INCOMES);
 
         return 200;
     }

@@ -25,7 +25,7 @@ class House_cms extends HI_Model{
         $this->check_existance($student_id, "student_id", T_STUDENTS);
         $house_ids = $this->db->where("student_id", $student_id)
                               ->where("status", 1)
-                              ->get(T_HOUSE)
+                              ->get(T_HOUSES)
                               ->result_array();
         $houses = [];
         foreach ($house_ids as $single_house){
@@ -35,13 +35,13 @@ class House_cms extends HI_Model{
                                      ->get(T_HOUSE_CMS)
                                      ->result_array();
             
-            $house = [];
+            $house = new stdClass;
             foreach ($house_detail as $single_house_detail){
                 $title = $single_house_detail['title'];
                 $value = $single_house_detail['value'];
-                $house[$title] = $value;
+                $house->$title = $value;
             }
-            $house['house_id'] = $house_id;
+            $house->house_id = $house_id;
             array_push($houses, $house);
         }
 
@@ -58,7 +58,7 @@ class House_cms extends HI_Model{
     {
         $this->check_existance($student_id, "student_id", T_STUDENTS);
         $this->db->set("student_id", $student_id)
-                 ->insert(T_HOUSE);
+                 ->insert(T_HOUSES);
 
         $house_id = $this->db->insert_id();
         return $house_id;
@@ -77,7 +77,7 @@ class House_cms extends HI_Model{
             if ($this->form_validation->validate($this->rules, $single_data)){
                 $house_id = $single_data['house_id'];
                 unset($single_data['house_id']);
-                $this->check_existance($house_id, "house_id", T_HOUSE);
+                $this->check_existance($house_id, "house_id", T_HOUSES);
                 foreach ($single_data as $key => $value){
                     $temp_data = [];
                     $temp_data['house_id'] = $house_id;
@@ -112,10 +112,10 @@ class House_cms extends HI_Model{
      */
     public function delete($house_id)
     {
-        $this->check_existance($house_id, "house_id", T_HOUSE);
+        $this->check_existance($house_id, "house_id", T_HOUSES);
         $this->db->where("house_id", $house_id)
                  ->set("status", 0)
-                 ->update(T_HOUSE);
+                 ->update(T_HOUSES);
 
         return 200;
     }

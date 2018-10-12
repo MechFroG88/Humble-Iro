@@ -75,6 +75,11 @@ const router = new Router({
       path: '/users',
       name: 'users',
       component: () => import('@/pages/users')
+    },
+    {
+      path: '/validate/:id',
+      name: 'validate',
+      component: () => import('@/pages/validation')
     }
   ]
 })

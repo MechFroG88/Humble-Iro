@@ -29,7 +29,7 @@ class Upstream
         return $this;
     }
 
-    public function financial_aid()
+    public function financial_aids()
     {
         $this->db->column("financial_aid_id")   ->bigint(20) ->primary()->unique()->autoIncrement()
                  ->column("supplier")           ->text()
@@ -37,7 +37,7 @@ class Upstream
                  ->column("requirements")       ->text()
                  ->column("financial_aid_type") ->text()
                  ->column("status")             ->tinyint(2) ->default(1)
-                 ->create("financial_aid");
+                 ->create("financial_aids");
 
         return $this;
     }
@@ -53,22 +53,22 @@ class Upstream
         return $this;
     }
 
-    public function student_financial()
+    public function student_financials()
     {
         $this->db->column("student_id")       ->bigint(20) ->index()
                  ->column("financial_aid_id") ->bigint(20) ->index()
                  ->column("status")           ->tinyint(2)  ->default(1)
-                 ->create("student_financial");
+                 ->create("student_financials");
 
         return $this;
     }
 
-    public function students_cms()
+    public function student_cms()
     {
         $this->db->column("student_id")  ->bigint(20) ->index()
                  ->column("title")       ->text()
                  ->column("value")       ->text()
-                 ->create("students_cms");
+                 ->create("student_cms");
 
         return $this;
     }
@@ -83,12 +83,12 @@ class Upstream
         return $this;
     }
 
-    public function parents_cms()
+    public function parent_cms()
     {
         $this->db->column("parent_id")  ->bigint(20) ->index()
                  ->column("title")       ->text()
                  ->column("value")       ->text()
-                 ->create("parents_cms");
+                 ->create("parent_cms");
 
         return $this;
     }
@@ -103,32 +103,32 @@ class Upstream
         return $this;
     }
 
-    public function siblings_cms()
+    public function sibling_cms()
     {
         $this->db->column("sibling_id")  ->bigint(20) ->index()
                  ->column("title")       ->text()
                  ->column("value")       ->text()
-                 ->create("siblings_cms");
+                 ->create("sibling_cms");
 
         return $this;
     }
 
-    public function family()
+    public function families()
     {
         $this->db->column("student_id")  ->bigint(20) ->index()
                  ->column("title")       ->text()
                  ->column("value")       ->text()
-                 ->create("family");
+                 ->create("families");
         
         return $this;
     }
 
-    public function finance_income()
+    public function finance_incomes()
     {
         $this->db->column("finance_income_id") ->bigint(20) ->primary()->unique()->autoIncrement()
                  ->column("student_id")        ->bigint(20) ->index()
                  ->column("status")            ->tinyint(2) ->default(1)
-                 ->create("finance_income");
+                 ->create("finance_incomes");
 
         return $this;
     }
@@ -143,12 +143,12 @@ class Upstream
         return $this;
     }
 
-    public function finance_expenditure()
+    public function finance_expenditures()
     {
         $this->db->column("finance_expenditure_id")   ->bigint(20) ->primary()->unique()->autoIncrement()
                  ->column("student_id")               ->bigint(20) ->index()
                  ->column("status")                   ->tinyint(2) ->default(1)
-                 ->create("finance_expenditure");
+                 ->create("finance_expenditures");
 
         return $this;
     }
@@ -163,32 +163,32 @@ class Upstream
         return $this;
     }
 
-    public function finance()
+    public function finances()
     {
         $this->db->column("student_id")     ->bigint(20) ->primary()->unique()
                  ->column("remarks")        ->text()
                  ->column("auto_transfer")  ->tinyint(2)
                  ->column("balance")        ->bigint(20)
-                 ->create("finance");
+                 ->create("finances");
 
         return $this;
     }
 
-    public function aircond()
+    public function airconds()
     {
         $this->db->column("student_id")    ->bigint(20) ->primary()->unique()
                  ->column("amount")        ->bigint(20)
-                 ->create("aircond");
+                 ->create("airconds");
         
         return $this;
     }
 
-    public function house()
+    public function houses()
     {
         $this->db->column("house_id")      ->bigint(20) ->primary()->unique()->autoIncrement()
                  ->column("student_id")    ->bigint(20) ->index()
                  ->column("status")        ->tinyint(2) ->default(1)
-                 ->create("house");
+                 ->create("houses");
 
         return $this;
     }
@@ -203,12 +203,12 @@ class Upstream
         return $this;
     }
 
-    public function transport()
+    public function transports()
     {
         $this->db->column("transport_id")     ->bigint(20) ->primary()->unique()->autoIncrement()
                  ->column("student_id")       ->bigint(20) ->index()
                  ->column("status")           ->tinyint(2) ->default(1)
-                 ->create("transport");
+                 ->create("transports");
 
         return $this;
     }
@@ -230,20 +230,20 @@ $up = new Upstream();
 $up->users()
    ->students()
    ->parents()
-   ->student_financial()
+   ->student_financials()
    ->siblings()
-   ->family()
-   ->finance_income()
+   ->families()
+   ->finance_incomes()
    ->finance_income_cms()
-   ->finance_expenditure()
+   ->finance_expenditures()
    ->finance_expenditure_cms()
-   ->finance()
-   ->house()
+   ->finances()
+   ->houses()
    ->house_cms()
-   ->financial_aid()
-   ->students_cms()
-   ->parents_cms()
-   ->siblings_cms()
-   ->aircond()
-   ->transport()
+   ->financial_aids()
+   ->student_cms()
+   ->parent_cms()
+   ->sibling_cms()
+   ->airconds()
+   ->transports()
    ->transport_cms();

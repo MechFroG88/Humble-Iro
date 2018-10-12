@@ -42,7 +42,7 @@ class Parent_cms extends HI_Model{
             $parent_id = $single_parent['parent_id'];
             $parent_detail = $this->db->where("parent_id", $parent_id)
                                       ->select("title, value")
-                                      ->get(T_PARENTS_CMS)
+                                      ->get(T_PARENT_CMS)
                                       ->result_array();
             
             $parent = [];
@@ -71,7 +71,7 @@ class Parent_cms extends HI_Model{
             $parent_detail = $this->db->where("parent_id", $parent_id)
                                       ->where("title", "relation")
                                       ->select("title, value")
-                                      ->get(T_PARENTS_CMS)
+                                      ->get(T_PARENT_CMS)
                                       ->result_array();
             
             $parent = [];
@@ -123,15 +123,15 @@ class Parent_cms extends HI_Model{
                     
                     $parent_cms = $this->db->where("parent_id", $parent_id)
                                            ->where("title", $key)
-                                           ->get(T_PARENTS_CMS)
+                                           ->get(T_PARENT_CMS)
                                            ->row();
 
                     if (isset($parent_cms)){
                         $this->db->where("parent_id", $parent_id)
                                  ->where("title", $key)
-                                 ->update(T_PARENTS_CMS, $temp_data);
+                                 ->update(T_PARENT_CMS, $temp_data);
                     } else {
-                        $this->db->insert(T_PARENTS_CMS, $temp_data);
+                        $this->db->insert(T_PARENT_CMS, $temp_data);
                     }
                 }
             } else {

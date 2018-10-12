@@ -24,7 +24,7 @@ class Finance_cms extends HI_Model{
     {
         $this->check_existance($student_id, "student_id", T_STUDENTS);
         $finance = $this->db->where("student_id", $student_id)
-                            ->get(T_FINANCE)
+                            ->get(T_FINANCES)
                             ->result_array();
 
         unset($finance['student_id']);
@@ -47,14 +47,14 @@ class Finance_cms extends HI_Model{
                 $temp_data[$key] = $value;
                 
                 $finance = $this->db->where("student_id", $student_id)
-                                    ->get(T_FINANCE)
+                                    ->get(T_FINANCES)
                                     ->row();
 
                 if (isset($finance)){
                     $this->db->where("student_id", $student_id)
-                             ->update(T_FINANCE, $temp_data);
+                             ->update(T_FINANCES, $temp_data);
                 } else {
-                    $this->db->insert(T_FINANCE, $temp_data);
+                    $this->db->insert(T_FINANCES, $temp_data);
                 }
             }
             return 200;

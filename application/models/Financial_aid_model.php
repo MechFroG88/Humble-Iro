@@ -18,7 +18,7 @@ class Financial_aid_model extends HI_Model{
     public function get()
     {
         $financial_aid = $this->db->where("status", 1)
-                                  ->get(T_FINANCIAL_AID)
+                                  ->get(T_FINANCIAL_AIDS)
                                   ->result_array();
 
         foreach($financial_aid as &$single_financial_aid){
@@ -35,7 +35,7 @@ class Financial_aid_model extends HI_Model{
                 $date_time = DateTime::createFromFormat('d-m-Y', $data['expired_date']);
                 $data['expired_date'] = $date_time->format("Y-m-d H:i:s");
             } 
-            $this->db->insert(T_FINANCIAL_AID, $data);
+            $this->db->insert(T_FINANCIAL_AIDS, $data);
             return 200;
         } else {
             return 400;
@@ -44,7 +44,7 @@ class Financial_aid_model extends HI_Model{
 
     public function edit($data, $financial_aid_id)
     {
-        $this->check_existance($financial_aid_id, "financial_aid_id", T_FINANCIAL_AID);
+        $this->check_existance($financial_aid_id, "financial_aid_id", T_FINANCIAL_AIDS);
         if ($this->form_validation->validate($this->rules, $data)){
             if (isset($data_time)){
                 $date_time = DateTime::createFromFormat('d-m-Y', $data['expired_date']);
@@ -52,7 +52,7 @@ class Financial_aid_model extends HI_Model{
             } 
             $this->db->where("financial_aid_id", $financial_aid_id)
                      ->where("status", 1)
-                     ->update(T_FINANCIAL_AID, $data);
+                     ->update(T_FINANCIAL_AIDS, $data);
         
             return 200;
         } else {
@@ -62,10 +62,10 @@ class Financial_aid_model extends HI_Model{
 
     public function delete($financial_aid_id)
     {
-        $this->check_existance($financial_aid_id, "financial_aid_id", T_FINANCIAL_AID);
+        $this->check_existance($financial_aid_id, "financial_aid_id", T_FINANCIAL_AIDS);
         $this->db->where("financial_aid_id", $financial_aid_id)
                  ->set("status", 0)
-                 ->update(T_FINANCIAL_AID);
+                 ->update(T_FINANCIAL_AIDS);
         
         return 200;
     }

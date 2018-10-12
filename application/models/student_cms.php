@@ -35,7 +35,7 @@ class Student_cms extends HI_Model{
         $student = new stdClass;
         $student_detail = $this->db->where("student_id", $student_id)
                                    ->select("title, value")
-                                   ->get(T_STUDENTS_CMS)
+                                   ->get(T_STUDENT_CMS)
                                    ->result_array();
 
         foreach ($student_detail as $single_detail){
@@ -62,7 +62,7 @@ class Student_cms extends HI_Model{
             $cn_name = $this->db->where("student_id", $student_id)
                                 ->where("title", "cn_name")
                                 ->select("value")
-                                ->get(T_STUDENTS_CMS)
+                                ->get(T_STUDENT_CMS)
                                 ->row();
         
             $cn_name = isset($cn_name) ? $cn_name->value : "";
@@ -70,7 +70,7 @@ class Student_cms extends HI_Model{
             $en_name = $this->db->where("student_id", $student_id)
                                 ->where("title", "en_name")
                                 ->select("value")
-                                ->get(T_STUDENTS_CMS)
+                                ->get(T_STUDENT_CMS)
                                 ->row();
 
             $en_name = isset($en_name) ? $en_name->value : "";
@@ -78,7 +78,7 @@ class Student_cms extends HI_Model{
             $classroom = $this->db->where("student_id", $student_id)
                                   ->where("title", "classroom")
                                   ->select("value")
-                                  ->get(T_STUDENTS_CMS)
+                                  ->get(T_STUDENT_CMS)
                                   ->row();
 
             $classroom = isset($classroom) ? $classroom->value : "";
@@ -120,15 +120,15 @@ class Student_cms extends HI_Model{
                 
                 $student_cms = $this->db->where("student_id", $student_id)
                                         ->where("title", $key)
-                                        ->get(T_STUDENTS_CMS)
+                                        ->get(T_STUDENT_CMS)
                                         ->row();
 
                 if (isset($student_cms)){
                     $this->db->where("student_id", $student_id)
                              ->where("title", $key)
-                             ->update(T_STUDENTS_CMS, $temp_data);
+                             ->update(T_STUDENT_CMS, $temp_data);
                 } else {
-                    $this->db->insert(T_STUDENTS_CMS, $temp_data);
+                    $this->db->insert(T_STUDENT_CMS, $temp_data);
                 }
             }
             return 200;

@@ -35,10 +35,10 @@ class Sibling_cms extends HI_Model{
             $sibling_id = $single_sibling['sibling_id'];
             $sibling_detail = $this->db->where("sibling_id", $sibling_id)
                                        ->select("title, value")
-                                       ->get(T_SIBLINGS_CMS)
+                                       ->get(T_SIBLING_CMS)
                                        ->result_array();
             
-            $sibling = [];
+            $sibling = new stdClass;
             $financial_aid = [];
             foreach ($sibling_detail as $single_sibling_detail){
                 $title = $single_sibling_detail['title'];
@@ -47,15 +47,16 @@ class Sibling_cms extends HI_Model{
                     $cn_name = $this->db->where("financial_aid_id", $value)
                                         ->where("status", 1)
                                         ->select("financial_aid_type")
-                                        ->get(T_FINANCIAL_AID)
+                                        ->get(T_FINANCIAL_AIDS)
                                         ->row();
                     isset($cn_name) ? array_push($financial_aid, $cn_name) : NULL ;
                     continue;
                 }
-                $sibling[$title] = $value;
+                $sibling->$title = $value;
             }
+            $sibling->sibling_id = $sibling_id;
             if(!empty($financial_aid)){
-                $sibling['financial_aid'] = $financial_aid;
+                $sibling->financial_aid = $financial_aid;
             } 
             array_push($siblings, $sibling);
         }
@@ -76,16 +77,16 @@ class Sibling_cms extends HI_Model{
             $sibling_detail = $this->db->where("sibling_id", $sibling_id)
                                        ->where("title", "relation")
                                        ->select("title, value")
-                                       ->get(T_SIBLINGS_CMS)
+                                       ->get(T_SIBLING_CMS)
                                        ->result_array();
             
-            $sibling = [];
+            $sibling = new stdClass;
             foreach ($sibling_detail as $single_sibling_detail){
                 $title = $single_sibling_detail['title'];
                 $value = $single_sibling_detail['value'];
-                $sibling[$title] = $value;
+                $sibling->$title = $value;
             }
-            $sibling['sibling_id'] = $sibling_id;
+            $sibling->sibling_id = $sibling_id;
             array_push($siblings, $sibling);
         }
         return $siblings;
@@ -131,15 +132,15 @@ class Sibling_cms extends HI_Model{
                     
                     $sibling_cms = $this->db->where("sibling_id", $sibling_id)
                                             ->where("title", $key)
-                                            ->get(T_SIBLINGS_CMS)
+                                            ->get(T_SIBLING_CMS)
                                             ->row();
     
                     if (isset($sibling_cms)){
                         $this->db->where("sibling_id", $sibling_id)
                                  ->where("title", $key)
-                                 ->update(T_SIBLINGS_CMS, $temp_data);
+                                 ->update(T_SIBLING_CMS, $temp_data);
                     } else {
-                        $this->db->insert(T_SIBLINGS_CMS, $temp_data);
+                        $this->db->insert(T_SIBLING_CMS, $temp_data);
                     }
                 }
             } else {
@@ -169,15 +170,17 @@ class Sibling_cms extends HI_Model{
     {
         $this->db->where("sibling_id", $sibling_id)
                  ->where("title", "financial_aid")
-                 ->delete(T_SIBLINGS_CMS);
+                 ->delete(T_SIBLING_CMS);
 
-        foreach ($value as $single_value){
-            $temp_data = [];
-            $temp_data['sibling_id'] = $sibling_id;
-            $temp_data['title'] = "financial_aid";
-            $temp_data['value'] = $single_value;
-
-            $this->db->insert(T_SIBLINGS_CMS, $temp_data);
+        if (is_array($value)){
+            foreach ($value as $single_value){
+                $temp_data = [];
+                $temp_data['sibling_id'] = $sibling_id;
+                $temp_data['title'] = "financial_aid";
+                $temp_data['value'] = $single_value;
+    
+                $this->db->insert(T_SIBLING_CMS, $temp_data);
+            }
         }
     }
 }

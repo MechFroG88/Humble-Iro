@@ -31,14 +31,14 @@ class Family_cms extends HI_Model{
     {
         $family = $this->db->where("student_id", $student_id)
                            ->select("title, value")
-                           ->get(T_FAMILY)
+                           ->get(T_FAMILIES)
                            ->result_array();
 
-        $family_detail = [];
+        $family_detail = new stdClass;
         foreach ($family as $single_family){
             $title = $single_family['title'];
             $value = $single_family['value'];
-            $family_detail[$title] = $value; 
+            $family_detail->$title = $value; 
         }
         
         return $family_detail;
@@ -61,19 +61,20 @@ class Family_cms extends HI_Model{
                 
                 $student_cms = $this->db->where("student_id", $student_id)
                                         ->where("title", $key)
-                                        ->get(T_FAMILY)
+                                        ->get(T_FAMILIES)
                                         ->row();
 
                 if (isset($student_cms)){
                     $this->db->where("student_id", $student_id)
                              ->where("title", $key)
-                             ->update(T_FAMILY, $temp_data);
+                             ->update(T_FAMILIES, $temp_data);
                 } else {
-                    $this->db->insert(T_FAMILY, $temp_data);
+                    $this->db->insert(T_FAMILIES, $temp_data);
                 }
             }
             return 200;
         } else {
+            echo validation_errors();
             return 400;
         }
     }

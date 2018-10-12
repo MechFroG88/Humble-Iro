@@ -40,7 +40,20 @@ class Student_financial_model extends HI_Model{
         $this->check_existance($data['financial_aid_id'], "financial_aid_id", T_FINANCIAL_AIDS);
         $this->check_existance($data['student_id'], "student_id", T_STUDENTS);
         if ($this->form_validation->validate($this->rules,$data)){
-            $this->db->insert(T_STUDENT_FINANCIALS, $data);
+            $student_financial = $this->db->where("financial_aid_id", $data['financial_aid_id'])
+                                          ->where("student_id", $data['student_id'])
+                                          ->get(T_STUDENT_FINANCIALS)
+                                          ->row();
+
+            if (isset($student_financial)){
+                $this->db->where("financial_aid_id", $data['financial_aid_id'])
+                         ->where("student_id", $data['student_id'])
+                         ->where("status", 0)
+                         ->set("status", 1)
+                         ->update(T_STUDENT_FINANCIALS);
+            } else {
+                $this->db->insert(T_STUDENT_FINANCIALS, $data);
+            }
             return 200;
         } else {
             return 400;

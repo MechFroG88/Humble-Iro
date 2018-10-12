@@ -194,3 +194,76 @@ export function editFinance(data, sid) {
     data
   })
 }
+
+export function getHouse(sid) {
+  return request({
+    url: '/house/' + sid,
+    method: 'GET'
+  })
+}
+
+export function createHouse(sid) {
+  return request({
+    url: '/house/' + sid,
+    method: 'POST'
+  })
+}
+
+export function editHouse(data, sid) {
+  return request({
+    url: '/house/edit/' + sid,
+    method: 'POST',
+    data
+  })
+}
+
+export function deleteHouse(hid) {
+  return request({
+    url: '/house/delete/' + hid,
+    method: 'POST'
+  })
+}
+
+export function getAircond(sid) {
+  return request({
+    url: '/aircond/' + sid,
+    method: 'GET'
+  })
+}
+
+export function editAircond(data, sid) {
+  return request({
+    url: '/aircond/edit/' + sid,
+    method: 'POST',
+    data
+  })
+}
+
+export function getTransport(sid) {
+  return request({
+    url: '/transport/' + sid,
+    method: 'GET'
+  })
+}
+
+export function createTransport(sid) {
+  return request({
+    url: '/transport/' + sid,
+    method: 'POST'
+  })
+}
+
+export function editTransport(data, sid) {
+  return request({
+    url: '/transport/edit/' + sid,
+    method: 'POST',
+    data
+  })
+}
+
+export function deleteTransport(tid) {
+  return request({
+    url: '/transport/delete/' + tid,
+    method: 'POST'
+  })
+}

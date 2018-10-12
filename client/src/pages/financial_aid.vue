@@ -1,5 +1,5 @@
 <template>
-  <div id="_aid">
+  <div id="_financial_aid">
     <layout>
       <div class="action-bar">
         <el-button type="primary" @click="addModal">
@@ -7,16 +7,17 @@
         </el-button>
       </div>
       <crudTable
-      title="助学金申请列表"
-      :columns="aidColumns"
-      :tableData="aidData"
+      title="助学金列表"
+      :columns="financialAidColumns"
+      :tableData="financialAidData"
       :modal="true"
-      modalTitle="编辑助学金申请"
-      :modalData="aidModal">
+      modalTitle="编辑助学金"
+      :modalData="financialAidModal"
+      type="financial_aid">
       </crudTable>
     </layout>
 
-    <modal title="添加赞助单位" ref="add">
+    <modal title="添加助学金" ref="add">
       <div slot="content">
         <div class="form-group">
           <label class="form-label">赞助者</label>
@@ -32,7 +33,15 @@
           class="form-input" 
           type="text" 
           placeholder="请输入所提供助学金名称..."
-          v-model="value.aid_type">
+          v-model="value.financial_aid_type">
+        </div>
+        <div class="form-group">
+          <label class="form-label">申请条件</label>
+          <input 
+          class="form-input" 
+          type="text" 
+          placeholder="请输入申请条件..."
+          v-model="value.requirements">
         </div>
         <div class="form-group">
           <label class="form-label">截止日期</label>
@@ -44,7 +53,7 @@
         </div>
       </div>
       <div slot="footer">
-        <button class="btn btn-primary btn-error btn-lg" @click="$refs.edit.active = false">取消</button>
+        <button class="btn btn-primary btn-error btn-lg" @click="$refs.add.active = false">取消</button>
         <button class="btn btn-primary btn-lg" @click="confirmAdd()">确认</button>
       </div>
     </modal>
@@ -55,35 +64,42 @@
 import layout    from '@/layout/default'
 import crudTable from '@/components/tables'
 import modal     from '@/components/modal/modal'
-// import { getAid, addAid } from '@/api/tableData'
-import { aidModal } from '../../api/modalData'
-import { aidColumns } from '../../api/tableColumns'
+import { financialAidModal }   from '../../api/modalData'
+import { financialAidColumns } from '../../api/tableColumns'
+import { getAid, addAid } from '@/api/financial_aid'
 
-// import { aidData } from '../../api/mock/tableData'
 export default {
-  mounted() {
-    // getAid().then(({data}) => {
-    //   this.aidData = data.data;
-    // })
+  beforeMount() {
+    this.get();
   },
   components: {
     layout,
     crudTable,
     modal
   },
-  data() {
-    return {
-      aidColumns,
-      aidData: [],
-      aidModal,
-      value: {
-        supplier: '',
-        aid_type: '',
-        expired_date: ''
-      }
+  data: () => ({
+    financialAidColumns,
+    financialAidModal,
+    financialAidData: [],
+    value: {
+      supplier: '',
+      financial_aid_type: '',
+      requirements: '',
+      expired_date: '',
     }
-  },
+  }),
   methods: {
+    get() {
+      getAid().then(({data}) => {
+        this.financialAidData = data.data;
+      })
+    },
+    reset() {
+      this.value.supplier = '';
+      this.value.financial_aid_type = '';
+      this.value.requirements = '';
+      this.value.expired_date = '';
+    },
     addModal() {
       this.$refs.add.active = true;
     },
@@ -94,13 +110,13 @@ export default {
       this.$emit('close');
       console.log("post")
       addAid(this.value).then((data) => {
-        if (data.status == 200) {
-          console.log(data);
-        }
+        console.log(data.data);
+      }).then(() => {
+        this.get();
+        this.reset();
       }).catch((err) => {
         console.log(err);
       })
-      // console.log(this.value);
     }
   }
 }

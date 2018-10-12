@@ -100,25 +100,40 @@
         id="occupation-address" 
         placeholder="工作地址" 
         rows="3"
-        v-model="output_value[num - 1].occupation_address"></textarea>
+        v-model="output_value[num - 1].work_address"></textarea>
       </div>
     </form>
   </div>
 </template>
 
 <script>
+import { getParent, getParentBasic, createParent, editParent, deleteParent } from '@/api/student'
 export default {
   props: {
     getData: Array
   },
-  beforeMount() {
-    if (this.getData.length == 0) {
-      var first = this.value;
-      this.output_value.push(Object.assign({}, first));
-    } else {
-      this.output_value = this.getData;
-      this.quantity = this.getData.length;
-    }
+  mounted() {
+    getParentBasic(this.$route.params.id).then(({data}) => {
+      if (data.data.length == 0) {
+        createParent(this.$route.params.id).then(({data}) => {
+          if (data.status == 200) {
+            this.output_value.push(Object.assign({}, this.value));
+            this.output_value[0].parent_id = data.data;
+          }
+        })
+      } else {
+        getParent(this.$route.params.id).then(({data}) => {
+          for (let i = 0; i < data.data.length; i++) {
+            this.output_value.push(Object.assign({}, data.data[i]));
+            // this.output_value[i].parent_id = data.data[i].parent_id;
+          }
+        }).then(() => {
+          this.quantity = this.output_value.length;
+        })
+        // this.output_value = data.data;
+        // this.quantity = data.data.length;
+      }
+    })
   },
   data() {
     var value = {
@@ -131,23 +146,30 @@ export default {
       occupation: '',
       work_place: '',
       boss_contact: null,
-      occupation_address: ''
+      work_address: '',
+      parent_id: null
     };
     return {
-      quantity: 1,
+      quantity: 0,
       value,
       output_value: [],
     }
   },
   methods: {
     addParent() {
-      this.output_value.push(Object.assign({}, this.value));
-      this.quantity++;
+      createParent(this.$route.params.id).then(({data}) => {
+        this.output_value.push(Object.assign({}, this.value));
+        this.output_value[this.quantity].parent_id = data.data;
+      }).then(() => {
+        this.quantity++;
+      })
     },
     dltParent() {
       if (this.quantity != 1) {
-        this.quantity--;
-        this.output_value.pop();
+        deleteParent(this.output_value[this.output_value.length - 1].parent_id).then(() => {
+          this.output_value.pop();
+          this.quantity--;
+        })
       }
     }
   }

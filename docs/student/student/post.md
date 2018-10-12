@@ -1,6 +1,6 @@
 # Add student
 
-`POST` /student
+`POST` /student 
 
 ## Success response
 

@@ -27,13 +27,13 @@
       <div class="form-group disable_member columns col-gapless">
         <label class="form-label col-12">残障家人</label>
         <label class="form-radio col-2">
-          <input type="radio" name="disabled_member" checked
-          v-model="family_value.disabled_member" :value="1" @click="showDisabled = true">
+          <input type="radio" name="disabled" checked
+          v-model="family_value.disabled" :value="1" @click="showDisabled = true">
           <i class="form-icon"></i> 有
         </label>
         <label class="form-radio col-10">
-          <input type="radio" name="disabled_member"
-          v-model="family_value.disabled_member" :value="0" @click="showDisabled = false">
+          <input type="radio" name="disabled"
+          v-model="family_value.disabled" :value="0" @click="showDisabled = false">
           <i class="form-icon"></i> 无
         </label>
       </div>
@@ -57,13 +57,13 @@
         v-model="family_value.family_size">
       </div>
       <div class="form-group">
-        <label class="form-label" for="work_people">就业人数</label>
+        <label class="form-label" for="working_people">就业人数</label>
         <input 
         class="form-input" 
         type="number" 
-        id="work_people" 
+        id="working_people" 
         placeholder="就业人数"
-        v-model="family_value.work_people">
+        v-model="family_value.working_people">
       </div>
       <div class="form-group">
         <label class="form-label" for="primary_people">就读小学人数</label>
@@ -156,35 +156,35 @@
         </div>
       </div>
       <div class="form-container aid_info">
-        <div class="form-group aid columns col-gapless">
+        <div class="form-group got_aid columns col-gapless">
           <label class="form-label col-12">是否申请助学金</label>
           <label class="form-radio col-2">
             <input 
             type="radio" 
-            name="aid"
-            v-model="siblings_array[formIndex].aid" 
+            name="got_aid"
+            v-model="siblings_array[formIndex].got_aid" 
             :value="1">
             <i class="form-icon"></i> 是
           </label>
           <label class="form-radio col-10">
             <input 
             type="radio" 
-            name="aid" 
-            v-model="siblings_array[formIndex].aid" 
+            name="got_aid" 
+            v-model="siblings_array[formIndex].got_aid" 
             :value="0">
             <i class="form-icon"></i> 否
           </label>
         </div>
-        <div class="form-group aid_name">
-          <label class="form-label" for="aid_name">助学金名称</label>
+        <div class="form-group financial_aid" v-if="siblings_array[formIndex].got_aid == 1">
+          <label class="form-label" for="financial_aid">助学金名称</label>
           <input 
           class="form-input" 
           type="text" 
-          id="aid_name" 
+          id="financial_aid" 
           placeholder="助学金名称"
-          v-model="siblings_array[formIndex].aid_name">
+          v-model="siblings_array[formIndex].financial_aid">
         </div>
-        <div class="form-group aid_total">
+        <div class="form-group aid_total" v-if="siblings_array[formIndex].got_aid == 1">
           <label class="form-label" for="aid_total">助学金数额（以年份计算）</label>
           <input 
           class="form-input" 
@@ -199,17 +199,35 @@
 </template>
 
 <script>
+import 
+{ getFamily, createSibling, getSibling, getSiblingBasic, deleteSibling } 
+from '@/api/student'
 export default {
   props: {
     getFamilyData: Object,
     getSiblingsData: Array
   },
   beforeMount() {
-    this.family_value = this.getFamilyData;
-    if (this.getSiblingsData.length != 0) {
-      this.siblings_array = this.getSiblingsData;
-      this.sibling_number = this.getSiblingsData.length;
-    }
+    getFamily(this.$route.params.id).then(({data}) => {
+      for (let i = 0; i < Object.keys(data.data).length; i++) {
+        this.family_value[Object.keys(data.data)[i]] = data.data[Object.keys(data.data)[i]]
+      }
+    })
+    getSibling(this.$route.params.id).then(({data}) => {
+      console.log(data.data);
+      if (data.data.length != 0) {
+        for (let i = 0; i < data.data.length; i++) {
+          var input = Object.assign({}, this.siblings_value);
+          this.siblings_array.push(input);
+          for (let j = 0; j < Object.keys(data.data[i]).length; j++) {
+            this.siblings_array[i][Object.keys(data.data[i])[j]] = data.data[i][Object.keys(data.data[i])[j]]
+          }
+        }
+      }
+    }).then(() => {
+      console.log(this.siblings_array);
+      this.sibling_number = this.siblings_array.length;
+    })
   },
   data() {
     return {
@@ -221,35 +239,44 @@ export default {
         single_reason : '',
         single_parent : null,
         family_size   : null,
-        work_people   : null,
+        working_people: null,
         primary_people: null,
         smk_people    : null,
         smp_people    : null,
         uni_people    : null,
         disabled_relation: '',
-        disabled_member  : null,
+        disabled  : null,
       },
       siblings_value: {
         cn_name: '',
         age: null,
         relation: null,
-        aid: null,
-        aid_name: '',
-        aid_total: null
+        got_aid: null,
+        financial_aid: '',
+        aid_total: '',
+        sibling_id: null
       },
       siblings_array: []
     }
   },
   methods: {
     addSibling() {
-      this.siblings_array.push(Object.assign({}, this.siblings_value));
-      this.sibling_number++;
+      createSibling(this.$route.params.id).then(({data}) => {
+        this.siblings_array.push(Object.assign({}, this.siblings_value));
+        this.siblings_array[this.siblings_array.length - 1].sibling_id = data.data;
+        this.sibling_number++;
+      })
     },
     dltSibling() {
       if (this.sibling_number != 0) {
-        this.siblings_array.pop();
-        this.sibling_number--;
+        deleteSibling(this.siblings_array[this.siblings_array.length - 1].sibling_id).then(({data}) => {
+          this.siblings_array.pop();
+          this.sibling_number--;
+        })
       }
+      // console.log(this.siblings_array);
+      // this.siblings_array[0].cn_name = '';
+      // console.log(this.siblings_array);
     },
     isSelected(index) {
       return this.formIndex == index ? "active" : "";

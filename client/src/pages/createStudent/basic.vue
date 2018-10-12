@@ -24,10 +24,10 @@
         <label class="form-label" for="number">学号</label>
         <input 
           class="form-input" 
-          type="text" 
+          type="number" 
           id="number" 
           placeholder="学号"
-          v-model="value.number">
+          v-model.number="value.number">
       </div>
       <div class="form-group">
         <label class="form-label" for="class">班级</label>
@@ -58,7 +58,7 @@
         type="text" 
         id="ic-number" 
         placeholder="身份证号码"
-        v-model="value.ic_num">
+        v-model="value.ic">
       </div>
       <div class="form-group">
         <label class="form-label" for="phonenum">联络号码</label>
@@ -85,7 +85,7 @@
           type="date" 
           id="date-of-birth" 
           placeholder="出生日期"
-          v-model="value.birth">
+          v-model="value.birthdate">
       </div>
       <div class="form-group">
         <label class="form-label" for="attitude">操行</label>
@@ -94,7 +94,7 @@
         type="text" 
         id="attitude" 
         placeholder="操行"
-        v-model="value.attitude">
+        v-model.number="value.attitude">
       </div>
       <div class="form-group">
         <label class="form-label" for="average-score">全年总平均</label>
@@ -103,7 +103,7 @@
         type="text" 
         id="average-score" 
         placeholder="全年总平均"
-        v-model="value.score">
+        v-model.number="value.score">
       </div>
       <div class="form-group">
         <label class="form-label" for="address">住址</label>
@@ -120,12 +120,17 @@
 </template>
 
 <script>
+import { getStudent } from '@/api/student'
 export default {
   props: {
     getData: Object
   },
-  beforeMount() {
-    this.value = this.getData;
+  mounted() {
+    getStudent(this.$route.params.id).then(({data}) => {
+      if (Object.keys(data.data).length != 0) {
+        this.value = Object.assign({}, data.data)
+      }
+    })
   },
   data() {
     return {
@@ -135,10 +140,10 @@ export default {
         number: null,
         classroom: '',
         gender: null,
-        ic_num: '',
+        ic: '',
         contact: null,
         ancestor: '',
-        birth: null,
+        birthdate: null,
         attitude: null,
         score: null,
         address: ''

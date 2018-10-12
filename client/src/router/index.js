@@ -27,7 +27,7 @@ const router = new Router({
       component: () => import('@/pages/student'),
     },
     {
-      path: '/addStudent/',
+      path: '/addStudent/:id/',
       component: () => import('@/pages/addStudent'),
       children:[
         {
@@ -62,9 +62,9 @@ const router = new Router({
       ]
     },
     {
-      path: '/aid',
-      name: 'aid',
-      component: () => import('@/pages/aid')
+      path: '/financial_aid',
+      name: 'financial_aid',
+      component: () => import('@/pages/financial_aid')
     },
     {
       path: '/list',
@@ -75,6 +75,11 @@ const router = new Router({
       path: '/users',
       name: 'users',
       component: () => import('@/pages/users')
+    },
+    {
+      path: '/validate/:id',
+      name: 'validate',
+      component: () => import('@/pages/validation')
     }
   ]
 })
@@ -88,6 +93,11 @@ router.beforeEach((to, from, next) => {
   if(!getToken() && to.path != '/login'){
     return next({
       path: '/login'
+    })
+  }
+  if (from.name == "student" && to.name == "basic"){
+    return next({
+      
     })
   }
   return next()

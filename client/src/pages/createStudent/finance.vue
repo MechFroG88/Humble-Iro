@@ -6,7 +6,7 @@
         <div class="form-group">
           <div class="col-12 aid-title mb-2">
             <label class="form-label" for="other_aid">收入来源</label>
-            <div class="control-buttons mr-2">
+            <div class="control-buttons">
               <div class="btn btn-sm btn-primary ml-2" @click="addIncome">
                 <i class="icon icon-plus"></i>
               </div>
@@ -18,7 +18,7 @@
           <div class="aid-inputs col-12" v-for="(i, index) in income.length" :key="i">
             <div class="col-7 col-sm-12 aid-name">
               <input 
-              class="form-input input-sm ml-2 mr-2" 
+              class="form-input input-sm mr-2" 
               type="text" 
               placeholder="请输入收入来源..."
               v-model="income[index].member">
@@ -41,7 +41,7 @@
         <div class="form-group">
           <div class="col-12 fee-title mb-2">
             <label class="form-label" for="school">开销来源</label>
-            <div class="control-buttons mr-2">
+            <div class="control-buttons">
               <div class="btn btn-sm btn-primary ml-2" @click="addExpend">
                 <i class="icon icon-plus"></i>
               </div>
@@ -53,7 +53,7 @@
           <div class="fee-inputs col-12" v-for="(f, index) in expenditure.length" :key="f">
             <div class="col-7 col-sm-12 fee-name">
               <input 
-              class="form-input input-sm ml-2 mr-2" 
+              class="form-input input-sm mr-2" 
               type="text" 
               placeholder="请输入开销来源..."
               v-model="expenditure[index].object">
@@ -139,31 +139,43 @@
       <form class="house">
         <div class="house-title">其他</div>
         <div class="form-group house-detail">
-          <label class="form-label col-12">房屋种类</label>
-          <select class="form-select house_state" v-model.number="house.house_state">
-            <option :value="0">租赁</option>
-            <option :value="1">已供完</option>
-            <option :value="2">正供着</option>
-          </select>
-          <select class="form-select house_type" v-model="house.house_type">
-            <option value="独立式">独立式</option>
-            <option value="双层排屋">双层排屋</option>
-            <option value="单层排屋">单层排屋</option>
-            <option value="高级公寓">高级公寓</option>
-            <option value="公管公寓">公管公寓</option>
-            <option value="普通公寓">普通公寓</option>
-            <option value="组屋">组屋</option>
-            <option value="板屋">板屋</option>
-            <option value="其他">其他</option>
-          </select>
-          <input 
-          class="form-input mt-2" 
-          type="text" 
-          id="other_house_type" 
-          placeholder="其他房屋种类"
-          v-model="house.other_house_type"
-          v-if="house.house_type == '其他'"
-          v-once>
+          <div class="home-title col-12 mb-2">
+            <label class="form-label">房屋种类</label>
+            <div class="control-buttons">
+              <div class="btn btn-sm btn-primary ml-2" @click="addHouse">
+                <i class="icon icon-plus"></i>
+              </div>
+              <div class="btn btn-sm btn-primary ml-2" @click="deleteHouse">
+                <i class="icon icon-minus"></i>
+              </div>
+            </div> 
+          </div>
+          <div class="col-12 form-selects" v-for="(h, index) in houseNum" :key="h">
+            <select class="form-select house_state" v-model.number="house[index].house_state">
+              <option :value="0">租赁</option>
+              <option :value="1">已供完</option>
+              <option :value="2">正供着</option>
+            </select>
+            <select class="form-select house_type" @change="checkOther(index)" v-model="house[index].house_type">
+              <option value="独立式">独立式</option>
+              <option value="双层排屋">双层排屋</option>
+              <option value="单层排屋">单层排屋</option>
+              <option value="高级公寓">高级公寓</option>
+              <option value="公管公寓">公管公寓</option>
+              <option value="普通公寓">普通公寓</option>
+              <option value="组屋">组屋</option>
+              <option value="板屋">板屋</option>
+              <option value="其他">其他</option>
+            </select>
+            <input 
+            class="form-input mt-2" 
+            type="text" 
+            id="other_house_type" 
+            placeholder="其他房屋种类"
+            v-model="otherHouse[index]"
+            v-if="house.house_type == '其他'"
+            v-once>
+          </div>
         </div>
         <div class="form-group aircond">
           <label class="form-label" for="aircond">冷气机数量</label>
@@ -224,17 +236,11 @@ import {
 } from "@/api/student";
 export default {
   props: {
-    getIncome: Array,
-    getExpenditure: Array,
-    getFinance: Object,
     getHouse: Object,
     getAircond: Object,
     getTransport: Array
   },
   beforeMount() {
-    // this.income = this.getIncome; 
-    // this.expenditure = this.getExpenditure; 
-    // this.finance = this.getFinance;
     // this.house = this.getHouse;
     // this.aircond = this.getAircond;
     // this.transportArr = this.getTransport;
@@ -262,6 +268,8 @@ export default {
         this.finance.balance = this.income_total - this.expenditure_total;
       }
     })
+    this.house.push(this.houseObject);
+    this.otherHouse.push('');
   },
   data() {
     return {
@@ -272,11 +280,7 @@ export default {
         remarks: '',
         balance: 0,
       },
-      house: {
-        house_state: null,
-        house_type: '',
-        other_house_type: ''
-      },
+      house: [],
       aircond: {
         amount: null
       },
@@ -284,6 +288,7 @@ export default {
 
       income_total: 0,
       expenditure_total: 0,
+      houseNum: 1,
 
       // object structures
       incomeObject: {
@@ -296,6 +301,12 @@ export default {
         object: '',
         expenditure: null,
       },
+      houseObject: {
+        house_state: null,
+        house_type: '',
+        house_id: null
+      },
+      otherHouse: [],
       transport: {
         type: 1,
         model: '',
@@ -331,6 +342,16 @@ export default {
           this.updateExpenditureTotal();
         })
       }
+    },
+    addHouse() {
+      this.houseNum++;
+      this.house.push(this.houseObject);
+      this.otherHouse.push('');
+    },
+    deleteHouse() {
+      this.houseNum--;
+      this.house.pop(),
+      this.otherHouse.pop();
     },
     addTransport() {
       this.transportArr.push(Object.assign({}, this.transport));

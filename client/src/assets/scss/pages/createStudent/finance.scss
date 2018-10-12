@@ -77,9 +77,23 @@
       .house-detail {
         display: flex;
         flex-wrap: wrap;
-        
+        .home-title {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+        .form-selects {
+          display: flex;
+          justify-content: space-between;
+        }
+
         .form-select {
           width: calc(50% - .15rem);
+          margin-bottom: .2rem;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
         }
         .house_state {
           margin-right: .3rem;

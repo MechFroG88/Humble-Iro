@@ -9,28 +9,13 @@
       </el-steps>
 
       <!-- form stuffs -->
-      <basic 
-      v-if="$route.name === 'basic'" 
-      ref="basic" 
-      :getData="output.basic"></basic>
+      <basic v-if="$route.name === 'basic'" ref="basic"></basic>
 
-      <parent 
-      v-if="$route.name === 'parent'" 
-      ref="parent" 
-      :getData="output.parent"></parent>
+      <parent v-if="$route.name === 'parent'" ref="parent"></parent>
 
-      <family 
-      v-if="$route.name === 'family'" 
-      ref="family" 
-      :getFamilyData="output.family" 
-      :getSiblingsData="output.siblings"></family>
+      <family v-if="$route.name === 'family'" ref="family"></family>
       
-      <finance 
-      v-if="$route.name === 'finance'" 
-      ref="finance"
-      :getIncome="output.finance_income"
-      :getExpenditure="output.finance_expenditure"
-      :getFinance="output.finance"
+      <finance v-if="$route.name === 'finance'" ref="finance"
       :getHouse="output.house"
       :getAircond="output.aircond"
       :getTransport="output.transport"></finance>

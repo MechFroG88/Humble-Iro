@@ -107,11 +107,8 @@
 </template>
 
 <script>
-import { getParent, getParentBasic, createParent, editParent, deleteParent } from '@/api/student'
+import { getParent, getParentBasic, createParent, deleteParent } from '@/api/student'
 export default {
-  props: {
-    getData: Array
-  },
   beforeMount() {
     getParentBasic(this.$route.params.id).then(({data}) => {
       if (data.data.length == 0) {

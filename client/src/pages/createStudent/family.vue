@@ -203,10 +203,6 @@ import
 { getFamily, createSibling, getSibling, getSiblingBasic, deleteSibling } 
 from '@/api/student'
 export default {
-  props: {
-    getFamilyData: Object,
-    getSiblingsData: Array
-  },
   beforeMount() {
     getFamily(this.$route.params.id).then(({data}) => {
       for (let i = 0; i < Object.keys(data.data).length; i++) {

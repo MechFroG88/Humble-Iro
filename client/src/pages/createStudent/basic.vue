@@ -122,9 +122,6 @@
 <script>
 import { getStudent } from '@/api/student'
 export default {
-  props: {
-    getData: Object
-  },
   mounted() {
     getStudent(this.$route.params.id).then(({data}) => {
       if (Object.keys(data.data).length != 0) {

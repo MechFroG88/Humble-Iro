@@ -37,13 +37,13 @@ class Transport_cms extends HI_Model{
                                          ->get(T_TRANSPORT_CMS)
                                          ->result_array();
             
-            $transport = [];
+            $transport = new stdClass;
             foreach ($transport_detail as $single_transport_detail){
                 $title = $single_transport_detail['title'];
                 $value = $single_transport_detail['value'];
-                $transport[$title] = $value;
+                $transport->$title = $value;
             }
-            $transport['transport_id'] = $transport_id;
+            $transport->transport_id = $transport_id;
             array_push($transports, $transport);
         }
 

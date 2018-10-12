@@ -35,13 +35,14 @@ class Finance_income_cms extends HI_Model{
                                                    ->get(T_FINANCE_INCOME_CMS)
                                                    ->result_array();
 
-            $finance_income = [];
+            $finance_income = new stdClass;
             foreach ($finance_income_detail as $single_finance_income_detail){
                 $member = $single_finance_income_detail['member'];
                 $income = $single_finance_income_detail['income'];
-                $finance_income[$member] = $income;
+                $finance_income->member = $member;
+                $finance_income->income = $income;
             }
-            $finance_income['finance_income_id'] = $finance_income_id;
+            $finance_income->finance_income_id = $finance_income_id;
             array_push($finance_incomes, $finance_income);
         }
 

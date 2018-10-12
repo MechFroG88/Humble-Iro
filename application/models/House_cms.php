@@ -35,13 +35,13 @@ class House_cms extends HI_Model{
                                      ->get(T_HOUSE_CMS)
                                      ->result_array();
             
-            $house = [];
+            $house = new stdClass;
             foreach ($house_detail as $single_house_detail){
                 $title = $single_house_detail['title'];
                 $value = $single_house_detail['value'];
-                $house[$title] = $value;
+                $house->$title = $value;
             }
-            $house['house_id'] = $house_id;
+            $house->house_id = $house_id;
             array_push($houses, $house);
         }
 

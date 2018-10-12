@@ -35,13 +35,14 @@ class Finance_expenditure_cms extends HI_Model{
                                                    ->get(T_FINANCE_EXPENDITURE_CMS)
                                                    ->result_array();
 
-            $finance_expenditure = [];
+            $finance_expenditure = new stdClass;
             foreach ($finance_expenditure_detail as $single_finance_expenditure_detail){
                 $object = $single_finance_expenditure_detail['object'];
                 $expenditure = $single_finance_expenditure_detail['expenditure'];
-                $finance_expenditure[$object] = $expenditure;
+                $finance_expenditure->object = $object; 
+                $finance_expenditure->expenditure = $expenditure;
             }
-            $finance_expenditure['finance_expenditure_id'] = $finance_expenditure_id;
+            $finance_expenditure->finance_expenditure_id = $finance_expenditure_id;
             array_push($finance_expenditures, $finance_expenditure);
         }
 

@@ -112,7 +112,7 @@ export default {
   props: {
     getData: Array
   },
-  mounted() {
+  beforeMount() {
     getParentBasic(this.$route.params.id).then(({data}) => {
       if (data.data.length == 0) {
         createParent(this.$route.params.id).then(({data}) => {
@@ -120,6 +120,8 @@ export default {
             this.output_value.push(Object.assign({}, this.value));
             this.output_value[0].parent_id = data.data;
           }
+        }).then(() => {
+          this.quantity = this.output_value.length;
         })
       } else {
         getParent(this.$route.params.id).then(({data}) => {
@@ -130,8 +132,6 @@ export default {
         }).then(() => {
           this.quantity = this.output_value.length;
         })
-        // this.output_value = data.data;
-        // this.quantity = data.data.length;
       }
     })
   },
@@ -165,7 +165,7 @@ export default {
       })
     },
     dltParent() {
-      if (this.quantity != 1) {
+      if (this.quantity != 0) {
         deleteParent(this.output_value[this.output_value.length - 1].parent_id).then(() => {
           this.output_value.pop();
           this.quantity--;

@@ -1,6 +1,6 @@
 # Get student family detail
 
-`GET` /family/:sid
+`GET` /finance/:sid
 
 ## Success response
 

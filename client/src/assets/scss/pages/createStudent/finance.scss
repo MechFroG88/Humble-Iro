@@ -1,8 +1,9 @@
 #_finance {
   margin: .5rem 2rem;
   .divider {
-    margin: 0;
-    border-top: 0.05rem solid $font-color;
+    margin: 1.2rem .8rem;
+    border-top: 0.05rem solid lighten($gray-color-dark, 25%);
+    // padding: 0 .8rem;
   }
   .form-group {
     padding: .8rem;
@@ -11,7 +12,6 @@
     .income {
       .income-title {
         font-size: 1.2rem;
-        margin-bottom: 1rem;
       }
       .aid-title {
         display: flex;
@@ -29,20 +29,12 @@
           align-items: center;
         }
       }
-    } 
-    .divider-vert::before {
-      border-left: 0.05rem solid $font-color;
     }
     .expenditure {
       .expenditure-title {
         font-size: 1.2rem;
-        margin-bottom: 1rem;
-      }
-      .form-group {
-        width: 100%;
       }
 
-      // school fee
       .fee-title {
         display: flex;
         align-items: center;
@@ -59,44 +51,13 @@
           align-items: center;
         }
       }
-      // talent fee
-      .talent-title {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-      .talent-inputs {
-        display: flex;
-        margin-bottom: .2rem;
-        &:last-child {
-          margin-bottom: 0;
-        }
-        .talent-name {
-          display: flex;
-          align-items: center;
-        }
-      }
-
-      // other fee
-      .other-title {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-      .other-inputs {
-        display: flex;
-        margin-bottom: .2rem;
-        &:last-child {
-          margin-bottom: 0;
-        }
-        .other-name {
-          display: flex;
-          align-items: center;
-        }
-      }
     }
 
     .details {
+      padding: .4rem 0;
+      .detail-title {
+        font-size: 1.2rem;
+      }
       .form-group {
         cursor: pointer;
         .input-group {

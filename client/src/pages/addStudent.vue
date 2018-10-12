@@ -74,7 +74,12 @@ import finance from '@/pages/createStudent/finance'
 //finish pages
 import finish from '@/pages/createStudent/finish'
 //API
-import { editStudentBasic, editParent, editFamily, editSibling } from '@/api/student'
+import { 
+  editStudentBasic, 
+  editParent, 
+  editFamily, editSibling,
+  editIncome, editExpenditure, editFinance, 
+} from '@/api/student'
 export default {
   components: {
     layout,
@@ -98,28 +103,8 @@ export default {
         family : {},
         siblings: [],
         finance: {},
-        finance_income: {
-          dad: null,
-          mom: null,
-          guardian: null,
-          other_member: null,
-          total: 0,
-          other_aid: []
-        },
-        finance_expenditure: {
-          car: null,
-          food: null,
-          house: null,
-          medic: null,
-          astro: null,
-          total: 0,
-          utility: null,
-          telecomm: null,
-          transport: null,
-          school: [],
-          tuition: [],
-          other_spend: []
-        },
+        finance_income: [],
+        finance_expenditure: [],
         aircond: {},
         house: {},
         transport: []
@@ -138,7 +123,6 @@ export default {
   methods: {
     prevStep() {
       const id = this.student_id;
-      this.postData();
       if (this.id == 0) {
         this.id = 0;
       } else {
@@ -146,9 +130,7 @@ export default {
       }
       const params = this.paths[this.id];
       this.$router.push(`/addStudent/${id}/${params}`);
-      this.$nextTick(function () {
-        this.active = this.paths.indexOf(this.$route.name);
-      })
+      this.active = this.paths.indexOf(this.$route.name);
     },
     nextStep() {
       const id = this.student_id;
@@ -180,6 +162,7 @@ export default {
       } else if (this.id == 1) {
         ///POST parent///
         this.output.parent = this.$refs.parent.output_value;
+        // console.log(this.output.parent)
         editParent(this.output.parent, this.student_id).then((data) => {
           this.nextStep();
         })
@@ -187,10 +170,6 @@ export default {
         ///POST family and siblings///
         this.output.family   = this.$refs.family.family_value;
         this.output.siblings = this.$refs.family.siblings_array;
-        // for (let i = 0; i < this.output.siblings.length; i++) {
-        //   if (this.output.siblings[i].)
-        // }
-        console.log(this.output.siblings);
         editFamily(this.output.family, this.student_id).then(({data}) => {
           editSibling(this.output.siblings, this.student_id).then(({data}) => {
             this.nextStep();
@@ -209,22 +188,33 @@ export default {
         this.output.transport           = this.$refs.finance.transportArr;
         this.output.finance_income      = this.$refs.finance.income;
         this.output.finance_expenditure = this.$refs.finance.expenditure;
+        console.log({ 
+          house: this.output.house,
+          finance: this.output.finance,
+          aircond: this.output.aircond,
+          transport: this.output.transport,
+          finance_income: this.output.finance_income,
+          finance_expenditure : this.output.finance_expenditure
+        });
+        editIncome(this.output.finance_income, this.student_id).then(() => {
+          editExpenditure(this.output.finance_expenditure, this.student_id).then(() => {
+            editFinance(this.output.finance, this.student_id).then(() => {
+              
+            })
+          })
+        })
       }
-
-      // console.log(this);
     },
     finishStep() {
       console.log("finish");
-      console.log(this.output);
+      // console.log(this.output);
       this.$router.push({ path: "/student" });
     },
     backStep() {
-      this.id = 0;
+      this.id = 3;
       const params = this.paths[this.id];
       this.$router.push({ path: `/addStudent/${params}` });
-      this.$nextTick(function () {
-        this.active = this.paths.indexOf(this.$route.name);
-      })
+      this.active = this.paths.indexOf(this.$route.name);
     }
   }
 }

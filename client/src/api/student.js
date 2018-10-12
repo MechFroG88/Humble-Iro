@@ -121,3 +121,76 @@ export function deleteSibling(siid) {
     method: 'POST'
   })
 }
+
+export function getIncome(sid) {
+  return request({
+    url: '/finance_income/' + sid,
+    method: 'GET'
+  })
+}
+
+export function createIncome(sid) {
+  return request({
+    url: '/finance_income/' + sid,
+    method: 'POST'
+  })
+}
+
+export function editIncome(data, sid) {
+  return request({
+    url: '/finance_income/edit/' + sid,
+    method: 'POST',
+    data
+  })
+}
+
+export function deleteIncome(fid) {
+  return request({
+    url: '/finance_income/delete/' + fid,
+    method: 'POST'
+  })
+}
+
+export function getExpenditure(sid) {
+  return request({
+    url: '/finance_expenditure/' + sid,
+    method: 'GET'
+  })
+}
+
+export function createExpenditure(sid) {
+  return request({
+    url: '/finance_expenditure/' + sid,
+    method: 'POST'
+  })
+}
+
+export function editExpenditure(data, sid) {
+  return request({
+    url: '/finance_expenditure/edit/' + sid,
+    method: 'POST',
+    data
+  })
+}
+
+export function deleteExpenditure(fid) {
+  return request({
+    url: '/finance_expenditure/delete/' + fid,
+    method: 'POST'    
+  })
+}
+
+export function getFinance(sid) {
+  return request({
+    url: '/finance/' + sid,
+    method: 'GET'
+  })
+}
+
+export function editFinance(data, sid) {
+  return request({
+    url: '/finance/edit/' + sid,
+    method: 'POST',
+    data
+  })
+}

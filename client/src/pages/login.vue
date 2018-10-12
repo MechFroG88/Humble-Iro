@@ -19,7 +19,7 @@
           <i slot="prefix" class="el-input__icon icon icon-lock"></i>
         </el-input>
       </el-form-item>
-      <el-button style="width: 100%;margin-bottom:1rem;" type="primary" @click="login">登入</el-button>
+      <el-button name="login-button" style="width: 100%;margin:0.5rem 0 1.5rem 0;font-size:1rem" type="primary" @click="login">登入</el-button>
     </el-form>
   </div>
 </template>

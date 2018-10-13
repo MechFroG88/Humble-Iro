@@ -134,7 +134,6 @@ export default {
       });
     },
     postData() {
-      console.log("post");
       /////POST input data/////
       if (this.id == 0) {
         ///POST basic///
@@ -153,10 +152,9 @@ export default {
         ///POST family and siblings///
         this.output.family   = this.$refs.family.family_value;
         this.output.siblings = this.$refs.family.siblings_array;
-        console.log(this.output.siblings)
         editFamily(this.output.family, this.student_id).then(({data}) => {
           editSibling(this.output.siblings, this.student_id).then(({data}) => {
-            // this.nextStep();
+            this.nextStep();
           })
         })
         // axios.all([editFamily(this.output.family, this.student_id), editSibling(this.output.siblings, this.student_id)])
@@ -172,10 +170,6 @@ export default {
         this.output.transport           = this.$refs.finance.transportArr;
         this.output.finance_income      = this.$refs.finance.income;
         this.output.finance_expenditure = this.$refs.finance.expenditure;
-        console.log({ 
-          siblings: this.output.siblings,
-          transport: this.output.transport,
-        });
         editIncome(this.output.finance_income, this.student_id).then(() => {
           editExpenditure(this.output.finance_expenditure, this.student_id).then(() => {
             editFinance(this.output.finance, this.student_id).then(() => {

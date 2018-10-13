@@ -270,7 +270,6 @@ export default {
       }
     })
     getTransport(this.$route.params.id).then(({data}) => {
-      console.log(data)
       if (data.data.length != 0) {
         this.transportArr = data.data;
       }

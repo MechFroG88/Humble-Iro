@@ -7,8 +7,10 @@
         <input 
           class="form-input" 
           type="text" 
+          name="cn_name"
           id="cn_name" 
           placeholder="中文姓名"
+          v-validate="'required'"
           v-model="value.cn_name">
       </div>
       <div class="form-group">
@@ -17,7 +19,12 @@
           class="form-input" 
           type="text" 
           id="en_name" 
+          name="en_name"
           placeholder="英文姓名"
+          v-validate="{
+            required: true,
+            regex: /^[a-zA-Z ]+$/i
+          }"
           v-model="value.en_name">
       </div>
       <div class="form-group">
@@ -26,6 +33,8 @@
           class="form-input" 
           type="number" 
           id="number" 
+          name="number"
+          v-validate="'required|length:6|integer'"
           placeholder="学号"
           v-model.number="value.number">
       </div>
@@ -35,6 +44,8 @@
           class="form-input" 
           type="text" 
           id="class" 
+          name="class"
+          v-validate="'required'"
           placeholder="班级"
           v-model="value.classroom">
       </div>
@@ -56,7 +67,12 @@
         <input 
         class="form-input" 
         type="text" 
+        name="ic-number"
         id="ic-number" 
+        v-validate="{
+          required: true,
+          regex: /^\d{6}-\d{2}-\d{4}$/
+        }"
         placeholder="身份证号码"
         v-model="value.ic">
       </div>
@@ -65,6 +81,11 @@
         <input 
           class="form-input" 
           type="text" 
+          name="phonenum"
+          v-validate="{
+            required: true,
+            regex: /^(\+?6?01)[0-46-9]-*[0-9]{7,8}$/
+          }"
           id="phonenum" 
           placeholder="联络号码"
           v-model="value.contact">
@@ -75,6 +96,8 @@
           class="form-input" 
           type="text" 
           id="ancestral" 
+          name="ancestral"
+          v-validate="'required'"
           placeholder="祖籍"
           v-model="value.ancestor">
       </div>
@@ -84,6 +107,10 @@
           class="form-input" 
           type="date" 
           id="date-of-birth" 
+          name="date-of-birth"
+          v-validate="{
+            required: true,
+          }"
           placeholder="出生日期"
           v-model="value.birthdate">
       </div>
@@ -93,6 +120,8 @@
         class="form-input" 
         type="text" 
         id="attitude" 
+        name="attitude"
+        v-validate="'required|decimal:2'"
         placeholder="操行"
         v-model.number="value.attitude">
       </div>
@@ -102,6 +131,7 @@
         class="form-input" 
         type="text" 
         id="average-score" 
+        v-validate="'required|decimal:2'"
         placeholder="全年总平均"
         v-model.number="value.score">
       </div>
@@ -111,6 +141,7 @@
         class="form-input" 
         type="text" 
         id="address" 
+        v-validate="'required'"
         rows="3"
         placeholder="住址"
         v-model="value.address"></textarea>
@@ -149,8 +180,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>
-

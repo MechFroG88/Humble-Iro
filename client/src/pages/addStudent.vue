@@ -16,8 +16,6 @@
       <family v-if="$route.name === 'family'" ref="family"></family>
       
       <finance v-if="$route.name === 'finance'" ref="finance"
-      :getHouse="output.house"
-      :getAircond="output.aircond"
       :getTransport="output.transport"></finance>
 
       <finish 
@@ -63,7 +61,7 @@ import {
   editStudentBasic, 
   editParent, 
   editFamily, editSibling,
-  editIncome, editExpenditure, editFinance, 
+  editIncome, editExpenditure, editFinance, editHouse, editAircond, editTransport
 } from '@/api/student'
 export default {
   components: {
@@ -91,7 +89,7 @@ export default {
         finance_income: [],
         finance_expenditure: [],
         aircond: {},
-        house: {},
+        house: [],
         transport: []
       }
     }
@@ -155,9 +153,10 @@ export default {
         ///POST family and siblings///
         this.output.family   = this.$refs.family.family_value;
         this.output.siblings = this.$refs.family.siblings_array;
+        console.log(this.output.siblings)
         editFamily(this.output.family, this.student_id).then(({data}) => {
           editSibling(this.output.siblings, this.student_id).then(({data}) => {
-            this.nextStep();
+            // this.nextStep();
           })
         })
         // axios.all([editFamily(this.output.family, this.student_id), editSibling(this.output.siblings, this.student_id)])
@@ -174,17 +173,19 @@ export default {
         this.output.finance_income      = this.$refs.finance.income;
         this.output.finance_expenditure = this.$refs.finance.expenditure;
         console.log({ 
-          house: this.output.house,
-          finance: this.output.finance,
-          aircond: this.output.aircond,
+          siblings: this.output.siblings,
           transport: this.output.transport,
-          finance_income: this.output.finance_income,
-          finance_expenditure : this.output.finance_expenditure
         });
         editIncome(this.output.finance_income, this.student_id).then(() => {
           editExpenditure(this.output.finance_expenditure, this.student_id).then(() => {
             editFinance(this.output.finance, this.student_id).then(() => {
-              
+              editHouse(this.output.house, this.student_id).then(() => {
+                editAircond(this.output.aircond, this.student_id).then(() => {
+                  editTransport(this.output.transport, this.student_id).then(() => {
+
+                  })
+                })
+              })
             })
           })
         })

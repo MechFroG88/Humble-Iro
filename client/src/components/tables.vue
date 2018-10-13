@@ -20,7 +20,7 @@
           <el-button
           size="mini"
           v-if="check == true"
-          @click="openCheck">查看</el-button>
+          @click="openCheck(scope.$index)">查看</el-button>
 
           <el-button
           class="mr-2"
@@ -90,11 +90,6 @@ export default {
       this.resetData();
       // console.log(this.modalArr);
     }
-    if (this.check == true) {
-      getStudentBasic().then(({data}) => {
-        this.studentId = data.data.student_id;
-      })
-    }
   },
   data() {
     return{
@@ -109,7 +104,6 @@ export default {
       modalArr: [],
       editIndex: null,
       deleteIndex: null,
-      studentId: null,
     }
   },
   methods: {
@@ -122,8 +116,12 @@ export default {
         });
       }
     },
-    openCheck() {
-      this.$router.push('/check/' + this.studentId);
+    openCheck(index) {
+      getStudentBasic().then(({data}) => {
+        const params = data.data[index].student_id;
+        this.$router.push(`/validate/${params}`);
+      })
+      // this.$router.push('/check/' + this.studentId);
     },
     openEdit(index) {
       if (this.modal == true) {
@@ -131,7 +129,10 @@ export default {
         this.getModalData(this.editIndex);
         this.$refs.edit.active = true;
       } else {
-        this.$router.push({ path: 'addStudent'});
+        getStudentBasic().then(({data}) => {
+          const params = data.data[index].student_id;
+          this.$router.push(`/addStudent/${params}`);
+        })
       }
     },
     getModalData(index) {

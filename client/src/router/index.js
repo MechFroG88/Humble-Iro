@@ -95,11 +95,6 @@ router.beforeEach((to, from, next) => {
       path: '/login'
     })
   }
-  if (from.name == "student" && to.name == "basic"){
-    return next({
-      
-    })
-  }
   return next()
 })
 

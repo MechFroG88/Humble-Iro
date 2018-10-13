@@ -140,7 +140,7 @@
         <div class="house-title">其他</div>
         <div class="form-group house-detail">
           <div class="home-title col-12 mb-2">
-            <label class="form-label">房屋种类</label>
+            <label class="form-label">房屋</label>
             <div class="control-buttons">
               <div class="btn btn-sm btn-primary ml-2" @click="addHouse">
                 <i class="icon icon-plus"></i>
@@ -150,31 +150,21 @@
               </div>
             </div> 
           </div>
-          <div class="col-12 form-selects" v-for="(h, index) in houseNum" :key="h">
-            <select class="form-select house_state" v-model.number="house[index].house_state">
-              <option :value="0">租赁</option>
-              <option :value="1">已供完</option>
-              <option :value="2">正供着</option>
-            </select>
-            <select class="form-select house_type" @change="checkOther(index)" v-model="house[index].house_type">
-              <option value="独立式">独立式</option>
-              <option value="双层排屋">双层排屋</option>
-              <option value="单层排屋">单层排屋</option>
-              <option value="高级公寓">高级公寓</option>
-              <option value="公管公寓">公管公寓</option>
-              <option value="普通公寓">普通公寓</option>
-              <option value="组屋">组屋</option>
-              <option value="板屋">板屋</option>
-              <option value="其他">其他</option>
-            </select>
-            <input 
-            class="form-input mt-2" 
-            type="text" 
-            id="other_house_type" 
-            placeholder="其他房屋种类"
-            v-model="otherHouse[index]"
-            v-if="house.house_type == '其他'"
-            v-once>
+          <div class="house-form col-12" v-for="(h, index) in houseNum" :key="h">
+            <div class="col-12 form-selects" v-once>
+              <select class="form-select house_state col-5" v-model.number="house[index].house_state">
+                <option value="" disabled>房子状态</option>
+                <option :value="0">租赁</option>
+                <option :value="1">已供完</option>
+                <option :value="2">正供着</option>
+              </select>
+              <input 
+              class="form-input house_type col-7" 
+              type="text" 
+              id="other_house_type" 
+              placeholder="房屋种类"
+              v-model="house[index].house_type">
+            </div>
           </div>
         </div>
         <div class="form-group aircond">
@@ -198,13 +188,13 @@
               <div 
               class="transport-buttons col-1"
               :class="isTransport(index, 1)"
-              @click="transportArr[index].type = 1">
+              @click="transportArr[index].transport_type = 1">
                 <i class="fas fa-car mr-2"></i>
               </div>
               <div 
               class="transport-buttons col-1"
               :class="isTransport(index, 0)"
-              @click="transportArr[index].type = 0">
+              @click="transportArr[index].transport_type = 0">
                 <i class="fas fa-motorcycle"></i>
               </div>
               <input 
@@ -233,30 +223,29 @@ import {
   getIncome, createIncome, deleteIncome,
   getExpenditure, createExpenditure, deleteExpenditure,
   getFinance,
+  getHouse, createHouse, deleteHouse,
+  getAircond,
+  getTransport, createTransport, deleteTransport
 } from "@/api/student";
 export default {
   props: {
-    getHouse: Object,
-    getAircond: Object,
     getTransport: Array
   },
   beforeMount() {
-    // this.house = this.getHouse;
-    // this.aircond = this.getAircond;
     // this.transportArr = this.getTransport;
   
     getIncome(this.$route.params.id).then(({data}) => {
       if (data.data.length != 0) {
+        this.income = data.data;
         for (let i = 0; i < data.data.length; i++) {
-          this.income.push(Object.assign({}, data.data[i]));
           this.income_total += parseFloat(this.income[i].income);
         }
       }
     })
     getExpenditure(this.$route.params.id).then(({data}) => {
       if (data.data.length != 0) {
+        this.expenditure = data.data
         for (let i = 0; i < data.data.length; i++) {
-          this.expenditure.push(Object.assign({}, data.data[i]));
           this.expenditure_total += parseFloat(this.expenditure[i].expenditure);
         }
       }
@@ -268,8 +257,24 @@ export default {
         this.finance.balance = this.income_total - this.expenditure_total;
       }
     })
-    this.house.push(this.houseObject);
-    this.otherHouse.push('');
+    getHouse(this.$route.params.id).then(({data}) => {
+      if (data.data.length != 0) {
+        this.house = data.data;
+      }
+    }).then(() => {
+      this.houseNum = this.house.length;
+    })
+    getAircond(this.$route.params.id).then(({data}) => {
+      if (data.data.length != 0) {
+        this.aircond.amount = data.data[0].amount;
+      }
+    })
+    getTransport(this.$route.params.id).then(({data}) => {
+      console.log(data)
+      if (data.data.length != 0) {
+        this.transportArr = data.data;
+      }
+    })
   },
   data() {
     return {
@@ -288,7 +293,7 @@ export default {
 
       income_total: 0,
       expenditure_total: 0,
-      houseNum: 1,
+      houseNum: 0,
 
       // object structures
       incomeObject: {
@@ -306,9 +311,9 @@ export default {
         house_type: '',
         house_id: null
       },
-      otherHouse: [],
       transport: {
-        type: 1,
+        transport_id: null,
+        transport_type: 0,
         model: '',
         year : null
       },
@@ -323,9 +328,9 @@ export default {
     },
     dltIncome() {
       if (this.income.length != 0) {
-        deleteIncome(this.income[this.income.length - 1].finance_income_id).then(({data}) => {
+        deleteIncome(this.income[this.income.length - 1].finance_income_id).then(() => {
           this.income.pop();
-          this.updateIncomeTotal();
+          this.updateTotal();
         })
       }
     },
@@ -337,46 +342,55 @@ export default {
     },
     dltExpend() {
       if (this.expenditure.length != 0) {
-        deleteExpenditure(this.expenditure[this.expenditure.length - 1].finance_expenditure_id).then(({data}) => {
+        deleteExpenditure(this.expenditure[this.expenditure.length - 1].finance_expenditure_id).then(() => {
           this.expenditure.pop();
-          this.updateExpenditureTotal();
+          this.updateTotal();
         })
       }
     },
     addHouse() {
-      this.houseNum++;
-      this.house.push(this.houseObject);
-      this.otherHouse.push('');
+      createHouse(this.$route.params.id).then(({data}) => {
+        this.houseNum++;
+        this.house.push(this.houseObject);
+        this.house[this.house.length - 1].house_id = data.data;
+      })
     },
     deleteHouse() {
-      this.houseNum--;
-      this.house.pop(),
-      this.otherHouse.pop();
+      if (this.houseNum != 0) {
+        deleteHouse(this.house[this.house.length - 1].house_id).then(() => {
+          this.houseNum--;
+          this.house.pop();
+        })
+      }
     },
     addTransport() {
-      this.transportArr.push(Object.assign({}, this.transport));
+      createTransport(this.$route.params.id).then(({data}) => {
+        this.transportArr.push(Object.assign({}, this.transport));
+        this.transportArr[this.transportArr.length - 1].transport_id = data.data;
+      })
     },
     dltTransport() {
       if (this.transportArr.length != 0) {
-        this.transportArr.pop();
+        deleteTransport(this.transportArr[this.transportArr.length - 1].transport_id).then(() => {
+          this.transportArr.pop();
+        })
       }
     },
     isTransport(index, type) {
-      return this.transportArr[index].type == type ? 'active' : '';
+      return this.transportArr[index].transport_type == type ? 'active' : '';
     },
     updateTotal() {
       this.income_total = 0;
       for (let i = 0; i < this.income.length; i++) {
         if (this.income[i].income != null) {
-          this.income_total += this.income[i].income;
+          this.income_total += parseFloat(this.income[i].income);
         }
       }
-      this.finance.balance = this.income_total - this.expenditure_total;
 
       this.expenditure_total = 0;
       for (let i = 0; i < this.expenditure.length; i++) {
         if (this.expenditure[i].expenditure != null) {
-          this.expenditure_total += this.expenditure[i].expenditure;
+          this.expenditure_total += parseFloat(this.expenditure[i].expenditure);
         }
       }
       this.finance.balance = this.income_total - this.expenditure_total;

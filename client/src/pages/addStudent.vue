@@ -15,11 +15,9 @@
 
       <family v-if="$route.name === 'family'" ref="family"></family>
       
-      <finance v-if="$route.name === 'finance'" ref="finance"
-      :getTransport="output.transport"></finance>
+      <finance v-if="$route.name === 'finance'" ref="finance"></finance>
 
-      <finish 
-      v-if="$route.name === 'finish'"></finish>
+      <finish v-if="$route.name === 'finish'"></finish>
       <!-- form stuffs -->
       
       <div class="btn-group" v-if="active != 4">

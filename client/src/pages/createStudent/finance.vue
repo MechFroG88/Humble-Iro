@@ -228,12 +228,7 @@ import {
   getTransport, createTransport, deleteTransport
 } from "@/api/student";
 export default {
-  props: {
-    getTransport: Array
-  },
   beforeMount() {
-    // this.transportArr = this.getTransport;
-  
     getIncome(this.$route.params.id).then(({data}) => {
       if (data.data.length != 0) {
         this.income = data.data;

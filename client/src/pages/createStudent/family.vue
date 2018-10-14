@@ -163,7 +163,8 @@
             type="radio" 
             name="got_aid"
             v-model="siblings_array[formIndex].got_aid" 
-            :value="1">
+            :value="1"
+            @click="siblings_array[formIndex].financial_aid_id = []">
             <i class="form-icon"></i> 是
           </label>
           <label class="form-radio col-10">
@@ -171,7 +172,8 @@
             type="radio" 
             name="got_aid" 
             v-model="siblings_array[formIndex].got_aid" 
-            :value="0">
+            :value="0"
+            @click="siblings_array[formIndex].financial_aid_id = []">
             <i class="form-icon"></i> 否
           </label>
         </div>

@@ -94,7 +94,7 @@
       </div>
 
       <div class="form-group occupation-address">
-        <label class="form-label" for="occupation-address">工作地址</label>
+        <label class="form-label" for="occupation-address">工作地址：</label>
         <textarea 
         class="form-input" 
         id="occupation-address" 

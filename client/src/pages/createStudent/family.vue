@@ -225,6 +225,9 @@ export default {
   beforeMount() {
     getFamily(this.$route.params.id).then(({data}) => {
       this.family_value = data.data;
+    }).then(() => {
+      if (this.family_value.single_parent == 1) { this.showSingle = true; }
+      if (this.family_value.disabled == 1) { this.showDisabled = true; }
     })
     getSibling(this.$route.params.id).then(({data}) => {
       if (data.data.length != 0) {

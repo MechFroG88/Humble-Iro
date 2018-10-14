@@ -183,13 +183,39 @@
               {{siblings[index].got_aid == 0 ? '否' : '是'}}
             </td>
           </tr>
-          <!-- <tr class="age col-12" v-if="siblings[index].got_aid == 1">
+          <tr class="age col-12" v-if="siblings[index].got_aid == 1">
             <td class="col-3">助学金名称：</td>
-            <td class="col-9">{{siblings[index].age}}</td>
-          </tr> -->
+            <td class="col-9">
+              {{aidArr[index].join(' ')}}
+            </td>
+          </tr>
           <tr class="aid_total col-12" v-if="siblings[index].got_aid == 1">
             <td class="col-3">助学金数额 (以年份计算)：</td>
             <td class="col-9">{{siblings[index].aid_total}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>其他资料</h3>
+      <table class="others table">
+        <tbody>
+          <tr class="title col-12">
+            <td class="col-12">
+              <h5>家庭收入</h5>
+            </td>
+          </tr>
+          <tr class="income col-12" v-for="(inc, index) in income" :key="inc.member">
+            <td class="col-3">{{income[index].member}}</td>
+            <td class="col-9">{{income[index].income}}</td>
+          </tr>
+          <tr class="title col-12">
+            <td class="col-12">
+              <h5>家庭开销</h5>
+            </td>
+          </tr>
+          <tr class="expenditure col-12" v-for="(inc, index) in expenditure" :key="inc.member">
+            <td class="col-3">{{expenditure[index].object}}</td>
+            <td class="col-9">{{expenditure[index].expenditure}}</td>
           </tr>
         </tbody>
       </table>
@@ -203,7 +229,8 @@ import { getAidById } from '@/api/financial_aid'
 import { 
   getStudent, 
   getParentBasic, getParent,
-  getFamily, getSibling
+  getFamily, getSibling,
+  getIncome, getExpenditure, getFinance, getHouse, getAircond, getTransport
 } from '@/api/student'
 export default {
   mounted() {
@@ -216,35 +243,43 @@ export default {
       this.parent = data.data;
     })
     getFamily(this.$route.params.id).then(({data}) => {
-      this.family = data.data
+      this.family = data.data;
     })
     getSibling(this.$route.params.id).then(({data}) => {
-      this.siblings = data.data
-      console.log(data.data)
+      this.siblings = data.data;
     }).then(() => {
-      for (let s of this.siblings) {
-        console.log(s.financial_aid_id)
-        if (s.financial_aid_id.length != 0) {
-          for (let i = 0; i < s.financial_aid_id.length; i++) {
-            getAidById(s.financial_aid_id[i]).then(({data}) => {
-              console.log(data.data)
+      for (let i = 0; i < this.siblings.length; i++) {
+        this.aidArr.push([]);
+        if (this.siblings[i].financial_aid_id.length != 0) {
+          for (let j = 0; j < this.siblings[i].financial_aid_id.length; j++) {
+            getAidById(this.siblings[i].financial_aid_id[j]).then(({data}) => {
+              this.aidArr[i].push(data.data.financial_aid_type);
             })
           }
         }
       }
     })
+    getIncome(this.$route.params.id).then(({data}) => {
+      this.income = data.data;
+    })
+    getExpenditure(this.$route.params.id).then(({data}) => {
+      this.expenditure = data.data;
+    })
   },
   data() {
     return {
+      aidArr: [],
       basic: {},
       parent: [],
       family: {},
       siblings: [],
+      income: [],
+      expenditure: [],
     }
   },
   components: {
     layout
-  }
+  },
 }
 </script>
 

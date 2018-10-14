@@ -232,6 +232,7 @@ export default {
       if (this.family_value.disabled == 1) { this.showDisabled = true; }
     })
     getSibling(this.$route.params.id).then(({data}) => {
+      console.log(data.data)
       if (data.data.length != 0) {
         this.siblings_array = data.data;
       }

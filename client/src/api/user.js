@@ -11,6 +11,14 @@ export function loginWithUsername(username, password){
   })
 }
 
+export function changePassword(password){
+  return request({
+    url: '/user/change/password',
+    method: 'POST',
+    data: password
+  })
+}
+
 export function getUser(){
   return request({
     url   : '/user',

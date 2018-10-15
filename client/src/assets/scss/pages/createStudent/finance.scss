@@ -86,7 +86,10 @@
           display: flex;
           justify-content: space-between;
         }
-
+        .other_house {
+          margin-top: 0 !important;
+          margin-bottom: .5rem;
+        }
         .form-select {
           width: calc(50% - .15rem);
           margin-bottom: .2rem;

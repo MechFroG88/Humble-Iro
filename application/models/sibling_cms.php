@@ -9,13 +9,12 @@ class Sibling_cms extends HI_Model{
     }
 
     private $rules = [
-        'sibling_id'    => 'required|integer',
-        'cn_name'       => 'regex_match[/[\x{4e00}-\x{9fa5}]+/u]',
-        'age'           => 'integer',
-        'aid_total'     => 'integer',
-        'got_aid'       => 'integer',
-        'relation'      => 'integer',
-        'financial_aid' => '',
+        'sibling_id'       => 'required|integer',
+        'cn_name'          => 'regex_match[/[\x{4e00}-\x{9fa5}]+/u]',
+        'age'              => 'integer',
+        'aid_total'        => 'integer',
+        'got_aid'          => 'integer',
+        'relation'         => 'integer',
     ];
 
     /**
@@ -39,24 +38,25 @@ class Sibling_cms extends HI_Model{
                                        ->result_array();
             
             $sibling = new stdClass;
-            $financial_aid = [];
+            $financial_aid_id = [];
             foreach ($sibling_detail as $single_sibling_detail){
                 $title = $single_sibling_detail['title'];
                 $value = $single_sibling_detail['value'];
-                if ($title == "financial_aid"){
-                    $cn_name = $this->db->where("financial_aid_id", $value)
-                                        ->where("status", 1)
-                                        ->select("financial_aid_type")
-                                        ->get(T_FINANCIAL_AIDS)
-                                        ->row();
-                    isset($cn_name) ? array_push($financial_aid, $cn_name) : NULL ;
+                if ($title == "financial_aid_id"){
+                    $id = $this->db->where("financial_aid_id", $value)
+                                   ->where("status", 1)
+                                   ->select("financial_aid_id")
+                                   ->get(T_FINANCIAL_AIDS)
+                                   ->row();
+
+                    isset($id) ? array_push($financial_aid_id, $id->financial_aid_id) : NULL ;
                     continue;
                 }
                 $sibling->$title = $value;
             }
             $sibling->sibling_id = $sibling_id;
-            if(!empty($financial_aid)){
-                $sibling->financial_aid = $financial_aid;
+            if(!empty($financial_aid_id)){
+                $sibling->financial_aid_id = $financial_aid_id;
             } 
             array_push($siblings, $sibling);
         }
@@ -116,13 +116,16 @@ class Sibling_cms extends HI_Model{
     public function edit($data, $student_id)
     {
         foreach ($data as $single_data){
+            if (isset($single_data['financial_aid_id'])){
+                $this->rules['financial_aid_id'] = '';
+            }
             if ($this->form_validation->validate($this->rules, $single_data)){
                 $sibling_id = $single_data['sibling_id'];
                 unset($single_data['sibling_id']);
                 $this->check_existance($sibling_id, "sibling_id", T_SIBLINGS);
                 foreach ($single_data as $key => $value){
-                    if ($key == "financial_aid"){
-                        $this->financial_aid($value, $sibling_id);
+                    if ($key == "financial_aid_id"){
+                        $this->financial_aid_id($value, $sibling_id);
                         continue;
                     }
                     $temp_data = [];
@@ -146,6 +149,7 @@ class Sibling_cms extends HI_Model{
             } else {
                 return 400;
             }
+            unset($this->rules['financial_aid_id']);
         }
         return 200;
     }
@@ -166,17 +170,17 @@ class Sibling_cms extends HI_Model{
         return 200;
     }
 
-    public function financial_aid($value, $sibling_id)
+    public function financial_aid_id($value, $sibling_id)
     {
         $this->db->where("sibling_id", $sibling_id)
-                 ->where("title", "financial_aid")
+                 ->where("title", "financial_aid_id")
                  ->delete(T_SIBLING_CMS);
 
         if (is_array($value)){
             foreach ($value as $single_value){
                 $temp_data = [];
                 $temp_data['sibling_id'] = $sibling_id;
-                $temp_data['title'] = "financial_aid";
+                $temp_data['title'] = "financial_aid_id";
                 $temp_data['value'] = $single_value;
     
                 $this->db->insert(T_SIBLING_CMS, $temp_data);

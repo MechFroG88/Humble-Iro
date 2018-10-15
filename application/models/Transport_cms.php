@@ -11,7 +11,6 @@ class Transport_cms extends HI_Model{
     private $rules = [
         "transport_id" => "required|integer",
         "transport_type" => "",
-        "transport_state" => "integer",
         "year" => "integer",
         "model" => ""
     ];

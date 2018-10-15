@@ -31,7 +31,6 @@ export default {
   },
   mounted() {
     getStudentBasic().then(({data}) => {
-      console.log(data.data);
       this.studentData = data.data;
     })
   },

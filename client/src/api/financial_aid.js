@@ -7,6 +7,13 @@ export function getAid() {
   })
 }
 
+export function getAidById(fid) {
+  return request({
+    url: '/financial_aid/' + fid,
+    method: 'GET'
+  })
+}
+
 export function addAid({supplier, financial_aid_type, requirements, expired_date}) {
   return request({
     url: '/financial_aid',

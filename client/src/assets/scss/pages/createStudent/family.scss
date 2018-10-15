@@ -11,6 +11,17 @@
   .control-buttons {
     padding: 0 .8rem 0;
   }
+  .aid_info {
+    .title-group {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .finance-title {
+        margin: .8rem 0 .5rem;
+        font-size: 1.2rem;
+      }
+    }
+  }
   .sibling-form {
     .title {
       display: flex;

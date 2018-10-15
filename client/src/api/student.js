@@ -36,9 +36,9 @@ export function editStudentBasic(data, id) {
   })
 }
 
-export function getParent(pid) {
+export function getParent(sid) {
   return request({
-    url: '/parent/' + pid,
+    url: '/parent/' + sid,
     method: 'GET'
   })
 }

@@ -163,7 +163,8 @@
             type="radio" 
             name="got_aid"
             v-model="siblings_array[formIndex].got_aid" 
-            :value="1">
+            :value="1"
+            @click="siblings_array[formIndex].financial_aid_id = []">
             <i class="form-icon"></i> 是
           </label>
           <label class="form-radio col-10">
@@ -171,27 +172,46 @@
             type="radio" 
             name="got_aid" 
             v-model="siblings_array[formIndex].got_aid" 
-            :value="0">
+            :value="0"
+            @click="siblings_array[formIndex].financial_aid_id = []">
             <i class="form-icon"></i> 否
           </label>
         </div>
-        <div class="form-group financial_aid" v-if="siblings_array[formIndex].got_aid == 1">
-          <label class="form-label" for="financial_aid">助学金名称</label>
-          <input 
-          class="form-input" 
-          type="text" 
-          id="financial_aid" 
-          placeholder="助学金名称"
-          v-model="siblings_array[formIndex].financial_aid">
-        </div>
-        <div class="form-group aid_total" v-if="siblings_array[formIndex].got_aid == 1">
-          <label class="form-label" for="aid_total">助学金数额（以年份计算）</label>
-          <input 
-          class="form-input" 
-          type="number" 
-          id="aid_total" 
-          placeholder="助学金名数额"
-          v-model="siblings_array[formIndex].aid_total">
+        <div v-if="siblings_array[formIndex].got_aid == 1">
+          <div class="title-group col-12">
+            <div class="finance-title">助学金资料</div>
+            <div class="control-buttons">
+              <div class="btn btn-sm btn-primary ml-2" @click="addFinancial(formIndex)">
+                <i class="icon icon-plus"></i>
+              </div>
+              <div class="btn btn-sm btn-primary ml-2" @click="dltFinancial(formIndex)">
+                <i class="icon icon-minus"></i>
+              </div>
+            </div> 
+          </div>
+          <div v-for="finance in siblings_array[formIndex].financial_aid_id.length" :key="finance">
+            <div class="form-group financial_aid">
+              <label class="form-label" for="financial_aid">助学金名称</label>
+              <select 
+              class="form-input form-select" 
+              id="financial_aid" 
+              v-model="siblings_array[formIndex].financial_aid_id[finance - 1]">
+                <option 
+                v-for="(f, index) in financialArr" 
+                :value="financialArr[index].financial_aid_id" 
+                :key="financialArr[index].financial_aid_id">{{financialArr[index].financial_aid_type}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group aid_total">
+            <label class="form-label" for="aid_total">助学金数额（以年份计算）</label>
+            <input 
+            class="form-input" 
+            type="number" 
+            id="aid_total" 
+            placeholder="助学金名数额"
+            v-model="siblings_array[formIndex].aid_total">
+          </div>
         </div>
       </div>
     </form>
@@ -202,33 +222,34 @@
 import 
 { getFamily, createSibling, getSibling, getSiblingBasic, deleteSibling } 
 from '@/api/student'
+import { getAid } from '@/api/financial_aid'
 export default {
   beforeMount() {
     getFamily(this.$route.params.id).then(({data}) => {
-      for (let i = 0; i < Object.keys(data.data).length; i++) {
-        this.family_value[Object.keys(data.data)[i]] = data.data[Object.keys(data.data)[i]]
-      }
+      this.family_value = data.data;
+    }).then(() => {
+      if (this.family_value.single_parent == 1) { this.showSingle = true; }
+      if (this.family_value.disabled == 1) { this.showDisabled = true; }
     })
     getSibling(this.$route.params.id).then(({data}) => {
-      console.log(data.data);
+      console.log(data.data)
       if (data.data.length != 0) {
-        for (let i = 0; i < data.data.length; i++) {
-          var input = Object.assign({}, this.siblings_value);
-          this.siblings_array.push(input);
-          for (let j = 0; j < Object.keys(data.data[i]).length; j++) {
-            this.siblings_array[i][Object.keys(data.data[i])[j]] = data.data[i][Object.keys(data.data[i])[j]]
-          }
-        }
+        this.siblings_array = data.data;
       }
     }).then(() => {
-      console.log(this.siblings_array);
       this.sibling_number = this.siblings_array.length;
+    })
+    getAid().then(({data}) => {
+      for (let i = 0; i < data.data.length; i++) {
+        this.financialArr.push(data.data[i]);
+      }
     })
   },
   data() {
     return {
       sibling_number: 0,
       formIndex: 0,
+      financialArr: [],
       showSingle: false,
       showDisabled: false,
       family_value: {
@@ -248,7 +269,7 @@ export default {
         age: null,
         relation: null,
         got_aid: null,
-        financial_aid: '',
+        financial_aid_id: [],
         aid_total: '',
         sibling_id: null
       },
@@ -270,12 +291,17 @@ export default {
           this.sibling_number--;
         })
       }
-      // console.log(this.siblings_array);
-      // this.siblings_array[0].cn_name = '';
-      // console.log(this.siblings_array);
     },
     isSelected(index) {
       return this.formIndex == index ? "active" : "";
+    },
+    addFinancial(index) {
+      this.siblings_array[index].financial_aid_id.push('')
+    },
+    dltFinancial(index) {
+      if (this.siblings_array[index].financial_aid_id.length != 0) {
+        this.siblings_array[index].financial_aid_id.pop();
+      }
     }
   }
 }

@@ -16,3 +16,13 @@
 ## Success response
 
 **Content** : return [all us information](README.md#full-information "All aid info")
+
+# Get financial aid information by financial aid id
+
+`GET` /financial_aid/:fid
+
+```json
+{
+  
+}
+```

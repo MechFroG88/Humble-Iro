@@ -295,7 +295,7 @@
         <div class="btn btn-error mb-2 mr-2" @click="deleteUser()">
           不批准
         </div>
-        <div class="btn btn-success mb-2" @click="$refs.finance.active = true">
+        <div class="btn btn-success mb-2" @click="confirmUser()">
           批准
         </div>
       </div>
@@ -442,7 +442,7 @@ export default {
     confirmUser() {
       for (let i = 0; i < this.confirmed.length; i++) {
         verifyStudent({student_id: this.$route.params.id, financial_aid_id: this.financial_aid[i].financial_aid_id}).then(({data}) => {
-  
+          this.$router.push({path: '/student'})
         })
       }
     }

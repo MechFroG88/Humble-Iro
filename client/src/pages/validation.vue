@@ -339,10 +339,11 @@ import layout from '@/layout/default'
 import modal from '@/components/modal/modal'
 import { getAid, getAidById } from '@/api/financial_aid'
 import { 
-  getStudent, deleteStudent, verifyStudent,
+  getStudent, deleteStudent, 
   getParentBasic, getParent,
   getFamily, getSibling,
-  getIncome, getExpenditure, getFinance, getHouse, getAircond, getTransport
+  getIncome, getExpenditure, getFinance, getHouse, getAircond, getTransport,
+  verifyStudent, deleteVerification
 } from '@/api/student'
 export default {
   mounted() {
@@ -434,10 +435,8 @@ export default {
       this.confirmed.splice(index, 1);
     },
     deleteUser() {
-      deleteStudent(this.$route.params.id).then(({data}) => {
-        if (data.status == 200) {
-          this.$router.push({path:'/student'});
-        }
+      deleteVerification({student_id: this.$route.params.id, financial_aid_id: this.financial_aid[i].financial_aid_id}).then(({data}) => {
+        
       })
     },
     confirmUser() {

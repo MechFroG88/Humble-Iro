@@ -186,7 +186,7 @@
           <tr class="age col-12" v-if="siblings[index].got_aid == 1">
             <td class="col-3">助学金名称：</td>
             <td class="col-9">
-              {{aidArr[index].join(' ')}}
+              {{siblings[index].financial_aid ? siblings[index].financial_aid.join('、') : ""}}
             </td>
           </tr>
           <tr class="aid_total col-12" v-if="siblings[index].got_aid == 1">
@@ -205,8 +205,8 @@
             </td>
           </tr>
           <tr class="income col-12" v-for="(inc, index) in income" :key="inc.member">
-            <td class="col-3">{{income[index].member}}</td>
-            <td class="col-9">{{income[index].income}}</td>
+            <td class="col-3">{{income[index].member}}：</td>
+            <td class="col-9">RM {{income[index].income}}</td>
           </tr>
           <tr class="title col-12">
             <td class="col-12">
@@ -214,20 +214,132 @@
             </td>
           </tr>
           <tr class="expenditure col-12" v-for="(inc, index) in expenditure" :key="inc.member">
-            <td class="col-3">{{expenditure[index].object}}</td>
-            <td class="col-9">{{expenditure[index].expenditure}}</td>
+            <td class="col-3">{{expenditure[index].object}}：</td>
+            <td class="col-9">RM {{expenditure[index].expenditure}}</td>
+          </tr>
+          <tr class="title col-12">
+            <td class="col-12">
+              <h5>概要</h5>
+            </td>
+          </tr>
+          <tr class="balance col-12">
+            <td class="col-3">余额：</td>
+            <td class="col-9">RM {{finance.balance}}</td>
+          </tr>
+          <tr class="auto_transfer col-12">
+            <td class="col-3">申请学校自动转账服务：</td>
+            <td class="col-9">{{finance.auto_transfer}}</td>
+          </tr>
+          <tr class="remarks col-12">
+            <td class="col-3">备注：</td>
+            <td class="col-9">{{finance.remarks}}</td>
           </tr>
         </tbody>
       </table>
+
+      <h3>房屋资料</h3>
+      <table class="house table">
+        <tbody>
+          <tr class="aircond col-12" v-if="aircond[0] && aircond[0].amount">
+            <td class="col-3">冷气机数量：</td>
+            <td class="col-9">{{aircond[0].amount}}</td>
+          </tr>
+        </tbody>
+        <tbody v-for="(h, index) in house.length" :key="h.house_id">
+          <tr class="title col-12">
+            <td class="col-12">
+              <h5>{{h}}.</h5>
+            </td>
+          </tr>
+          <tr class="house_type col-12">
+            <td class="col-3">房屋种类：</td>
+            <td class="col-9">{{house[index].house_type}}</td>
+          </tr>
+          <tr class="house_state col-12">
+            <td class="col-3">房子状态：</td>
+            <td class="col-9">
+              {{house[index].house_state == 0 ? '租赁' :
+                house[index].house_state == 1 ? '已供完' : '正供着'}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>交通工具资料</h3>
+      <table class="transport table" v-if="transport">
+        <tbody v-for="(t, index) in transport.length" :key="t.transport_id">
+          <tr class="title col-12">
+            <td class="col-12">
+              <h5>{{t}}.</h5>
+            </td>
+          </tr>
+          <tr class="transport_type col-12">
+            <td class="col-3">种类：</td>
+            <td class="col-9">
+              {{transport[index].transport_type == 0 ? '摩托' : '汽车'}}
+            </td>
+          </tr>
+          <tr class="model col-12">
+            <td class="col-3">型号：</td>
+            <td class="col-9">
+              {{transport[index].model}} ({{transport[index].year}})
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="button-group">
+        <div class="btn btn-primary mb-2 mr-2" @click="$refs.finance.active = true">
+          <i class="el-icon-plus"></i> 添加助学金
+        </div>
+        <div class="btn btn-error mb-2 mr-2" @click="deleteUser()">
+          不批准
+        </div>
+        <div class="btn btn-success mb-2" @click="$refs.finance.active = true">
+          批准
+        </div>
+      </div>
+
+      <span class="chip" v-for="(cf, index) in confirmed" :key="cf">
+        {{financial_aid[index].financial_aid_type}}
+        <a @click="remove(index)" class="btn btn-clear" aria-label="Close" role="button"></a>
+      </span>
     </layout>
+
+    <modal title="添加助学金" ref="finance">
+      <div slot="content">
+        <el-table
+        ref="table"
+        :data="financial_aid"
+        style="width: 100%">
+          <el-table-column
+            prop="financial_aid_type"
+            label="助学金名称">
+          </el-table-column>
+          <el-table-column label="选择">
+            <template slot-scope="scope">
+              <el-checkbox 
+              v-model="check[scope.$index]" 
+              @change="confirm(scope.$index)">
+              </el-checkbox>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
+      <div slot="footer">
+        <button class="btn btn-primary btn-error btn-lg" @click="$refs.finance.active = false">取消</button>
+        <button class="btn btn-primary btn-lg" @click="confirmClick()">确认</button>
+      </div>
+    </modal>
   </div>
 </template>
 
 <script>
 import layout from '@/layout/default'
-import { getAidById } from '@/api/financial_aid'
+import modal from '@/components/modal/modal'
+import { getAid, getAidById } from '@/api/financial_aid'
 import { 
-  getStudent, 
+  getStudent, deleteStudent, verifyStudent,
   getParentBasic, getParent,
   getFamily, getSibling,
   getIncome, getExpenditure, getFinance, getHouse, getAircond, getTransport
@@ -249,13 +361,14 @@ export default {
       this.siblings = data.data;
     }).then(() => {
       for (let i = 0; i < this.siblings.length; i++) {
-        this.aidArr.push([]);
         if (this.siblings[i].financial_aid_id.length != 0) {
           for (let j = 0; j < this.siblings[i].financial_aid_id.length; j++) {
             getAidById(this.siblings[i].financial_aid_id[j]).then(({data}) => {
-              this.aidArr[i].push(data.data.financial_aid_type);
+              this.aidArr.push(data.data.financial_aid_type);
+              this.$set(this.siblings[i], 'financial_aid', this.aidArr.slice())
             })
           }
+          this.aidArr = [];
         }
       }
     })
@@ -264,6 +377,25 @@ export default {
     })
     getExpenditure(this.$route.params.id).then(({data}) => {
       this.expenditure = data.data;
+    })
+    getFinance(this.$route.params.id).then(({data}) => {
+      this.finance = data.data;
+    })
+    getHouse(this.$route.params.id).then(({data}) => {
+      this.house = data.data;
+    })
+    getAircond(this.$route.params.id).then(({data}) => {
+      this.aircond = data.data;
+    })
+    getTransport(this.$route.params.id).then(({data}) => {
+      this.transport = data.data;
+    })
+    getAid().then(({data}) => {
+      this.financial_aid = data.data;
+      console.log(this.financial_aid[0].financial_aid_type)
+      for (let i = 0; i < this.financial_aid.length; i++) {
+        this.check.push(false)
+      }
     })
   },
   data() {
@@ -275,11 +407,51 @@ export default {
       siblings: [],
       income: [],
       expenditure: [],
+      finance: {},
+      house: [],
+      aircond: {},
+      transport: [],
+      financial_aid: [],
+      check: [],
+      confirmed: []
+    }
+  },
+  methods: {
+    confirmClick() {
+      this.$refs.finance.active = false;
+    },
+    confirm(index) {
+      console.log(index)
+      if (this.check[index] == true && this.confirmed.indexOf(index) == -1) {
+        this.confirmed.push(index);
+      }
+      if (this.check[index] == false && this.confirmed.indexOf(index) != -1) {
+        this.confirmed.splice(this.confirmed.indexOf(index), 1);
+      }
+    },
+    remove(index) {
+      this.$set(this.check, index, false);
+      this.confirmed.splice(index, 1);
+    },
+    deleteUser() {
+      deleteStudent(this.$route.params.id).then(({data}) => {
+        if (data.status == 200) {
+          this.$router.push({path:'/student'});
+        }
+      })
+    },
+    confirmUser() {
+      for (let i = 0; i < this.confirmed.length; i++) {
+        verifyStudent({student_id: this.$route.params.id, financial_aid_id: this.financial_aid[i].financial_aid_id}).then(({data}) => {
+  
+        })
+      }
     }
   },
   components: {
-    layout
-  },
+    layout,
+    modal
+  }
 }
 </script>
 

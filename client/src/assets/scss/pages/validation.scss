@@ -1,5 +1,5 @@
 #_validate {
-  table {
+  .table {
     border-collapse: separate;
     margin-bottom: 1rem;
     background-color: #fff;
@@ -29,6 +29,13 @@
           }
         }
       }
+    }
+  }
+  .button-group {
+    display: flex;
+    .btn {
+      width: 15%;
+      border-radius: .2rem;
     }
   }
 }

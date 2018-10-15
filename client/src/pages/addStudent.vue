@@ -153,7 +153,7 @@ export default {
         console.log(this.output.siblings)
         editFamily(this.output.family, this.student_id).then(({data}) => {
           editSibling(this.output.siblings, this.student_id).then(({data}) => {
-            // this.nextStep();
+            this.nextStep();
           })
         })
         // axios.all([editFamily(this.output.family, this.student_id), editSibling(this.output.siblings, this.student_id)])

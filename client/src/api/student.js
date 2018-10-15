@@ -267,3 +267,11 @@ export function deleteTransport(tid) {
     method: 'POST'
   })
 }
+
+export function verifyStudent(data) {
+  return request({
+    url: '/student_financial/verify',
+    method: 'POST',
+    data
+  })
+}

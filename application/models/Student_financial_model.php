@@ -30,7 +30,7 @@ class Student_financial_model extends HI_Model{
                                            ->get(T_FINANCIAL_AIDS)
                                            ->row();
 
-            $single_financial_aid['financial_aid_type'] = isset($financial_aid_type) ? $financial_aid_type->financial_aid_type : "";
+            $single_financial_aid['financial_aid_type']  = isset($financial_aid_type) ? $financial_aid_type->financial_aid_type : "";
         }
         return $financial_aid;
     }

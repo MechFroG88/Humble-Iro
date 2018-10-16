@@ -107,7 +107,7 @@
     .content {
       display: flex;
       flex-direction: column;
-      padding: 2rem 5rem;
+      padding: 2rem 3rem;
       @media screen and (max-width: $size-lg) {
         width: 75%;
         padding-left: 3rem;

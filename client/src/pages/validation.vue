@@ -292,18 +292,19 @@
         <div class="btn btn-primary mb-2 mr-2" @click="$refs.finance.active = true">
           <i class="el-icon-plus"></i> 添加助学金
         </div>
-        <div class="btn btn-error mb-2 mr-2" @click="deleteUser()">
-          不批准
-        </div>
-        <div class="btn btn-success mb-2" @click="confirmUser()">
-          批准
-        </div>
       </div>
 
       <span class="chip" v-for="(cf, index) in confirmed" :key="cf">
         {{financial_aid[index].financial_aid_type}}
         <a @click="remove(index)" class="btn btn-clear" aria-label="Close" role="button"></a>
       </span>
+
+      <crud-table
+      title="助学金资料"
+      :columns="financialListColumns"
+      :tableData="financial_aid"
+      type="financial_list">
+      </crud-table>
     </layout>
 
     <modal title="添加助学金" ref="finance">
@@ -336,14 +337,16 @@
 
 <script>
 import layout from '@/layout/default'
+import crudTable from '@/components/tables'
 import modal from '@/components/modal/modal'
+import { financialListColumns } from '../../api/tableColumns'
 import { getAid, getAidById } from '@/api/financial_aid'
 import { 
   getStudent, deleteStudent, 
   getParentBasic, getParent,
   getFamily, getSibling,
   getIncome, getExpenditure, getFinance, getHouse, getAircond, getTransport,
-  verifyStudent, deleteVerification
+  studentLinkage, verifyStudent, deleteVerification
 } from '@/api/student'
 export default {
   mounted() {
@@ -393,7 +396,6 @@ export default {
     })
     getAid().then(({data}) => {
       this.financial_aid = data.data;
-      console.log(this.financial_aid[0].financial_aid_type)
       for (let i = 0; i < this.financial_aid.length; i++) {
         this.check.push(false)
       }
@@ -413,6 +415,7 @@ export default {
       aircond: {},
       transport: [],
       financial_aid: [],
+      financialListColumns,
       check: [],
       confirmed: []
     }
@@ -431,25 +434,13 @@ export default {
       }
     },
     remove(index) {
-      this.$set(this.check, index, false);
-      this.confirmed.splice(index, 1);
+      console.log(this.check)
     },
-    deleteUser() {
-      deleteVerification({student_id: this.$route.params.id, financial_aid_id: this.financial_aid[i].financial_aid_id}).then(({data}) => {
-        
-      })
-    },
-    confirmUser() {
-      for (let i = 0; i < this.confirmed.length; i++) {
-        verifyStudent({student_id: this.$route.params.id, financial_aid_id: this.financial_aid[i].financial_aid_id}).then(({data}) => {
-          this.$router.push({path: '/student'})
-        })
-      }
-    }
   },
   components: {
     layout,
-    modal
+    modal,
+    crudTable
   }
 }
 </script>

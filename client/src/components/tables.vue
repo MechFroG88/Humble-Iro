@@ -6,6 +6,7 @@
     <el-table
       stripe
       :data="tableData"
+      style="width: 100%;"
       ref="table">
       <el-table-column 
       v-for="(column, index) in columns" 
@@ -19,18 +20,27 @@
         <template slot-scope="scope">
           <el-button
           size="mini"
-          v-if="check == true"
+          v-if="check == true && type != 'financial_list'"
           @click="openCheck(scope.$index)">查看</el-button>
 
           <el-button
           class="mr-2"
           size="mini"
+          v-if="type != 'financial_list'"
           @click.native="openEdit(scope.$index)">编辑</el-button>
 
           <el-button
           size="mini"
           type="danger"
+          v-if="type != 'financial_list'"
           @click="openDelete(scope.$index)">删除</el-button>
+
+          <el-button
+          size="mini"
+          type="info"
+          plain
+          v-if="type == 'financial_list'"
+          @click="disableAid(scope.$index)">解除助学金</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -61,7 +71,7 @@
 <script>
 import deleteModal from '@/components/modal/confirmation'
 import editModal   from '@/components/modal/modal'
-import { getStudentBasic, deleteStudent } from '@/api/student'
+import { getStudentBasic, deleteStudent, deleteVerification } from '@/api/student'
 import { getUser, editUser, deleteUser } from '@/api/user'
 import { getAid, editAid, deleteAid } from '@/api/financial_aid'
 export default {
@@ -83,12 +93,11 @@ export default {
     },
     modalTitle: String,
     modalData: Array,
-    type: String
+    type: String //student, financial_aid, users, financial_list
   },
   beforeMount() {
     if (this.modal == true) {
       this.resetData();
-      // console.log(this.modalArr);
     }
   },
   data() {
@@ -117,11 +126,18 @@ export default {
       }
     },
     openCheck(index) {
-      getStudentBasic().then(({data}) => {
-        const params = data.data[index].student_id;
-        this.$router.push(`/validate/${params}`);
-      })
-      // this.$router.push('/check/' + this.studentId);
+      if (this.type == 'student') {
+        getStudentBasic().then(({data}) => {
+          const params = data.data[index].student_id;
+          this.$router.push(`/validate/${params}`);
+        })
+      } else if (this.type == 'financial_aid') {
+        getAid().then(({data}) => {
+          const params = data.data[index].financial_aid_id;
+          this.$router.push(`/list/${params}`);
+        })
+
+      }
     },
     openEdit(index) {
       if (this.modal == true) {
@@ -216,6 +232,17 @@ export default {
         })
       }
     },
+    disableAid(index) {
+      deleteVerification({
+        student_id: this.$route.params.id,
+        financial_aid_id: this.tableData[index].financial_aid_id
+      }).then(({data}) => {
+        console.log(data)
+      }).catch((err) => {
+        console.log(err)
+      })
+      console.log(this.tableData);
+    }
   },
   watch: {
     tableData(data) {

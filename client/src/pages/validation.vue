@@ -295,7 +295,7 @@
         <div class="btn btn-error mb-2 mr-2" @click="deleteUser()">
           不批准
         </div>
-        <div class="btn btn-success mb-2" @click="$refs.finance.active = true">
+        <div class="btn btn-success mb-2" @click="confirmUser()">
           批准
         </div>
       </div>
@@ -339,10 +339,11 @@ import layout from '@/layout/default'
 import modal from '@/components/modal/modal'
 import { getAid, getAidById } from '@/api/financial_aid'
 import { 
-  getStudent, deleteStudent, verifyStudent,
+  getStudent, deleteStudent, 
   getParentBasic, getParent,
   getFamily, getSibling,
-  getIncome, getExpenditure, getFinance, getHouse, getAircond, getTransport
+  getIncome, getExpenditure, getFinance, getHouse, getAircond, getTransport,
+  verifyStudent, deleteVerification
 } from '@/api/student'
 export default {
   mounted() {
@@ -434,16 +435,14 @@ export default {
       this.confirmed.splice(index, 1);
     },
     deleteUser() {
-      deleteStudent(this.$route.params.id).then(({data}) => {
-        if (data.status == 200) {
-          this.$router.push({path:'/student'});
-        }
+      deleteVerification({student_id: this.$route.params.id, financial_aid_id: this.financial_aid[i].financial_aid_id}).then(({data}) => {
+        
       })
     },
     confirmUser() {
       for (let i = 0; i < this.confirmed.length; i++) {
         verifyStudent({student_id: this.$route.params.id, financial_aid_id: this.financial_aid[i].financial_aid_id}).then(({data}) => {
-  
+          this.$router.push({path: '/student'})
         })
       }
     }

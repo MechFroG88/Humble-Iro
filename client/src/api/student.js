@@ -275,3 +275,10 @@ export function verifyStudent(data) {
     data
   })
 }
+export function deleteVerification(data) {
+  return request({
+    url: '/student_financial/delete',
+    method: 'POST',
+    data
+  })
+}

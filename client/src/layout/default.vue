@@ -38,11 +38,6 @@
               <i class="icon icon-file-text"></i> 助学金列表
             </router-link>
           </li>
-          <!-- <li class="list">
-            <router-link :to="{'name': 'list'}">
-              <i class="icon icon-file-text"></i> 助学金列表
-            </router-link>
-          </li> -->
           <li class="users">
             <router-link :to="{'name': 'users'}">
               <i class="icon icon-users"></i>用户管理

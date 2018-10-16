@@ -15,16 +15,26 @@ class Financial_aid_model extends HI_Model{
         "requirements" => ""
     ];
 
-    public function get()
+    public function get($financial_aid_id = false)
     {
-        $financial_aid = $this->db->where("status", 1)
-                                  ->get(T_FINANCIAL_AIDS)
-                                  ->result_array();
+        if ($financial_aid_id){
+            $financial_aid = $this->db->where("financial_aid_id", $financial_aid_id)
+                                      ->where("status", 1)
+                                      ->get(T_FINANCIAL_AIDS)
+                                      ->row();
+            $time = strtotime($financial_aid->expired_date);
+            $financial_aid->expired_date = date('Y-m-d',$time);
+        } else {
+            $financial_aid = $this->db->where("status", 1)
+                                      ->get(T_FINANCIAL_AIDS)
+                                      ->result_array();
 
-        foreach($financial_aid as &$single_financial_aid){
-            $time = strtotime($single_financial_aid['expired_date']);
-            $single_financial_aid['expired_date'] = date('Y-m-d',$time);
+            foreach($financial_aid as &$single_financial_aid){
+                $time = strtotime($single_financial_aid['expired_date']);
+                $single_financial_aid['expired_date'] = date('Y-m-d',$time);
+            }
         }
+        
         return $financial_aid;
     }
 

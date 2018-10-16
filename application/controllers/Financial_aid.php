@@ -10,9 +10,13 @@ class Financial_aid extends HI_Controller {
         $this->auth->is_logged_in() ? :$this->error(401);
     }
 
-    public function get()
+    public function get($finance_aid_id = FALSE)
     {
-        $this->json($this->finance->get());
+        if ($finance_aid_id){
+            $this->json($this->finance->get($finance_aid_id));
+        } else {
+            $this->json($this->finance->get());
+        }
     }
 
     public function create()

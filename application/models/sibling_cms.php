@@ -15,6 +15,7 @@ class Sibling_cms extends HI_Model{
         'aid_total'        => 'integer',
         'got_aid'          => 'integer',
         'relation'         => 'integer',
+        'financial_aid_id' => ''
     ];
 
     /**
@@ -55,9 +56,7 @@ class Sibling_cms extends HI_Model{
                 $sibling->$title = $value;
             }
             $sibling->sibling_id = $sibling_id;
-            if(!empty($financial_aid_id)){
-                $sibling->financial_aid_id = $financial_aid_id;
-            } 
+            $sibling->financial_aid_id = $financial_aid_id;
             array_push($siblings, $sibling);
         }
 
@@ -116,8 +115,8 @@ class Sibling_cms extends HI_Model{
     public function edit($data, $student_id)
     {
         foreach ($data as $single_data){
-            if (isset($single_data['financial_aid_id'])){
-                $this->rules['financial_aid_id'] = '';
+            if (!isset($single_data['financial_aid_id'])){
+                $single_data['financial_aid_id'] = '';
             }
             if ($this->form_validation->validate($this->rules, $single_data)){
                 $sibling_id = $single_data['sibling_id'];
@@ -149,7 +148,6 @@ class Sibling_cms extends HI_Model{
             } else {
                 return 400;
             }
-            unset($this->rules['financial_aid_id']);
         }
         return 200;
     }

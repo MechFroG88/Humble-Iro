@@ -50,7 +50,7 @@ class Student_financial_model extends HI_Model{
                                 ->get(T_STUDENTS)
                                 ->row()->cn_name;
 
-            $single_student['cn_name'] = $cn_name;
+            $single_student['cn_name'] = $cn_name;  
         }
 
         return $student;

@@ -296,13 +296,13 @@
 
       <span class="chip" v-for="(cf, index) in confirmed" :key="cf">
         {{financial_aid[index].financial_aid_type}}
-        <a @click="remove(index)" class="btn btn-clear" aria-label="Close" role="button"></a>
+        <a class="btn btn-clear" aria-label="Close" role="button"></a>
       </span>
 
       <crud-table
       title="助学金资料"
       :columns="financialListColumns"
-      :tableData="financial_aid"
+      :tableData="student_aid"
       type="financial_list">
       </crud-table>
     </layout>
@@ -339,10 +339,10 @@
 import layout from '@/layout/default'
 import crudTable from '@/components/tables'
 import modal from '@/components/modal/modal'
-import { financialListColumns } from '../../api/tableColumns'
+import { financialListColumns } from '@/api/tableColumns'
 import { getAid, getAidById } from '@/api/financial_aid'
 import { 
-  getStudent, deleteStudent, 
+  getStudent, deleteStudent, getStudentBasicById,
   getParentBasic, getParent,
   getFamily, getSibling,
   getIncome, getExpenditure, getFinance, getHouse, getAircond, getTransport,
@@ -400,6 +400,13 @@ export default {
         this.check.push(false)
       }
     })
+    getStudentBasicById(this.$route.params.id).then(({data}) => {
+      for (let i = 0; i < data.data.financial_aid.length; i++) {
+        
+      }
+      this.student_aid = data.data.financial_aid;
+      console.log(data.data)
+    })
   },
   data() {
     return {
@@ -415,6 +422,7 @@ export default {
       aircond: {},
       transport: [],
       financial_aid: [],
+      student_aid: [],
       financialListColumns,
       check: [],
       confirmed: []
@@ -422,7 +430,19 @@ export default {
   },
   methods: {
     confirmClick() {
-      this.$refs.finance.active = false;
+      // console.log({
+      //   confirm: this.confirmed,
+      //   check: this.check
+      // })
+      for (let i = 0; i < this.confirmed.length; i++) {
+        studentLinkage({
+          student_id: this.$route.params.id,
+          financial_aid_id: this.financial_aid[i].financial_aid_id
+        }).then((data) => {
+          console.log(data)
+        })
+      }
+      // this.$refs.finance.active = false;
     },
     confirm(index) {
       console.log(index)
@@ -432,10 +452,7 @@ export default {
       if (this.check[index] == false && this.confirmed.indexOf(index) != -1) {
         this.confirmed.splice(this.confirmed.indexOf(index), 1);
       }
-    },
-    remove(index) {
-      console.log(this.check)
-    },
+    }
   },
   components: {
     layout,

@@ -50,10 +50,8 @@ import layout    from '@/layout/default'
 import crudTable from '@/components/tables'
 import modal     from '@/components/modal/modal'
 import { getUser, addUser } from '@/api/user'
-import { usersModal } from '../../api/modalData'
-import { usersColumns } from '../../api/tableColumns'
-
-// import {usersData} from '../../api/mock/tableData'
+import { usersModal } from '@/api/modalData'
+import { usersColumns } from '@/api/tableColumns'
 export default {
   beforeMount() {
     this.get();

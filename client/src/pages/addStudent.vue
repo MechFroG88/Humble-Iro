@@ -72,8 +72,7 @@ export default {
     basic,
     parent,
     family,
-    finance,
-    finish
+    finance
   },
   data() {
     return {

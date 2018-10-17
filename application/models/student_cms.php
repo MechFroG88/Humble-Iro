@@ -47,32 +47,24 @@ class Student_cms extends HI_Model{
         return $student;
     }
 
-    public function get_basic()
+    public function get_basic($student_id)
     {
-        $this->load->model("Student_financial_model", "student_financial");
-        $student_ids = $this->db->where("status", 1)
-                                ->select("student_id")
-                                ->get(T_STUDENTS)
-                                ->result_array();
-        $students = [];
-        foreach ($student_ids as $studentss){
+        if ($student_id){
+            $this->load->model("Student_financial_model", "student_financial");
             $student = new stdClass;
-            $student_id = $studentss['student_id'];
             $student->student_id = $student_id;
             $cn_name = $this->db->where("student_id", $student_id)
                                 ->where("title", "cn_name")
                                 ->select("value")
                                 ->get(T_STUDENT_CMS)
                                 ->row();
-        
             $cn_name = isset($cn_name) ? $cn_name->value : "";
-            
+
             $en_name = $this->db->where("student_id", $student_id)
                                 ->where("title", "en_name")
                                 ->select("value")
                                 ->get(T_STUDENT_CMS)
                                 ->row();
-
             $en_name = isset($en_name) ? $en_name->value : "";
 
             $classroom = $this->db->where("student_id", $student_id)
@@ -80,16 +72,57 @@ class Student_cms extends HI_Model{
                                   ->select("value")
                                   ->get(T_STUDENT_CMS)
                                   ->row();
-
             $classroom = isset($classroom) ? $classroom->value : "";
 
             $student->classroom = $classroom;
             $student->cn_name = $cn_name;
             $student->en_name = $en_name;
             $student->financial_aid = $this->student_financial->get_by_student_id($student_id);
-            array_push($students, $student);
+
+            return $student;
+        } else {
+            $this->load->model("Student_financial_model", "student_financial");
+            $student_ids = $this->db->where("status", 1)
+                                    ->select("student_id")
+                                    ->get(T_STUDENTS)
+                                    ->result_array();
+            $students = [];
+            foreach ($student_ids as $studentss){
+                $student = new stdClass;
+                $student_id = $studentss['student_id'];
+                $student->student_id = $student_id;
+                $cn_name = $this->db->where("student_id", $student_id)
+                                    ->where("title", "cn_name")
+                                    ->select("value")
+                                    ->get(T_STUDENT_CMS)
+                                    ->row();
+            
+                $cn_name = isset($cn_name) ? $cn_name->value : "";
+
+                $en_name = $this->db->where("student_id", $student_id)
+                                    ->where("title", "en_name")
+                                    ->select("value")
+                                    ->get(T_STUDENT_CMS)
+                                    ->row();
+
+                $en_name = isset($en_name) ? $en_name->value : "";
+
+                $classroom = $this->db->where("student_id", $student_id)
+                                      ->where("title", "classroom")
+                                      ->select("value")
+                                      ->get(T_STUDENT_CMS)
+                                      ->row();
+
+                $classroom = isset($classroom) ? $classroom->value : "";
+
+                $student->classroom = $classroom;
+                $student->cn_name = $cn_name;
+                $student->en_name = $en_name;
+                $student->financial_aid = $this->student_financial->get_by_student_id($student_id);
+                array_push($students, $student);
+            }
+            return $students;
         }
-        return $students;
     }
 
     public function create()

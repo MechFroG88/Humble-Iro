@@ -7,6 +7,13 @@ export function getStudentBasic() {
   })
 }
 
+export function getStudentBasicById(id) {
+  return request({
+    url: '/student/basic/' + id,
+    method: 'GET'
+  })
+}
+
 export function deleteStudent(id) {
   return request({
     url: '/student/delete/' + id,

@@ -157,12 +157,20 @@ export default {
           for (let i = 0; i < this.modalArr.length; i++) {
             this.modalArr[i].value = data.data[index][this.modalArr[i].title];
           }
+        }).catch((err) => {
+          if (err.response.status == 400 || err.response.status == 500) {
+            this.$refs.edit.error = true;
+          }
         })
       }
       if (this.type == 'users') {
         getUser().then(({data}) => {
           for (let i = 0; i < this.modalArr.length; i++) {
             this.modalArr[i].value = data.data[index][this.modalArr[i].title];
+          }
+        }).catch((err) => {
+          if (err.response.status == 400 || err.response.status == 500) {
+            this.$refs.edit.error = true;
           }
         })
       }

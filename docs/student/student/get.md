@@ -34,6 +34,11 @@ student
   "student_id" : "1",
   "cn_name"    : "陈某某",
   "en_name"    : "Tan Mou Mou",
-  "financial_aid"   : [1,...],
+  "financial_aid" : [
+    {
+    "financial_aid_id" : 1,
+    "status"     : 1
+    },...
+  ]
 }
 ```

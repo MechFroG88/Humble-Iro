@@ -27,7 +27,12 @@
   "supplier"           : "呵呵呵会馆",
   "expired_date"       : "datetime",
   "financial_aid_type" : "lol",
-  "student"            : [1,2...]
+  "student"            : [
+    {
+    "student_id" : 1,
+    "status"     : 1
+    },...
+  ]
 }
 ```
 

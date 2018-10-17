@@ -18,12 +18,14 @@ class Financial_aid_model extends HI_Model{
     public function get($financial_aid_id = false)
     {
         if ($financial_aid_id){
+            $this->load->model("Student_financial_model", "student_financial");
             $financial_aid = $this->db->where("financial_aid_id", $financial_aid_id)
                                       ->where("status", 1)
                                       ->get(T_FINANCIAL_AIDS)
                                       ->row();
             $time = strtotime($financial_aid->expired_date);
             $financial_aid->expired_date = date('Y-m-d',$time);
+            $financial_aid->student = $this->student_financial->get_by_financial_aid_id($financial_aid_id);
         } else {
             $financial_aid = $this->db->where("status", 1)
                                       ->get(T_FINANCIAL_AIDS)

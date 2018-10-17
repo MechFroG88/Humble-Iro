@@ -86,7 +86,7 @@ class Student_cms extends HI_Model{
             $student->classroom = $classroom;
             $student->cn_name = $cn_name;
             $student->en_name = $en_name;
-            $student->financial_aid = $this->student_financial->get($student_id);
+            $student->financial_aid = $this->student_financial->get_by_student_id($student_id);
             array_push($students, $student);
         }
         return $students;

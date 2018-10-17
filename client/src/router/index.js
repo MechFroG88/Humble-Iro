@@ -62,6 +62,11 @@ const router = new Router({
       component: () => import('@/pages/financial_aid')
     },
     {
+      path: '/list/:id',
+      name: 'list',
+      component: () => import('@/pages/list')
+    },
+    {
       path: '/users',
       name: 'users',
       component: () => import('@/pages/users')

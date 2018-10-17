@@ -268,6 +268,14 @@ export function deleteTransport(tid) {
   })
 }
 
+export function studentLinkage(data) {
+  return request({
+    url: '/student_financial',
+    method: 'POST',
+    data
+  })
+}
+
 export function verifyStudent(data) {
   return request({
     url: '/student_financial/verify',
@@ -275,6 +283,7 @@ export function verifyStudent(data) {
     data
   })
 }
+
 export function deleteVerification(data) {
   return request({
     url: '/student_financial/delete',

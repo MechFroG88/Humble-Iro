@@ -23,6 +23,14 @@ class Student_financial_model extends HI_Model{
                                   ->get(T_STUDENT_FINANCIALS)
                                   ->result_array();
                                   
+        foreach ($financial_aid as &$single_financial_aid){
+            $financial_aid_type = $this->db->where("financial_aid_id", $single_financial_aid['financial_aid_id'])
+                                           ->select("financial_aid_type")
+                                           ->get(T_FINANCIAL_AIDS)
+                                           ->row()->financial_aid_type;
+
+            $single_financial_aid['financial_aid_type'] = $financial_aid_type;
+        }
         return $financial_aid;
     }
 
@@ -35,6 +43,15 @@ class Student_financial_model extends HI_Model{
                             ->select("student_id, status")
                             ->get(T_STUDENT_FINANCIALS)
                             ->result_array();
+
+        foreach ($student as &$single_student){
+            $cn_name = $this->db->where("student_id", $single_student['student_id'])
+                                ->select("cn_name")
+                                ->get(T_STUDENTS)
+                                ->row()->cn_name;
+
+            $single_student['cn_name'] = $cn_name;  
+        }
 
         return $student;
     }

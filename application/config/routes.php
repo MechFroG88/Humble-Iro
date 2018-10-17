@@ -46,6 +46,7 @@ $route['student/full/(:num)']['GET']          = 'Full/get/$1';
  */
 $route['student/(:num)']['GET']                = 'Student/get/$1';
 $route['student/basic']['GET']                 = 'Student/get_basic';
+$route['student/basic/(:num)']['GET']          = 'Student/get_basic/$1';
 $route['student']['POST']                      = 'Student/create';
 $route['student/edit/(:num)']['POST']          = 'Student/edit/$1';
 $route['student/delete/(:num)']['POST']        = 'Student/delete/$1';

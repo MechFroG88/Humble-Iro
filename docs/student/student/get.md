@@ -36,8 +36,9 @@ student
   "en_name"    : "Tan Mou Mou",
   "financial_aid" : [
     {
-    "financial_aid_id" : 1,
-    "status"     : 1
+    "financial_aid_id"  : 1,
+    "financial_aid_type": "么么哒",
+    "status"            : 1
     },...
   ]
 }

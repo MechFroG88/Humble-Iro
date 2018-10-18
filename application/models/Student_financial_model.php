@@ -46,9 +46,10 @@ class Student_financial_model extends HI_Model{
 
         foreach ($student as &$single_student){
             $cn_name = $this->db->where("student_id", $single_student['student_id'])
-                                ->select("cn_name")
-                                ->get(T_STUDENTS)
-                                ->row()->cn_name;
+                                ->where("title", "cn_name")
+                                ->select("value")
+                                ->get(T_STUDENT_CMS)
+                                ->row()->value;
 
             $single_student['cn_name'] = $cn_name;  
         }

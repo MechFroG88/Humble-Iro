@@ -294,17 +294,43 @@
         </div>
       </div>
 
-      <span class="chip" v-for="(cf, index) in confirmed" :key="cf">
-        {{financial_aid[index].financial_aid_type}}
-        <a class="btn btn-clear" aria-label="Close" role="button"></a>
-      </span>
+      <div class="d-block">
+        <el-row class="title-container" type="flex">
+          <h3 class="title">助学金资料</h3> 
+        </el-row>
+        <el-table
+          :data="student_aid"
+          style="width: 100%">
+          <el-table-column
+            prop="financial_aid_type"
+            label="助学金种类">
+          </el-table-column>
+          <el-table-column label="状态">
+            <template slot-scope="scope">
+              <span class="label label-primary"
+              v-if="student_aid[scope.$index].status == 0">已解除</span>
+              <span class="label label-primary"
+              v-if="student_aid[scope.$index].status == 1">未审核</span>
+              <span class="label label-success"
+              v-if="student_aid[scope.$index].status == 2">已批准</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="操作">
+            <template slot-scope="scope">
+              <el-button
+              size="mini"
+              type="info"
+              plain
+              @click="openAid(scope.$index)">查看</el-button>
 
-      <crud-table
-      title="助学金资料"
-      :columns="financialListColumns"
-      :tableData="student_aid"
-      type="financial_list">
-      </crud-table>
+              <el-button
+              size="mini"
+              type="info"
+              @click="disableAid(scope.$index)">解除助学金</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
     </layout>
 
     <modal title="添加助学金" ref="finance">
@@ -339,7 +365,6 @@
 import layout from '@/layout/default'
 import crudTable from '@/components/tables'
 import modal from '@/components/modal/modal'
-import { financialListColumns } from '@/api/tableColumns'
 import { getAid, getAidById } from '@/api/financial_aid'
 import { 
   getStudent, deleteStudent, getStudentBasicById,
@@ -400,49 +425,45 @@ export default {
         this.check.push(false)
       }
     })
-    getStudentBasicById(this.$route.params.id).then(({data}) => {
-      for (let i = 0; i < data.data.financial_aid.length; i++) {
-        
-      }
-      this.student_aid = data.data.financial_aid;
-      console.log(data.data)
-    })
+    this.get();
   },
   data() {
     return {
-      aidArr: [],
-      basic: {},
-      parent: [],
-      family: {},
-      siblings: [],
-      income: [],
-      expenditure: [],
-      finance: {},
-      house: [],
-      aircond: {},
-      transport: [],
-      financial_aid: [],
-      student_aid: [],
-      financialListColumns,
-      check: [],
-      confirmed: []
+      aidArr        : [],
+      basic         : {},
+      parent        : [],
+      family        : {},
+      siblings      : [],
+      income        : [],
+      expenditure   : [],
+      finance       : {},
+      house         : [],
+      aircond       : {},
+      transport     : [],
+      financial_aid : [],
+      student_aid   : [],
+      check         : [],
+      confirmed     : []
     }
   },
   methods: {
+    get() {
+      getStudentBasicById(this.$route.params.id).then(({data}) => {
+        this.student_aid = data.data.financial_aid;
+        console.log(data.data)
+      })
+    },
     confirmClick() {
-      // console.log({
-      //   confirm: this.confirmed,
-      //   check: this.check
-      // })
       for (let i = 0; i < this.confirmed.length; i++) {
         studentLinkage({
           student_id: this.$route.params.id,
           financial_aid_id: this.financial_aid[i].financial_aid_id
         }).then((data) => {
           console.log(data)
+          this.get();
         })
       }
-      // this.$refs.finance.active = false;
+      this.$refs.finance.active = false;
     },
     confirm(index) {
       console.log(index)
@@ -452,6 +473,17 @@ export default {
       if (this.check[index] == false && this.confirmed.indexOf(index) != -1) {
         this.confirmed.splice(this.confirmed.indexOf(index), 1);
       }
+    },
+    disableAid(index) {
+      deleteVerification({
+        student_id: this.$route.params.id,
+        financial_aid_id: this.student_aid[index].financial_aid_id
+      }).then(() => {
+        this.get();
+      })
+    },
+    openAid(index) {
+      this.$router.push({path: `/list/${this.student_aid[index].financial_aid_id}`})
     }
   },
   components: {

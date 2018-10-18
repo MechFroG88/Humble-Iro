@@ -20,27 +20,18 @@
         <template slot-scope="scope">
           <el-button
           size="mini"
-          v-if="check == true && type != 'financial_list'"
+          v-if="check == true"
           @click="openCheck(scope.$index)">查看</el-button>
 
           <el-button
           class="mr-2"
           size="mini"
-          v-if="type != 'financial_list'"
           @click.native="openEdit(scope.$index)">编辑</el-button>
 
           <el-button
           size="mini"
           type="danger"
-          v-if="type != 'financial_list'"
           @click="openDelete(scope.$index)">删除</el-button>
-
-          <el-button
-          size="mini"
-          type="info"
-          plain
-          v-if="type == 'financial_list'"
-          @click="disableAid(scope.$index)">解除助学金</el-button>
         </template>
       </el-table-column>
     </el-table>

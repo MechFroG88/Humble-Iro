@@ -46,7 +46,6 @@
 
 <script>
 import layout from '@/layout/default'
-import { listColumns } from '@/api/tableColumns'
 import { getAidById } from '@/api/financial_aid'
 import { verifyStudent, deleteVerification } from '@/api/student'
 export default {
@@ -58,7 +57,6 @@ export default {
   },
   data: () => ({
     details: {},
-    listColumns
   }),
   methods: {
     get() {

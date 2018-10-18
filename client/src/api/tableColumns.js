@@ -16,11 +16,6 @@ export let financialListColumns = [
   { label: '状态'     , field: 'status' }
 ];
 
-export let listColumns = [
-  { label: '中文姓名', field: 'cn_name', search: true },
-  { label: '状态'   , field: 'status' }
-];
-
 export let usersColumns = [
   { label: '用户名'  , field: 'username', search: true },
   { label: '中文姓名', field: 'cn_name' }

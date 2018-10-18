@@ -13,7 +13,7 @@ class Student_financial_model extends HI_Model{
         "financial_aid_id" => "required|integer"
     ];
 
-    public function get($student_id)
+    public function get_by_student_id($student_id)
     {
         $this->check_existance($student_id, "student_id", T_STUDENTS);
         $financial_aid = $this->db->where("student_id", $student_id)
@@ -22,17 +22,38 @@ class Student_financial_model extends HI_Model{
                                   ->select("financial_aid_id, status")
                                   ->get(T_STUDENT_FINANCIALS)
                                   ->result_array();
-
+                                  
         foreach ($financial_aid as &$single_financial_aid){
             $financial_aid_type = $this->db->where("financial_aid_id", $single_financial_aid['financial_aid_id'])
-                                           ->where("status", 1)
                                            ->select("financial_aid_type")
                                            ->get(T_FINANCIAL_AIDS)
-                                           ->row();
+                                           ->row()->financial_aid_type;
 
-            $single_financial_aid['financial_aid_type'] = isset($financial_aid_type) ? $financial_aid_type->financial_aid_type : "";
+            $single_financial_aid['financial_aid_type'] = $financial_aid_type;
         }
         return $financial_aid;
+    }
+
+    public function get_by_financial_aid_id($financial_aid_id)
+    {
+        $this->check_existance($financial_aid_id, "financial_aid_id", T_FINANCIAL_AIDS);
+        $student = $this->db->where("financial_aid_id", $financial_aid_id)
+                            ->where("(status = 1 OR status = 2)")
+                            ->order_by("status", "DESC")
+                            ->select("student_id, status")
+                            ->get(T_STUDENT_FINANCIALS)
+                            ->result_array();
+
+        foreach ($student as &$single_student){
+            $cn_name = $this->db->where("student_id", $single_student['student_id'])
+                                ->select("cn_name")
+                                ->get(T_STUDENTS)
+                                ->row()->cn_name;
+
+            $single_student['cn_name'] = $cn_name;  
+        }
+
+        return $student;
     }
 
     public function create($data)

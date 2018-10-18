@@ -23,6 +23,7 @@ $route['login']['POST']                 = 'User/login';
  * 
  */
 $route['financial_aid']['GET']                = 'Financial_aid/get';
+$route['financial_aid/(:num)']['GET']         = 'Financial_aid/get/$1';
 $route['financial_aid']['POST']               = 'Financial_aid/create';
 $route['financial_aid/edit/(:num)']['POST']   = 'Financial_aid/edit/$1';
 $route['financial_aid/delete/(:num)']['POST'] = 'Financial_aid/delete/$1';
@@ -45,6 +46,7 @@ $route['student/full/(:num)']['GET']          = 'Full/get/$1';
  */
 $route['student/(:num)']['GET']                = 'Student/get/$1';
 $route['student/basic']['GET']                 = 'Student/get_basic';
+$route['student/basic/(:num)']['GET']          = 'Student/get_basic/$1';
 $route['student']['POST']                      = 'Student/create';
 $route['student/edit/(:num)']['POST']          = 'Student/edit/$1';
 $route['student/delete/(:num)']['POST']        = 'Student/delete/$1';

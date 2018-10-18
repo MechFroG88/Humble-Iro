@@ -2,6 +2,8 @@
 
 `GET` /financial_aid
 
+
+
 ```json
 [
   {
@@ -13,16 +15,25 @@
 ]
 ```
 
-## Success response
-
-**Content** : return [all us information](README.md#full-information "All aid info")
-
 # Get financial aid information by financial aid id
 
 `GET` /financial_aid/:fid
 
+## Success response
+
 ```json
 {
-  
+  "financial_aid_id"   : 1,
+  "supplier"           : "呵呵呵会馆",
+  "expired_date"       : "datetime",
+  "financial_aid_type" : "lol",
+  "student"            : [
+    {
+    "student_id" : 1,
+    "cn_name"    : "李哈哈",
+    "status"     : 1
+    },...
+  ]
 }
 ```
+

@@ -15,9 +15,9 @@ class Student extends HI_Controller {
         $this->json($this->student->get($student_id));
     }
 
-    public function get_basic()
+    public function get_basic($student_id = false)
     {
-        $this->json($this->student->get_basic());
+        $this->json($this->student->get_basic($student_id));
     }
     
     public function create()

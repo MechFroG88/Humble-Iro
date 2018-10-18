@@ -11,6 +11,7 @@
       :columns="financialAidColumns"
       :tableData="financialAidData"
       :modal="true"
+      :check="true"
       modalTitle="编辑助学金"
       :modalData="financialAidModal"
       type="financial_aid">
@@ -53,8 +54,12 @@
         </div>
       </div>
       <div slot="footer">
-        <button class="btn btn-primary btn-error btn-lg" @click="$refs.add.active = false">取消</button>
-        <button class="btn btn-primary btn-lg" @click="confirmAdd()">确认</button>
+        <button 
+        class="btn btn-primary btn-error btn-lg" 
+        @click="$refs.add.active = false">取消</button>
+        <button 
+        class="btn btn-primary btn-lg" 
+        @click="confirmAdd()">确认</button>
       </div>
     </modal>
   </div>
@@ -64,8 +69,8 @@
 import layout    from '@/layout/default'
 import crudTable from '@/components/tables'
 import modal     from '@/components/modal/modal'
-import { financialAidModal }   from '../../api/modalData'
-import { financialAidColumns } from '../../api/tableColumns'
+import { financialAidModal }   from '@/api/modalData'
+import { financialAidColumns } from '@/api/tableColumns'
 import { getAid, addAid } from '@/api/financial_aid'
 
 export default {
@@ -110,7 +115,7 @@ export default {
       this.$emit('close');
       console.log("post")
       addAid(this.value).then((data) => {
-        console.log(data.data);
+        
       }).then(() => {
         this.get();
         this.reset();

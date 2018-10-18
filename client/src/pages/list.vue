@@ -1,90 +1,89 @@
 <template>
   <div id="_list">
     <layout>
-      <div class="action-bar">
-        <el-button type="primary" @click="addModal">
-          <i class="icon icon-plus"></i> 添加助学金
-        </el-button>
-      </div>
-      <crudTable
-      title="助学金种类列表"
-      :columns="listColumns"
-      :tableData="listData"
-      :modal="true"
-      modalTitle="编辑助学金"
-      :modalData="listModal">
-      </crudTable>
-    </layout>
+      <el-row class="title-container" type="flex">
+        <h3 class="title">{{details.financial_aid_type}}申请列表</h3> 
+      </el-row>
+      <el-table
+        :data="details.student"
+        style="width: 100%">
+        <el-table-column
+          prop="cn_name"
+          label="学生姓名">
+        </el-table-column>
+        <el-table-column label="状态">
+          <template slot-scope="scope">
+            <span class="label label-primary"
+            v-if="details.student[scope.$index].status == 1">未审核</span>
+            <span class="label label-success"
+            v-if="details.student[scope.$index].status == 2">已批准</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <el-button
+            size="mini"
+            @click="openCheck(scope.$index)">查看</el-button>
+            
+            <el-button
+            class="mr-2"
+            size="mini"
+            type="success"
+            @click="verify(scope.$index)">批准</el-button>
 
-    <modal title="添加助学金" ref="add">
-      <div slot="content">
-        <div class="form-group">
-          <label class="form-label">助学金种类</label>
-          <input 
-          class="form-input" 
-          type="text" 
-          placeholder="请输入所提供助学金名称..."
-          v-model="value.aid_type">
-        </div>
-        <div class="form-group">
-          <label class="form-label">申请条件</label>
-          <input 
-          class="form-input" 
-          type="text" 
-          placeholder="请输入所需的申请条件..."
-          v-model="value.requirements">
-        </div>
-      </div>
-      <div slot="footer">
-        <button class="btn btn-primary btn-error btn-lg" @click="$refs.edit.active = false">取消</button>
-        <button class="btn btn-primary btn-lg" @click="confirmAdd()">确认</button>
-      </div>
-    </modal>
+            <el-button
+            size="mini"
+            type="danger"
+            @click="remove(scope.$index)">不批准</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </layout>
   </div>
 </template>
 
 <script>
-import layout    from '@/layout/default'
-import crudTable from '@/components/tables'
-import modal     from '@/components/modal/modal'
-// import { getAid } from '@/api/tableData'
-import { listModal } from '../../api/modalData'
-import { listColumns } from '../../api/tableColumns'
-
-// import { listData } from '../../api/mock/tableData'
+import layout from '@/layout/default'
+import { listColumns } from '@/api/tableColumns'
+import { getAidById } from '@/api/financial_aid'
+import { verifyStudent, deleteVerification } from '@/api/student'
 export default {
   beforeMount() {
-    // getAid().then(({data}) => {
-    //   this.listData = data.data;
-    // })
+    this.get();
   },
   components: {
     layout,
-    crudTable,
-    modal
   },
-  data() {
-    return {
-      listColumns,
-      listData: [],
-      listModal,
-      value: {
-        aid_type    : '',
-        requirements: ''
-      }
-    }
-  },
+  data: () => ({
+    details: {},
+    listColumns
+  }),
   methods: {
-    addModal() {
-      this.$refs.add.active = true;
+    get() {
+      getAidById(this.$route.params.id).then(({data}) => {
+        this.details = data.data;
+        // console.log(data.data);
+      })
     },
-    confirmAdd() {
-      this.$refs.add.active  = false;
-      this.$refs.add.loading = false;
-      this.$refs.add.error   = false;
-      this.$emit('close');
-      console.log("post")
-      //POST
+    openCheck(index) {
+      const params = this.details.student[index].student_id;
+      this.$router.push(`/validate/${params}`);
+    },
+    verify(index) {
+      verifyStudent({
+        student_id: this.details.student[index].student_id,
+        financial_aid_id: this.details.financial_aid_id
+      }).then(() => {
+        this.get();
+      })
+    },
+    remove(index) {
+      deleteVerification({
+        student_id: this.details.student[index].student_id,
+        financial_aid_id: this.details.financial_aid_id
+      }).then(() => {
+        this.get();
+      })
     }
   }
 }

@@ -7,6 +7,13 @@ export function getStudentBasic() {
   })
 }
 
+export function getStudentBasicById(id) {
+  return request({
+    url: '/student/basic/' + id,
+    method: 'GET'
+  })
+}
+
 export function deleteStudent(id) {
   return request({
     url: '/student/delete/' + id,
@@ -265,5 +272,29 @@ export function deleteTransport(tid) {
   return request({
     url: '/transport/delete/' + tid,
     method: 'POST'
+  })
+}
+
+export function studentLinkage(data) {
+  return request({
+    url: '/student_financial',
+    method: 'POST',
+    data
+  })
+}
+
+export function verifyStudent(data) {
+  return request({
+    url: '/student_financial/verify',
+    method: 'POST',
+    data
+  })
+}
+
+export function deleteVerification(data) {
+  return request({
+    url: '/student_financial/delete',
+    method: 'POST',
+    data
   })
 }

@@ -16,8 +16,6 @@
       <family v-if="$route.name === 'family'" ref="family"></family>
       
       <finance v-if="$route.name === 'finance'" ref="finance"></finance>
-
-      <finish v-if="$route.name === 'finish'"></finish>
       <!-- form stuffs -->
       
       <div class="btn-group" v-if="active != 4">
@@ -30,17 +28,26 @@
           </el-button>
         </el-button-group>
       </div>
-
-      <div class="finish-button" v-if="active == 4">
-        <button class="btn btn-primary btn-block" @click="finishStep">
-          <i class="icon icon-edit"></i> 完成
-        </button>
-        <button class="btn btn-primary btn-block" @click="backStep">
-          <i class="icon icon-repeat"></i> 修改
-        </button>
-      </div>
-
     </layout>
+
+    <el-dialog
+      :visible.sync="dialogVisible"
+      width="30%">
+      <span 
+      style="
+      font-size: 1.2rem;
+      display: flex;
+      justify-content: center;">确定完成资料填写？</span>
+      <span 
+      slot="footer" 
+      class="dialog-footer"
+      style="
+      display: flex;
+      justify-content: center;">
+        <el-button type="danger" @click="dialogVisible = false">取消</el-button>
+        <el-button type="primary" @click="finishStep()">确定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -52,8 +59,6 @@ import basic   from '@/pages/createStudent/basic'
 import parent  from '@/pages/createStudent/parent'
 import family  from '@/pages/createStudent/family'
 import finance from '@/pages/createStudent/finance'
-//finish pages
-import finish from '@/pages/createStudent/finish'
 //API
 import { 
   editStudentBasic, 
@@ -67,11 +72,11 @@ export default {
     basic,
     parent,
     family,
-    finance,
-    finish
+    finance
   },
   data() {
     return {
+      dialogVisible: false,
       active: 0,
       id    : 0,
       student_id: null,
@@ -116,10 +121,7 @@ export default {
     nextStep() {
       const id = this.student_id;
       if (this.id == 3) {
-        this.id++;
-        this.active = 4;
-        const params = "finish";
-        this.$router.push({ path: `/addStudent/${id}/${params}` });
+        this.dialogVisible = true;
         return;
         //finish upload
       } else {
@@ -150,17 +152,11 @@ export default {
         ///POST family and siblings///
         this.output.family   = this.$refs.family.family_value;
         this.output.siblings = this.$refs.family.siblings_array;
-        console.log(this.output.siblings)
         editFamily(this.output.family, this.student_id).then(({data}) => {
           editSibling(this.output.siblings, this.student_id).then(({data}) => {
-            // this.nextStep();
+            this.nextStep();
           })
         })
-        // axios.all([editFamily(this.output.family, this.student_id), editSibling(this.output.siblings, this.student_id)])
-        //   .then(axios.spread(function(family, siblings) {
-        //     console.log(family);
-        //     console.log(siblings);
-        //   }));
       } else if (this.id == 3) {
         ///POST finance///
         this.output.house               = this.$refs.finance.house;
@@ -175,7 +171,7 @@ export default {
               editHouse(this.output.house, this.student_id).then(() => {
                 editAircond(this.output.aircond, this.student_id).then(() => {
                   editTransport(this.output.transport, this.student_id).then(() => {
-
+                    this.nextStep();
                   })
                 })
               })
@@ -185,15 +181,19 @@ export default {
       }
     },
     finishStep() {
-      console.log("finish");
-      // console.log(this.output);
+      this.dialogVisible = false;
+      this.$message({
+        message: '成功呈交！',
+        type: 'success',
+        center: true
+      });
       this.$router.push({ path: "/student" });
     },
     backStep() {
       this.id = 3;
+      this.active = 3;
       const params = this.paths[this.id];
-      this.$router.push({ path: `/addStudent/${params}` });
-      this.active = this.paths.indexOf(this.$route.name);
+      this.$router.push({ path: `/addStudent/${this.student_id}/${params}` });
     }
   }
 }

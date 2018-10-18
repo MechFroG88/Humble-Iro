@@ -30,10 +30,41 @@ student
 **Content** : 
 
 ```json
-{
+[
+  {
   "student_id" : "1",
   "cn_name"    : "陈某某",
   "en_name"    : "Tan Mou Mou",
-  "financial_aid"   : ["啦啦啦基金",...],
+  "financial_aid" : [
+      {
+      "financial_aid_id" : 1,
+      "status"     : 1
+      },...
+    ]
+  },...
+]
+
+```
+
+# Get student basic information by id
+
+`GET` /student/basic/:id
+
+## Success response
+
+**Content** : 
+
+```json
+{
+"student_id" : "1",
+"cn_name"    : "陈某某",
+"en_name"    : "Tan Mou Mou",
+"financial_aid" : [
+    {
+    "financial_aid_id"  : 1,
+    "financial_aid_type": "么么哒",
+    "status"            : 1
+    },...
+  ]
 }
 ```

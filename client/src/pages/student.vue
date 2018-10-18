@@ -21,9 +21,7 @@
 import layout    from '@/layout/default'
 import crudTable from '@/components/tables'
 import { getStudentBasic, createStudent } from '@/api/student'
-import { studentColumns } from '../../api/tableColumns'
-
-// import { studentData } from '../../api/mock/tableData'
+import { studentColumns } from '@/api/tableColumns'
 export default {
   components: {
     crudTable,
@@ -32,6 +30,7 @@ export default {
   mounted() {
     getStudentBasic().then(({data}) => {
       this.studentData = data.data;
+      console.log(data.data)
     })
   },
   data() {
@@ -47,7 +46,7 @@ export default {
       createStudent().then(({data}) => {
         id = data.data
       }).then(() => {
-        this.$router.push(`/addStudent/${id}`);
+        this.$router.push(`/addStudent/${id}/basic`);
       })
     }
   }

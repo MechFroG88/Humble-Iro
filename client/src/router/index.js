@@ -53,11 +53,6 @@ const router = new Router({
           path: 'finance',
           name: 'finance',
           component: () => import('@/pages/createStudent/finance')
-        },
-        {
-          path: 'finish',
-          name: 'finish',
-          component: () => import('@/pages/createStudent/finish')
         }
       ]
     },
@@ -67,7 +62,7 @@ const router = new Router({
       component: () => import('@/pages/financial_aid')
     },
     {
-      path: '/list',
+      path: '/list/:id',
       name: 'list',
       component: () => import('@/pages/list')
     },

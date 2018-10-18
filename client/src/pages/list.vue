@@ -5,8 +5,9 @@
         <h3 class="title">{{details.financial_aid_type}}申请列表</h3> 
       </el-row>
       <el-table
+        stripe
         :data="details.student"
-        style="width: 100%">
+        style="width: 100%;">
         <el-table-column
           prop="cn_name"
           label="学生姓名">

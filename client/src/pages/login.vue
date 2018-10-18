@@ -54,7 +54,7 @@ export default {
               this.$router.push('/student')
             }
           }).catch((err) => {
-            console.log(err)
+            this.$message.error('用户名或密码错误！');
           })
         }
       });

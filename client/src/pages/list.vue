@@ -1,44 +1,45 @@
 <template>
   <div id="_list">
     <layout>
-      <el-row class="title-container" type="flex">
-        <h3 class="title">{{details.financial_aid_type}}申请列表</h3> 
-      </el-row>
-      <el-table
-        stripe
-        :data="details.student"
-        style="width: 100%;">
-        <el-table-column
-          prop="cn_name"
-          label="学生姓名">
-        </el-table-column>
-        <el-table-column label="状态">
-          <template slot-scope="scope">
-            <span class="label label-primary"
-            v-if="details.student[scope.$index].status == 1">未审核</span>
-            <span class="label label-success"
-            v-if="details.student[scope.$index].status == 2">已批准</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="操作">
-          <template slot-scope="scope">
-            <el-button
-            size="mini"
-            @click="openCheck(scope.$index)">查看</el-button>
-            
-            <el-button
-            class="mr-2"
-            size="mini"
-            type="success"
-            @click="verify(scope.$index)">批准</el-button>
+      <div class="d-block">
+        <el-row class="title-container" type="flex">
+          <h3 class="title">{{details.financial_aid_type}}申请列表</h3> 
+        </el-row>
+        <el-table
+          :data="details.student"
+          style="width: 100%">
+          <el-table-column
+            prop="cn_name"
+            label="学生姓名">
+          </el-table-column>
+          <el-table-column label="状态">
+            <template slot-scope="scope">
+              <span class="label label-primary"
+              v-if="details.student[scope.$index].status == 1">未审核</span>
+              <span class="label label-success"
+              v-if="details.student[scope.$index].status == 2">已批准</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="操作">
+            <template slot-scope="scope">
+              <el-button
+              size="mini"
+              @click="openCheck(scope.$index)">查看</el-button>
+              
+              <el-button
+              class="mr-2"
+              size="mini"
+              type="success"
+              @click="verify(scope.$index)">批准</el-button>
 
-            <el-button
-            size="mini"
-            type="danger"
-            @click="remove(scope.$index)">不批准</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
+              <el-button
+              size="mini"
+              type="danger"
+              @click="remove(scope.$index)">不批准</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
     </layout>
   </div>
 </template>

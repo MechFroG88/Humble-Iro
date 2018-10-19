@@ -308,8 +308,6 @@
           <el-table-column label="状态">
             <template slot-scope="scope">
               <span class="label label-primary"
-              v-if="student_aid[scope.$index].status == 0">已解除</span>
-              <span class="label label-primary"
               v-if="student_aid[scope.$index].status == 1">未审核</span>
               <span class="label label-success"
               v-if="student_aid[scope.$index].status == 2">已批准</span>
@@ -354,7 +352,7 @@
         </el-table>
       </div>
       <div slot="footer">
-        <button class="btn btn-primary btn-error btn-lg" @click="$refs.finance.active = false">取消</button>
+        <button class="btn btn-primary btn-error btn-lg" @click="closeModal()">取消</button>
         <button class="btn btn-primary btn-lg" @click="confirmClick()">确认</button>
       </div>
     </modal>
@@ -426,6 +424,7 @@ export default {
       }
     })
     this.get();
+    console.log(this)
   },
   data() {
     return {
@@ -450,23 +449,35 @@ export default {
     get() {
       getStudentBasicById(this.$route.params.id).then(({data}) => {
         this.student_aid = data.data.financial_aid;
-        console.log(data.data)
       })
     },
-    confirmClick() {
-      for (let i = 0; i < this.confirmed.length; i++) {
-        studentLinkage({
-          student_id: this.$route.params.id,
-          financial_aid_id: this.financial_aid[i].financial_aid_id
-        }).then((data) => {
-          console.log(data)
-          this.get();
-        })
-      }
+    closeModal() {
       this.$refs.finance.active = false;
+      // window.location.reload();
+    },
+    confirmClick() {
+      if (this.confirmed.length != 0) {
+        let count = 0;
+        while (count != this.confirmed.length) {
+          for (let i = 0; i < this.confirmed.length; i++) {
+            count++;
+            studentLinkage({
+              student_id: this.$route.params.id,
+              financial_aid_id: this.financial_aid[this.confirmed[i]].financial_aid_id
+            }).then((data) => {
+              this.get();
+            })
+          }
+        }
+        this.$refs.finance.active = false;
+      } else {
+        this.$message({
+          message: '请选择要添加的助学金',
+          type: 'error'
+        });
+      }
     },
     confirm(index) {
-      console.log(index)
       if (this.check[index] == true && this.confirmed.indexOf(index) == -1) {
         this.confirmed.push(index);
       }

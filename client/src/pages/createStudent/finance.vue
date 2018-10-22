@@ -21,6 +21,7 @@
               class="form-input input-sm mr-2" 
               type="text" 
               placeholder="请输入收入来源..."
+              v-validate="'required'"
               v-model="income[index].member">
             </div>
             <div class="col-5 col-sm-12 input-group">
@@ -29,6 +30,7 @@
               class="form-input input-sm" 
               type="number" 
               id="other_aid" 
+              v-validate="'required|integer'"
               v-model.number="income[index].income" 
               @keyup="updateTotal">
             </div>
@@ -56,6 +58,7 @@
               class="form-input input-sm mr-2" 
               type="text" 
               placeholder="请输入开销来源..."
+              v-validate="'required'"
               v-model="expenditure[index].object">
             </div>
             <div class="col-5 col-sm-12 input-group">
@@ -64,6 +67,7 @@
               class="form-input input-sm" 
               type="number" 
               id="school" 
+              v-validate="'required|integer'"
               v-model.number="expenditure[index].expenditure"
               @keyup="updateTotal">
             </div>
@@ -132,6 +136,7 @@
           id="remarks" 
           placeholder="备注" 
           rows="3"
+          v-validate="'required'"
           v-model="finance.remarks"></textarea>
         </div>
       </form>
@@ -152,7 +157,10 @@
           </div>
           <div class="house-form col-12" v-for="(h, index) in houseNum" :key="h">
             <div class="col-12 form-selects" v-once>
-              <select class="form-select house_state col-5" v-model.number="house[index].house_state">
+              <select 
+              class="form-select house_state col-5" 
+              v-validate="'required'"
+              v-model.number="house[index].house_state">
                 <option value="" disabled>房子状态</option>
                 <option :value="0">租赁</option>
                 <option :value="1">已供完</option>
@@ -163,13 +171,19 @@
               type="text" 
               id="other_house_type" 
               placeholder="房屋种类"
+              v-validate="'required'"
               v-model="house[index].house_type">
             </div>
           </div>
         </div>
         <div class="form-group aircond">
           <label class="form-label" for="aircond">冷气机数量</label>
-          <input class="form-input" type="number" id="aircond" placeholder="冷气机数量" v-model="aircond.amount">
+          <input class="form-input" 
+          type="number" 
+          id="aircond" 
+          placeholder="冷气机数量" 
+          v-validate="'required|integer'"
+          v-model="aircond.amount">
         </div>
         <div class="form-group">
           <div class="col-7 transport-title mb-2">
@@ -201,6 +215,7 @@
               class="form-input input-sm ml-2 mr-2" 
               type="text" 
               placeholder="汽车/摩托款式"
+              v-validate="'required'"
               v-model="transportArr[index].model">
             </div>
             <div class="col-5 col-sm-12 input-group">
@@ -209,6 +224,7 @@
               type="text" 
               id="transport" 
               placeholder="（年份）"
+              v-validate="'required|digits:4'"
               v-model="transportArr[index].year">
             </div>
           </div>

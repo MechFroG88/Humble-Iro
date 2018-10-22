@@ -21,6 +21,7 @@
         type="text" 
         id="single_reason" 
         placeholder="单亲原因"
+        v-validate="'required'"
         v-model="family_value.single_reason">
       </div>
 
@@ -44,6 +45,7 @@
         type="text" 
         id="disabled_relation" 
         placeholder="与残障家人的关系"
+        v-validate="'required'"
         v-model="family_value.disabled_relation">
       </div>
 
@@ -54,6 +56,7 @@
         type="number" 
         id="family_size" 
         placeholder="家庭人数"
+        v-validate="'required|integer'"
         v-model="family_value.family_size">
       </div>
       <div class="form-group">
@@ -63,6 +66,7 @@
         type="number" 
         id="working_people" 
         placeholder="就业人数"
+        v-validate="'required|integer'"
         v-model="family_value.working_people">
       </div>
       <div class="form-group">
@@ -72,6 +76,7 @@
         type="number" 
         id="primary_people" 
         placeholder="就读小学人数"
+        v-validate="'required|integer'"
         v-model="family_value.primary_people">
       </div>
 
@@ -82,6 +87,7 @@
         type="number" 
         id="smk_people" 
         placeholder="就读国中人数"
+        v-validate="'required|integer'"
         v-model="family_value.smk_people">
       </div>
       <div class="form-group">
@@ -91,6 +97,7 @@
         type="number" 
         id="smp_people" 
         placeholder="就读独中/私立学校人数"
+        v-validate="'required|integer'"
         v-model="family_value.smp_people">
       </div>
       <div class="form-group">
@@ -100,6 +107,7 @@
         type="number" 
         id="uni_people" 
         placeholder="就读学院/大专人数"
+        v-validate="'required|integer'"
         v-model="family_value.uni_people">
       </div>  
     </form>
@@ -133,6 +141,7 @@
           type="text" 
           id="cn_name" 
           placeholder="中文姓名"
+          v-validate="'required'"
           v-model="siblings_array[formIndex].cn_name">
         </div>
         <div class="form-group age">
@@ -142,11 +151,16 @@
           type="number" 
           id="age" 
           placeholder="年龄"
+          v-validate="'required|integer'"
           v-model="siblings_array[formIndex].age">
         </div>
         <div class="form-group relation">
           <label class="form-label" for="relation">关系</label>
-          <select class="form-select" id="relation" v-model="siblings_array[formIndex].relation">
+          <select 
+          class="form-select" 
+          id="relation" 
+          v-validate="'required'"
+          v-model="siblings_array[formIndex].relation">
             <option :value="null" disabled>请选择一个关系</option>
             <option :value="0">哥哥</option>
             <option :value="1">弟弟</option>
@@ -162,6 +176,7 @@
             <input 
             type="radio" 
             name="got_aid"
+            checked
             v-model="siblings_array[formIndex].got_aid" 
             :value="1"
             @click="siblings_array[formIndex].financial_aid_id = []">
@@ -170,7 +185,7 @@
           <label class="form-radio col-10">
             <input 
             type="radio" 
-            name="got_aid" 
+            name="got_aid"
             v-model="siblings_array[formIndex].got_aid" 
             :value="0"
             @click="siblings_array[formIndex].financial_aid_id = []">
@@ -195,6 +210,7 @@
               <select 
               class="form-input form-select" 
               id="financial_aid" 
+              v-validate="'required'"
               v-model="siblings_array[formIndex].financial_aid_id[finance - 1]">
                 <option 
                 v-for="(f, index) in financialArr" 
@@ -210,6 +226,7 @@
             type="number" 
             id="aid_total" 
             placeholder="助学金名数额"
+            v-validate="'required|integer'"
             v-model="siblings_array[formIndex].aid_total">
           </div>
         </div>

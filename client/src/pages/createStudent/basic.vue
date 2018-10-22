@@ -84,7 +84,7 @@
           name="phonenum"
           v-validate="{
             required: true,
-            regex: /^(\+?6?01)[0-46-9]-*[0-9]{7,8}$/
+            regex: /^(\+6)?0(1(1|5)\d{8}|1[02-46-9]\d{7}|[2-79]\d{8}|8[0-9]\d{6})$/
           }"
           id="phonenum" 
           placeholder="联络号码"
@@ -121,7 +121,7 @@
         type="text" 
         id="attitude" 
         name="attitude"
-        v-validate="'required|decimal:2'"
+        v-validate="'required|integer'"
         placeholder="操行"
         v-model.number="value.attitude">
       </div>
@@ -131,7 +131,7 @@
         class="form-input" 
         type="text" 
         id="average-score" 
-        v-validate="'required|decimal:2'"
+        v-validate="'required|decimal:3'"
         placeholder="全年总平均"
         v-model.number="value.score">
       </div>

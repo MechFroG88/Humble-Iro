@@ -423,8 +423,7 @@ export default {
         this.check.push(false)
       }
     })
-    this.get();
-    console.log(this)
+    this.get(); 
   },
   data() {
     return {

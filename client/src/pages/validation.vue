@@ -458,7 +458,6 @@ export default {
     },
     closeModal() {
       this.$refs.finance.active = false;
-      // window.location.reload();
     },
     confirmClick() {
       if (this.confirmed.length != 0) {

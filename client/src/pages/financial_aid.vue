@@ -73,10 +73,10 @@
           v-validate="'required'"
           v-model="value.expired_date">
         </div>
+        <p
+        class="form-input-hint text-error" 
+        v-if="errors.first('requirements')">赞助截止日期是必须的</p>
       </div>
-      <p
-      class="form-input-hint text-error" 
-      v-if="errors.first('requirements')">赞助截止日期是必须的</p>
       <div slot="footer">
         <button 
         class="btn btn-primary btn-error btn-lg" 
@@ -135,7 +135,7 @@ export default {
     },
     closeModal() {
       this.$refs.add.active = false;
-      this.$refs.add.errors.items = [];
+      this.errors.clear();
     },
     confirmAdd() {
       this.$refs.add.active  = false;

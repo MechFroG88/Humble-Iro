@@ -8,7 +8,6 @@
     }
     &.is-error{
       border-color: $error-color;
-      color: #F56C6C;
     }
     &.is-success{
       border-color: $success-color;
@@ -18,4 +17,8 @@
 
 .form-select{
   border-radius: .25rem;
+}
+
+.text-error{
+  color: #F56C6C !important;
 }

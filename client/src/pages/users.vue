@@ -50,7 +50,7 @@
       </div>
 
       <div slot="footer">
-        <button class="btn btn-primary btn-error btn-lg" @click="$refs.edit.active = false">取消</button>
+        <button class="btn btn-primary btn-error btn-lg" @click="closeModal()">取消</button>
         <button class="btn btn-primary btn-lg" @click="confirmAdd()">确认</button>
       </div>
     </modal>
@@ -98,6 +98,10 @@ export default {
     },
     addModal() {
       this.$refs.add.active = true;
+    },
+    closeModal() {
+      this.$refs.add.active = false;
+      this.errors.clear();
     },
     confirmAdd() {
       this.$refs.add.active  = false;

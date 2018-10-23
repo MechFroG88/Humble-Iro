@@ -36,10 +36,11 @@ export default {
   },
   methods: {
     closeClick() {
-      this.active  = false
-      this.loading = false
-      this.error   = false
-      this.$emit('close')
+      this.active  = false;
+      this.loading = false;
+      this.error   = false;
+      this.errors.clear();
+      this.$emit('close');
     }
   }
 }

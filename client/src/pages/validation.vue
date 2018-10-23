@@ -462,17 +462,16 @@ export default {
     },
     confirmClick() {
       if (this.confirmed.length != 0) {
-        let count = 0;
-        while (count != this.confirmed.length) {
-          for (let i = 0; i < this.confirmed.length; i++) {
-            count++;
-            studentLinkage({
-              student_id: this.$route.params.id,
-              financial_aid_id: this.financial_aid[this.confirmed[i]].financial_aid_id
-            }).then((data) => {
-              this.get();
-            })
-          }
+        for (let i = 0; i < this.confirmed.length; i++) {
+          studentLinkage({
+            student_id: this.$route.params.id,
+            financial_aid_id: this.financial_aid[this.confirmed[i]].financial_aid_id
+          }).then((data) => {
+            this.get();
+          })
+        }
+        for (let i = 0; i < this.check.length; i++) {
+          this.$set(this.check, i, false);
         }
         this.$refs.finance.active = false;
       } else {
@@ -489,6 +488,7 @@ export default {
       if (this.check[index] == false && this.confirmed.indexOf(index) != -1) {
         this.confirmed.splice(this.confirmed.indexOf(index), 1);
       }
+      console.log(this.check)
     },
     disableAid(index) {
       this.disableId = index;

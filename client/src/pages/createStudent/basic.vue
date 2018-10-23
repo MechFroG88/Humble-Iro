@@ -131,6 +131,7 @@
         class="form-input" 
         type="text" 
         id="average-score" 
+        name="average-score"
         v-validate="'required|decimal:3'"
         placeholder="全年总平均"
         v-model.number="value.score">
@@ -141,6 +142,7 @@
         class="form-input" 
         type="text" 
         id="address" 
+        name="address"
         v-validate="'required'"
         rows="3"
         placeholder="住址"

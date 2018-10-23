@@ -38,14 +38,26 @@
 
     <edit-modal ref="edit" :title="modalTitle">
       <div slot="content">
-        <div class="form-group" v-for="(stuffs, index) in modalData" :key="stuffs.name">
-          <label class="form-label">{{stuffs.name}}</label>
-          <input 
-          class="form-input" 
-          :type="stuffs.type" 
-          :placeholder="stuffs.placeholder"
-          v-validate="'required '"
-          v-model="modalArr[index].value">
+        <div v-for="(stuffs, index) in modalData" :key="stuffs.name">
+          <div class="form-group">
+            <label class="form-label">{{stuffs.name}}</label>
+            <input 
+            class="form-input" 
+            :class="{'is-error': errors.first(stuffs.data) }"
+            :type="stuffs.type" 
+            :name="stuffs.data"
+            :placeholder="stuffs.placeholder"
+            v-validate="{
+              required: true,
+              regex: type == 'users' ? 
+              stuffs.data == 'username' ? /[\w]{5,}/ : /\w+/ 
+              : /\w+/
+            }"
+            v-model="modalArr[index].value">
+          </div>
+          <p
+          class="form-input-hint text-error"
+          v-if="errors.first(stuffs.data)">{{stuffs.name}}是必须的</p>
         </div>
       </div>
       <div slot="footer">

@@ -23,18 +23,30 @@
           <label class="form-label">用户名</label>
           <input 
           class="form-input" 
+          :class="{'is-error': errors.first('username')}"
           type="text" 
+          name="username"
           placeholder="请输入用户名..."
+          v-validate="'required|min:5'"
           v-model="value.username">
         </div>
+        <p
+        class="form-input-hint text-error" 
+        v-if="errors.first('username')">用户名至少需5个字符</p>
         <div class="form-group">
           <label class="form-label">中文姓名</label>
           <input 
           class="form-input" 
+          :class="{'is-error': errors.first('cn_name')}"
           type="text" 
+          name="cn_name"
           placeholder="请输入用户中文姓名..."
+          v-validate="'required'"
           v-model="value.cn_name">
         </div>
+        <p
+        class="form-input-hint text-error" 
+        v-if="errors.first('cn_name')">用户中文姓名是必须的</p>
       </div>
 
       <div slot="footer">

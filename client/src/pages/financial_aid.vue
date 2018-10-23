@@ -31,7 +31,9 @@
           v-validate="'required'"
           v-model="value.supplier">
         </div>
-        <p class="form-input-hint text-error">{{ errors.first('supplier') }}</p>
+        <p
+        class="form-input-hint text-error" 
+        v-if="errors.first('supplier')">赞助单位是必须的</p>
         <div class="form-group">
           <label class="form-label">助学金种类</label>
           <input 
@@ -43,7 +45,9 @@
           v-validate="'required'"
           v-model="value.financial_aid_type">
         </div>
-        <p class="form-input-hint text-error">{{ errors.first('financial_aid_type') }}</p>
+        <p
+        class="form-input-hint text-error" 
+        v-if="errors.first('financial_aid_type')">助学金名称是必须的</p>
         <div class="form-group">
           <label class="form-label">申请条件</label>
           <input 
@@ -55,7 +59,9 @@
           v-validate="'required'"
           v-model="value.requirements">
         </div>
-        <p class="form-input-hint text-error">{{ errors.first('requirements') }}</p>
+        <p
+        class="form-input-hint text-error" 
+        v-if="errors.first('requirements')">申请条件是必须的</p>
         <div class="form-group">
           <label class="form-label">截止日期</label>
           <input 
@@ -68,11 +74,13 @@
           v-model="value.expired_date">
         </div>
       </div>
-      <p class="form-input-hint text-error">{{ errors.first('expired_date') }}</p>
+      <p
+      class="form-input-hint text-error" 
+      v-if="errors.first('requirements')">赞助截止日期是必须的</p>
       <div slot="footer">
         <button 
         class="btn btn-primary btn-error btn-lg" 
-        @click="$refs.add.active = false">取消</button>
+        @click="closeModal()">取消</button>
         <button 
         class="btn btn-primary btn-lg" 
         @click="confirmAdd()">确认</button>
@@ -123,16 +131,18 @@ export default {
     },
     addModal() {
       this.$refs.add.active = true;
+      console.log(this.$refs.add.errors)
+    },
+    closeModal() {
+      this.$refs.add.active = false;
+      this.$refs.add.errors.items = [];
     },
     confirmAdd() {
       this.$refs.add.active  = false;
       this.$refs.add.loading = false;
       this.$refs.add.error   = false;
       this.$emit('close');
-      console.log("post")
-      addAid(this.value).then((data) => {
-        
-      }).then(() => {
+      addAid(this.value).then(() => {
         this.get();
         this.reset();
       }).catch((err) => {

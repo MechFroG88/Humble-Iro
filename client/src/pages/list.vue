@@ -41,11 +41,16 @@
         </el-table>
       </div>
     </layout>
+
+    <delete-modal 
+    :confirm="handleDelete" ref="del">
+    </delete-modal>
   </div>
 </template>
 
 <script>
 import layout from '@/layout/default'
+import deleteModal from '@/components/modal/confirmation'
 import { getAidById } from '@/api/financial_aid'
 import { verifyStudent, deleteVerification } from '@/api/student'
 export default {
@@ -54,9 +59,11 @@ export default {
   },
   components: {
     layout,
+    deleteModal
   },
   data: () => ({
     details: {},
+    deleteId: null
   }),
   methods: {
     get() {
@@ -78,8 +85,18 @@ export default {
       })
     },
     remove(index) {
+      // deleteVerification({
+      //   student_id: this.details.student[index].student_id,
+      //   financial_aid_id: this.details.financial_aid_id
+      // }).then(() => {
+      //   this.get();
+      // })
+      this.deleteId = index;
+      this.$refs.del.active = true;
+    },
+    handleDelete() {
       deleteVerification({
-        student_id: this.details.student[index].student_id,
+        student_id: this.details.student[deleteId].student_id,
         financial_aid_id: this.details.financial_aid_id
       }).then(() => {
         this.get();

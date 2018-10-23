@@ -15,6 +15,7 @@
         <input 
         class="form-input" 
         type="text" 
+        name="cn_name"
         id="cn_name" 
         placeholder="中文姓名"
         v-validate="'required'"
@@ -25,6 +26,7 @@
         <input 
         class="form-input" 
         type="text" 
+        name="en_name"
         id="en_name" 
         placeholder="英文名字"
         v-validate="{
@@ -37,6 +39,7 @@
         <label class="form-label" for="relationship">关系</label>
         <select 
         class="form-select" 
+        name="relationship"
         id="relationship" 
         v-validate="'required'"
         v-model="output_value[num - 1].relation">
@@ -51,6 +54,7 @@
         <input 
         class="form-input" 
         type="text" 
+        name="contact"
         id="contact" 
         placeholder="联络号码"
         v-validate="{
@@ -64,6 +68,7 @@
         <input 
         class="form-input" 
         type="text" 
+        name="ic_num"
         id="ic_num" 
         placeholder="身份证号码 (XXXXXX-XX-XXXX)"
         v-validate="{
@@ -77,6 +82,7 @@
         <input 
         class="form-input" 
         type="number" 
+        name="age"
         id="age" 
         placeholder="年龄"
         v-validate="'required|integer'"
@@ -87,6 +93,7 @@
         <input 
         class="form-input" 
         type="text" 
+        name="occupation"
         id="occupation" 
         placeholder="职业"
         v-validate="'required'"
@@ -97,6 +104,7 @@
         <input 
         class="form-input" 
         type="text" 
+        name="work_place"
         id="work_place" 
         placeholder="雇主/公司/工作单位名称"
         v-validate="'required'"
@@ -107,6 +115,7 @@
         <input 
         class="form-input" 
         type="text" 
+        name="boos_contact"
         id="boss_contact" 
         placeholder="雇主联络号码"
         v-validate="{
@@ -120,6 +129,7 @@
         <label class="form-label" for="occupation-address">工作地址</label>
         <textarea 
         class="form-input" 
+        name="occupation-address"
         id="occupation-address" 
         placeholder="工作地址" 
         rows="3"

@@ -43,6 +43,7 @@
         <input 
         class="form-input" 
         type="text" 
+        name="disabled_relation"
         id="disabled_relation" 
         placeholder="与残障家人的关系"
         v-validate="'required'"
@@ -54,6 +55,7 @@
         <input 
         class="form-input" 
         type="number" 
+        name="family_size"
         id="family_size" 
         placeholder="家庭人数"
         v-validate="'required|integer'"
@@ -64,6 +66,7 @@
         <input 
         class="form-input" 
         type="number" 
+        name="working_people"
         id="working_people" 
         placeholder="就业人数"
         v-validate="'required|integer'"
@@ -74,6 +77,7 @@
         <input 
         class="form-input" 
         type="number" 
+        name="primary_people"
         id="primary_people" 
         placeholder="就读小学人数"
         v-validate="'required|integer'"
@@ -85,6 +89,7 @@
         <input 
         class="form-input" 
         type="number" 
+        name="smk_people"
         id="smk_people" 
         placeholder="就读国中人数"
         v-validate="'required|integer'"
@@ -95,6 +100,7 @@
         <input 
         class="form-input" 
         type="number" 
+        name="smp_people"
         id="smp_people" 
         placeholder="就读独中/私立学校人数"
         v-validate="'required|integer'"
@@ -105,6 +111,7 @@
         <input 
         class="form-input" 
         type="number" 
+        name="uni_people"
         id="uni_people" 
         placeholder="就读学院/大专人数"
         v-validate="'required|integer'"
@@ -139,6 +146,7 @@
           <input 
           class="form-input" 
           type="text" 
+          name="cn_name"
           id="cn_name" 
           placeholder="中文姓名"
           v-validate="'required'"
@@ -149,6 +157,7 @@
           <input 
           class="form-input" 
           type="number" 
+          name="age"
           id="age" 
           placeholder="年龄"
           v-validate="'required|integer'"
@@ -158,6 +167,7 @@
           <label class="form-label" for="relation">关系</label>
           <select 
           class="form-select" 
+          name="relation"
           id="relation" 
           v-validate="'required'"
           v-model="siblings_array[formIndex].relation">
@@ -209,6 +219,7 @@
               <label class="form-label" for="financial_aid">助学金名称</label>
               <select 
               class="form-input form-select" 
+              name="financial_aid"
               id="financial_aid" 
               v-validate="'required'"
               v-model="siblings_array[formIndex].financial_aid_id[finance - 1]">
@@ -224,6 +235,7 @@
             <input 
             class="form-input" 
             type="number" 
+            name="aid_total"
             id="aid_total" 
             placeholder="助学金名数额"
             v-validate="'required|integer'"

@@ -8,6 +8,7 @@ class Finance_expenditure extends HI_Controller {
         parent::__construct();
         $this->load->model("Finance_expenditure_cms","finance_expenditure");
         $this->auth->is_logged_in() ? :$this->error(401);
+        echo "hello world";
     }
 
     public function get($student_id)

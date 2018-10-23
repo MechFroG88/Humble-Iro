@@ -356,6 +356,10 @@
         <button class="btn btn-primary btn-lg" @click="confirmClick()">确认</button>
       </div>
     </modal>
+
+    <delete-modal 
+    :confirm="handleDelete" ref="del">
+    </delete-modal>
   </div>
 </template>
 
@@ -363,6 +367,7 @@
 import layout from '@/layout/default'
 import crudTable from '@/components/tables'
 import modal from '@/components/modal/modal'
+import deleteModal from '@/components/modal/confirmation'
 import { getAid, getAidById } from '@/api/financial_aid'
 import { 
   getStudent, deleteStudent, getStudentBasicById,
@@ -441,7 +446,8 @@ export default {
       financial_aid : [],
       student_aid   : [],
       check         : [],
-      confirmed     : []
+      confirmed     : [],
+      disableId     : null
     }
   },
   methods: {
@@ -485,9 +491,13 @@ export default {
       }
     },
     disableAid(index) {
+      this.disableId = index;
+      this.$refs.del.active = true;
+    },
+    handleDelete() {
       deleteVerification({
         student_id: this.$route.params.id,
-        financial_aid_id: this.student_aid[index].financial_aid_id
+        financial_aid_id: this.student_aid[this.disableId].financial_aid_id
       }).then(() => {
         this.get();
       })
@@ -499,7 +509,8 @@ export default {
   components: {
     layout,
     modal,
-    crudTable
+    crudTable,
+    deleteModal
   }
 }
 </script>

@@ -248,12 +248,12 @@ export default {
       deleteVerification({
         student_id: this.$route.params.id,
         financial_aid_id: this.tableData[index].financial_aid_id
-      }).then(({data}) => {
-        console.log(data)
       }).catch((err) => {
-        console.log(err)
+        this.$message({
+          message: '解除失败！请刷新页面重试！',
+          type: 'error'
+        })
       })
-      console.log(this.tableData);
     }
   },
   watch: {

@@ -1,6 +1,6 @@
 <template>
   <layout>
-    <form class="change-password" @submit.prevent="submit">
+    <form id="_changePassword" class="change-password" @submit.prevent="submit">
       <div class="form-group">
         <label class="form-label">旧密码</label>
         <input v-model="password.old" type="password" name="old_password" class="form-input">

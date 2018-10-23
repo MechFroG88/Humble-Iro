@@ -15,7 +15,7 @@
             {{user.username}} <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="a">
+            <el-dropdown-item command="changePassword">
               <i class="icon icon-lock"></i> 更换密码
             </el-dropdown-item>
             <el-dropdown-item command="login">

@@ -22,6 +22,11 @@ const router = new Router({
       component: () => import('@/pages/login')
     },
     {
+      path: '/changePassword',
+      name: 'changePassword',
+      component: () => import('@/pages/changePassword')
+    },
+    {
       path: '/student',
       name: 'student',
       component: () => import('@/pages/student'),

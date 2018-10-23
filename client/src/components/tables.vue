@@ -44,6 +44,7 @@
           class="form-input" 
           :type="stuffs.type" 
           :placeholder="stuffs.placeholder"
+          v-validate="'required '"
           v-model="modalArr[index].value">
         </div>
       </div>

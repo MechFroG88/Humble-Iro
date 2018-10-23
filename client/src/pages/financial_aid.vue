@@ -24,35 +24,51 @@
           <label class="form-label">赞助者</label>
           <input 
           class="form-input" 
+          :class="{'is-error': errors.first('supplier') }"
+          name="supplier"
           type="text" 
           placeholder="请输入赞助单位名称..."
+          v-validate="'required'"
           v-model="value.supplier">
         </div>
+        <p class="form-input-hint text-error">{{ errors.first('supplier') }}</p>
         <div class="form-group">
           <label class="form-label">助学金种类</label>
           <input 
           class="form-input" 
+          :class="{'is-error': errors.first('financial_aid_type') }"
+          name="financial_aid_type"
           type="text" 
           placeholder="请输入所提供助学金名称..."
+          v-validate="'required'"
           v-model="value.financial_aid_type">
         </div>
+        <p class="form-input-hint text-error">{{ errors.first('financial_aid_type') }}</p>
         <div class="form-group">
           <label class="form-label">申请条件</label>
           <input 
           class="form-input" 
+          :class="{'is-error': errors.first('requirements') }"
+          name="requirements"
           type="text" 
           placeholder="请输入申请条件..."
+          v-validate="'required'"
           v-model="value.requirements">
         </div>
+        <p class="form-input-hint text-error">{{ errors.first('requirements') }}</p>
         <div class="form-group">
           <label class="form-label">截止日期</label>
           <input 
           class="form-input" 
+          :class="{'is-error': errors.first('expired_date') }"
+          name="expired_date"
           type="date" 
           placeholder="请输入赞助截止日期..."
+          v-validate="'required'"
           v-model="value.expired_date">
         </div>
       </div>
+      <p class="form-input-hint text-error">{{ errors.first('expired_date') }}</p>
       <div slot="footer">
         <button 
         class="btn btn-primary btn-error btn-lg" 

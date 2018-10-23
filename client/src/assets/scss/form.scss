@@ -1,0 +1,20 @@
+.form-input{
+  &.line-input{
+    border: none;
+    border-bottom: solid .1rem $border-color;
+    &:focus{
+      border-color: $primary-color;
+      box-shadow: none;
+    }
+    &.is-error{
+      border-color: $error-color;
+    }
+    &.is-success{
+      border-color: $success-color;
+    }
+  }
+}
+
+.form-select{
+  border-radius: .25rem;
+}

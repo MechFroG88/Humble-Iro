@@ -1,6 +1,7 @@
 <template>
   <div class="login-container">
-    <el-form class="login-box" ref="loginForm" :rules="rules" :model="user">
+    <el-form class="login-box" ref="loginForm" 
+    :rules="rules" :model="user" @submit.native.prevent="login()">
       <h1>账户登入</h1>
       <el-form-item label="用户名" prop="username">
         <el-input
@@ -19,7 +20,12 @@
           <i slot="prefix" class="el-input__icon icon icon-lock"></i>
         </el-input>
       </el-form-item>
-      <el-button name="login-button" style="width: 100%;margin:0.5rem 0 1.5rem 0;font-size:1rem" type="primary submit" @click="login">登入</el-button>
+      <el-button 
+      name="login-button" 
+      style="width: 100%;margin:0.5rem 0 1.5rem 0;font-size:1rem" 
+      type="primary" 
+      native-type="submit" 
+      @click="login">登入</el-button>
     </el-form>
   </div>
 </template>
@@ -49,9 +55,14 @@ export default {
         if (valid) {
           loginWithUsername(this.user.username, this.user.password).then(({data}) => {
             if(data.status == 200){
+              const sleep = (milliseconds) => {
+                return new Promise(resolve => setTimeout(resolve, milliseconds))
+              }
               setToken(data.data)
               window.token = data.data
-              this.$router.push('/student')
+              sleep(200).then(() => {
+                this.$router.push('/student')
+              })
             }
           }).catch((err) => {
             this.$message.error('用户名或密码错误！');

@@ -73,7 +73,6 @@ export default {
       const url = command;
       if (url == "login") {
         deleteToken();
-        console.log("logged out");
       }
       this.$nextTick(function() {
         this.$router.push({ path: `/${url}` });

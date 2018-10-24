@@ -19,6 +19,7 @@
             <div class="col-7 col-sm-12 aid-name">
               <input 
               class="form-input input-sm mr-2" 
+              name="member"
               type="text" 
               placeholder="请输入收入来源..."
               v-validate="'required'"
@@ -28,9 +29,11 @@
               <span class="input-group-addon addon-sm">RM</span>
               <input 
               class="form-input input-sm" 
+              name="income"
               type="number" 
               id="other_aid" 
-              v-validate="'required|integer'"
+              data-vv-as="field"
+              v-validate="'required|numeric'"
               v-model.number="income[index].income" 
               @keyup="updateTotal">
             </div>
@@ -56,6 +59,7 @@
             <div class="col-7 col-sm-12 fee-name">
               <input 
               class="form-input input-sm mr-2" 
+              name="object"
               type="text" 
               placeholder="请输入开销来源..."
               v-validate="'required'"
@@ -65,9 +69,11 @@
               <span class="input-group-addon addon-sm">RM</span>
               <input 
               class="form-input input-sm" 
+              name="expenditure"
               type="number" 
-              id="school" 
-              v-validate="'required|integer'"
+              id="expenditure" 
+              data-vv-as="field"
+              v-validate="'required|numeric'"
               v-model.number="expenditure[index].expenditure"
               @keyup="updateTotal">
             </div>
@@ -134,6 +140,7 @@
           <textarea 
           class="form-input" 
           id="remarks" 
+          name="remarks"
           placeholder="备注" 
           rows="3"
           v-validate="'required'"
@@ -159,6 +166,7 @@
             <div class="col-12 form-selects" v-once>
               <select 
               class="form-select house_state col-5" 
+              name="house_state"
               v-validate="'required'"
               v-model.number="house[index].house_state">
                 <option value="" disabled>房子状态</option>
@@ -169,7 +177,8 @@
               <input 
               class="form-input house_type col-7" 
               type="text" 
-              id="other_house_type" 
+              name="house_type"
+              id="house_type" 
               placeholder="房屋种类"
               v-validate="'required'"
               v-model="house[index].house_type">
@@ -181,8 +190,9 @@
           <input class="form-input" 
           type="number" 
           id="aircond" 
+          name="amount"
           placeholder="冷气机数量" 
-          v-validate="'required|integer'"
+          v-validate="'required|numeric'"
           v-model="aircond.amount">
         </div>
         <div class="form-group">
@@ -214,6 +224,8 @@
               <input 
               class="form-input input-sm ml-2 mr-2" 
               type="text" 
+              id="model"
+              name="model"
               placeholder="汽车/摩托款式"
               v-validate="'required'"
               v-model="transportArr[index].model">
@@ -223,6 +235,7 @@
               class="form-input input-sm" 
               type="text" 
               id="transport" 
+              name="year"
               placeholder="（年份）"
               v-validate="'required|digits:4'"
               v-model="transportArr[index].year">

@@ -19,6 +19,7 @@
         <input 
         class="form-input" 
         type="text" 
+        name="single_reason"
         id="single_reason" 
         placeholder="单亲原因"
         v-validate="'required'"
@@ -58,7 +59,7 @@
         name="family_size"
         id="family_size" 
         placeholder="家庭人数"
-        v-validate="'required|integer'"
+        v-validate="'required|numeric'"
         v-model="family_value.family_size">
       </div>
       <div class="form-group">
@@ -69,7 +70,7 @@
         name="working_people"
         id="working_people" 
         placeholder="就业人数"
-        v-validate="'required|integer'"
+        v-validate="'required|numeric'"
         v-model="family_value.working_people">
       </div>
       <div class="form-group">
@@ -80,7 +81,7 @@
         name="primary_people"
         id="primary_people" 
         placeholder="就读小学人数"
-        v-validate="'required|integer'"
+        v-validate="'required|numeric'"
         v-model="family_value.primary_people">
       </div>
 
@@ -92,7 +93,7 @@
         name="smk_people"
         id="smk_people" 
         placeholder="就读国中人数"
-        v-validate="'required|integer'"
+        v-validate="'required|numeric'"
         v-model="family_value.smk_people">
       </div>
       <div class="form-group">
@@ -103,7 +104,7 @@
         name="smp_people"
         id="smp_people" 
         placeholder="就读独中/私立学校人数"
-        v-validate="'required|integer'"
+        v-validate="'required|numeric'"
         v-model="family_value.smp_people">
       </div>
       <div class="form-group">
@@ -114,7 +115,7 @@
         name="uni_people"
         id="uni_people" 
         placeholder="就读学院/大专人数"
-        v-validate="'required|integer'"
+        v-validate="'required|numeric'"
         v-model="family_value.uni_people">
       </div>  
     </form>

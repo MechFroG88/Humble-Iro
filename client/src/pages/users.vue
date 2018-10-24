@@ -104,21 +104,19 @@ export default {
       this.errors.clear();
     },
     confirmAdd() {
-      this.$refs.add.active  = false;
-      this.$refs.add.loading = false;
-      this.$refs.add.error   = false;
-      this.$emit('close');
-      console.log("post")
       //POST
       this.value.password = this.value.username;
       addUser(this.value).then(({data}) => {
         if (data.status == 200) {
+          this.$refs.add.active  = false;
+          this.$refs.add.loading = false;
+          this.$refs.add.error   = false;
+          this.$emit('close');
           this.get();
-        }
-      }).then(() => {
           this.reset();
-      }).catch((err) => {
-        console.log(err)
+        }
+      }).catch(() => {
+        this.$refs.add.error = true;
       })
     }
   }

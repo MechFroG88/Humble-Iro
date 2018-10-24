@@ -194,6 +194,8 @@ export default {
               this.$emit('close');
               location.reload();
             }
+          }).catch(() => {
+            this.$refs.edit.error = true;
           })
         })
       }
@@ -207,6 +209,8 @@ export default {
               this.$emit('close');
               location.reload();
             }
+          }).catch(() => {
+            this.$refs.edit.error = true;
           })
         })
       }

@@ -31,8 +31,8 @@
     </layout>
 
     <el-dialog
-      :visible.sync="dialogVisible"
-      width="30%">
+    :visible.sync="dialogVisible"
+    width="30%">
       <span 
       style="
       font-size: 1.2rem;
@@ -113,6 +113,7 @@ export default {
         this.id = 0;
       } else {
         this.id--;
+        this.active--;
       }
       const params = this.paths[this.id];
       this.$router.push(`/addStudent/${id}/${params}`);
@@ -123,7 +124,6 @@ export default {
       if (this.id == 3) {
         this.dialogVisible = true;
         return;
-        //finish upload
       } else {
         this.id++;
       }
@@ -134,28 +134,32 @@ export default {
       });
     },
     postData() {
+      ///Show validation warning///
+      this.$validator.validate().then(result => {
+        if (!result) {
+          this.$notify({
+            type: 'warning',
+            title: '警告！',
+            message: '您有些资料尚未填写。'
+          })
+        }
+      })
+
       /////POST input data/////
       if (this.id == 0) {
         ///POST basic///
         this.output.basic = this.$refs.basic.value;
-        editStudentBasic(this.output.basic, this.student_id).then(({data}) => {
-          this.nextStep();
-        })
+        editStudentBasic(this.output.basic, this.student_id)
       } else if (this.id == 1) {
         ///POST parent///
         this.output.parent = this.$refs.parent.output_value;
-        // console.log(this.output.parent)
-        editParent(this.output.parent, this.student_id).then((data) => {
-          this.nextStep();
-        })
+        editParent(this.output.parent, this.student_id)
       } else if (this.id == 2) {
         ///POST family and siblings///
         this.output.family   = this.$refs.family.family_value;
         this.output.siblings = this.$refs.family.siblings_array;
         editFamily(this.output.family, this.student_id).then(({data}) => {
-          editSibling(this.output.siblings, this.student_id).then(({data}) => {
-            this.nextStep();
-          })
+          editSibling(this.output.siblings, this.student_id)
         })
       } else if (this.id == 3) {
         ///POST finance///
@@ -170,15 +174,14 @@ export default {
             editFinance(this.output.finance, this.student_id).then(() => {
               editHouse(this.output.house, this.student_id).then(() => {
                 editAircond(this.output.aircond, this.student_id).then(() => {
-                  editTransport(this.output.transport, this.student_id).then(() => {
-                    this.nextStep();
-                  })
+                  editTransport(this.output.transport, this.student_id)
                 })
               })
             })
           })
         })
       }
+      this.nextStep();
     },
     finishStep() {
       this.dialogVisible = false;
@@ -198,8 +201,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>
-

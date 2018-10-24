@@ -131,22 +131,21 @@ export default {
     },
     addModal() {
       this.$refs.add.active = true;
-      console.log(this.$refs.add.errors)
     },
     closeModal() {
       this.$refs.add.active = false;
       this.errors.clear();
     },
     confirmAdd() {
-      this.$refs.add.active  = false;
-      this.$refs.add.loading = false;
-      this.$refs.add.error   = false;
-      this.$emit('close');
       addAid(this.value).then(() => {
+        this.$refs.add.active  = false;
+        this.$refs.add.loading = false;
+        this.$refs.add.error   = false;
+        this.$emit('close');
         this.get();
         this.reset();
-      }).catch((err) => {
-        console.log(err);
+      }).catch(() => {
+        this.$refs.add.error = true;
       })
     }
   }

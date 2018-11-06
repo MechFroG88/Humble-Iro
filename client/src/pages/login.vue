@@ -60,8 +60,9 @@ export default {
               }
               setToken(data.data)
               window.token = data.data
-              sleep(200).then(() => {
+              sleep(500).then(() => {
                 this.$router.push('/student')
+                location.reload();
               })
             }
           }).catch((err) => {

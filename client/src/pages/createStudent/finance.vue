@@ -265,6 +265,8 @@ export default {
           this.income_total += parseFloat(this.income[i].income);
         }
       }
+    }).catch(() => {
+      this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
     })
     getExpenditure(this.$route.params.id).then(({data}) => {
       if (data.data.length != 0) {
@@ -273,6 +275,8 @@ export default {
           this.expenditure_total += parseFloat(this.expenditure[i].expenditure);
         }
       }
+    }).catch(() => {
+      this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
     })
     getFinance(this.$route.params.id).then(({data}) => {
       if (data.data.length != 0) {
@@ -280,23 +284,30 @@ export default {
       } else {
         this.finance.balance = this.income_total - this.expenditure_total;
       }
+    }).catch(() => {
+      this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
     })
     getHouse(this.$route.params.id).then(({data}) => {
       if (data.data.length != 0) {
         this.house = data.data;
+        this.houseNum = this.house.length;
       }
-    }).then(() => {
-      this.houseNum = this.house.length;
+    }).catch(() => {
+      this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
     })
     getAircond(this.$route.params.id).then(({data}) => {
       if (data.data.length != 0) {
         this.aircond.amount = data.data[0].amount;
       }
+    }).catch(() => {
+      this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
     })
     getTransport(this.$route.params.id).then(({data}) => {
       if (data.data.length != 0) {
         this.transportArr = data.data;
       }
+    }).catch(() => {
+      this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
     })
   },
   data() {
@@ -347,6 +358,8 @@ export default {
       createIncome(this.$route.params.id).then(({data}) => {
         this.income.push(Object.assign({}, this.incomeObject));
         this.income[this.income.length - 1].finance_income_id = data.data;
+      }).catch(() => {
+        this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
       })
     },
     dltIncome() {
@@ -354,6 +367,8 @@ export default {
         deleteIncome(this.income[this.income.length - 1].finance_income_id).then(() => {
           this.income.pop();
           this.updateTotal();
+        }).catch(() => {
+          this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
         })
       }
     },
@@ -361,6 +376,8 @@ export default {
       createExpenditure(this.$route.params.id).then(({data}) => {
         this.expenditure.push(Object.assign({}, this.expenditureObject));
         this.expenditure[this.expenditure.length - 1].finance_expenditure_id = data.data;
+      }).catch(() => {
+        this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
       })
     },
     dltExpend() {
@@ -368,6 +385,8 @@ export default {
         deleteExpenditure(this.expenditure[this.expenditure.length - 1].finance_expenditure_id).then(() => {
           this.expenditure.pop();
           this.updateTotal();
+        }).catch(() => {
+          this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
         })
       }
     },
@@ -376,6 +395,8 @@ export default {
         this.houseNum++;
         this.house.push(this.houseObject);
         this.house[this.house.length - 1].house_id = data.data;
+      }).catch(() => {
+        this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
       })
     },
     deleteHouse() {
@@ -383,6 +404,8 @@ export default {
         deleteHouse(this.house[this.house.length - 1].house_id).then(() => {
           this.houseNum--;
           this.house.pop();
+        }).catch(() => {
+          this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
         })
       }
     },
@@ -390,12 +413,16 @@ export default {
       createTransport(this.$route.params.id).then(({data}) => {
         this.transportArr.push(Object.assign({}, this.transport));
         this.transportArr[this.transportArr.length - 1].transport_id = data.data;
+      }).catch(() => {
+        this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
       })
     },
     dltTransport() {
       if (this.transportArr.length != 0) {
         deleteTransport(this.transportArr[this.transportArr.length - 1].transport_id).then(() => {
           this.transportArr.pop();
+        }).catch(() => {
+          this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
         })
       }
     },
@@ -421,7 +448,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>

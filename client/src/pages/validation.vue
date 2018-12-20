@@ -382,12 +382,18 @@ export default {
       this.basic = data.data;
     }).then(() => {
       this.basic.birthdate = this.basic.birthdate.split('-').reverse().join('/');
+    }).catch(() => {
+      this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
     })
     getParent(this.$route.params.id).then(({data}) => {
       this.parent = data.data;
+    }).catch(() => {
+      this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
     })
     getFamily(this.$route.params.id).then(({data}) => {
       this.family = data.data;
+    }).catch(() => {
+      this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
     })
     getSibling(this.$route.params.id).then(({data}) => {
       this.siblings = data.data;
@@ -403,30 +409,46 @@ export default {
           this.aidArr = [];
         }
       }
+    }).catch(() => {
+      this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
     })
     getIncome(this.$route.params.id).then(({data}) => {
       this.income = data.data;
+    }).catch(() => {
+      this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
     })
     getExpenditure(this.$route.params.id).then(({data}) => {
       this.expenditure = data.data;
+    }).catch(() => {
+      this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
     })
     getFinance(this.$route.params.id).then(({data}) => {
       this.finance = data.data;
+    }).catch(() => {
+      this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
     })
     getHouse(this.$route.params.id).then(({data}) => {
       this.house = data.data;
+    }).catch(() => {
+      this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
     })
     getAircond(this.$route.params.id).then(({data}) => {
       this.aircond = data.data;
+    }).catch(() => {
+      this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
     })
     getTransport(this.$route.params.id).then(({data}) => {
       this.transport = data.data;
+    }).catch(() => {
+      this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
     })
     getAid().then(({data}) => {
       this.financial_aid = data.data;
       for (let i = 0; i < this.financial_aid.length; i++) {
         this.check.push(false)
       }
+    }).catch(() => {
+      this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
     })
     this.get(); 
   },
@@ -454,6 +476,8 @@ export default {
     get() {
       getStudentBasicById(this.$route.params.id).then(({data}) => {
         this.student_aid = data.data.financial_aid;
+      }).catch(() => {
+        this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
       })
     },
     closeModal() {
@@ -487,7 +511,6 @@ export default {
       if (this.check[index] == false && this.confirmed.indexOf(index) != -1) {
         this.confirmed.splice(this.confirmed.indexOf(index), 1);
       }
-      console.log(this.check)
     },
     disableAid(index) {
       this.disableId = index;
@@ -499,6 +522,8 @@ export default {
         financial_aid_id: this.student_aid[this.disableId].financial_aid_id
       }).then(() => {
         this.get();
+      }).catch(() => {
+        this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
       })
     },
     openAid(index) {

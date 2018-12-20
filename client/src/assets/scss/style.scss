@@ -28,6 +28,14 @@ body {
   background-color: #f0f4f7;
 }
 
+.error {
+  border-color: $error-color;
+
+  &:focus {
+    border-color: $error-color;
+  }
+}
+
 //Remove spinners from input[type=number]
 /* For Firefox */
 input[type='number'] {

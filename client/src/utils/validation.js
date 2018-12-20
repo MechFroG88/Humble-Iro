@@ -72,6 +72,37 @@ const errorMessages = {
     },
     disabled_relation: {
       required: '请填上与残障家人的关系'
+    },
+    family_size: {
+      required: '请填上家庭人数',
+      numeric: '家庭人数必须是整数'
+    },
+    working_people: {
+      required: '请填上就业人数',
+      numeric: '人数必须是整数'
+    },
+    primary_people: {
+      required: '请填上就读小学人数',
+      numeric: '人数必须是整数'
+    },
+    smk_people: {
+      required: '请填上就读国中人数',
+      numeric: '人数必须是整数'
+    },
+    smp_people: {
+      required: '请填上就读独中/私立学校人数',
+      numeric: '人数必须是整数'
+    },
+    uni_people: {
+      required: '请填上就读学院/大专人数',
+      numeric: '人数必须是整数'
+    },
+    financial_aid: {
+      required: '请选择助学金种类'
+    },
+    aid_total: {
+      required: '请填上助学金数额',
+      decimal: '数额准确至2位小数'
     }
   }
 };

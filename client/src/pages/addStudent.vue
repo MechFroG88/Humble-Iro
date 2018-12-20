@@ -157,23 +157,31 @@ export default {
       if (this.id == 0) {
         ///POST basic///
         this.output.basic = this.$refs.basic.value;
+        
         editStudentBasic(this.output.basic, this.student_id)
-        .then(() => {
-          this.nextStep();
-        })
-        .catch(() => {
-          this.errorStep();
-        })
+        .then(() => { this.nextStep(); })
+        .catch(() => { his.errorStep(); })
+
       } else if (this.id == 1) {
         ///POST parent///
         this.output.parent = this.$refs.parent.output_value;
+
         editParent(this.output.parent, this.student_id)
+        .then(() => { this.nextStep(); })
+        .catch(() => { this.errorStep(); })
+
       } else if (this.id == 2) {
         ///POST family and siblings///
         this.output.family   = this.$refs.family.family_value;
         this.output.siblings = this.$refs.family.siblings_array;
+
         editFamily(this.output.family, this.student_id)
-        editSibling(this.output.siblings, this.student_id)
+        .then(() => {
+          editSibling(this.output.siblings, this.student_id)
+          .then(() => {this.nextStep();})
+          .catch(() => { this.errorStep(); })
+        }).catch(() => { this.errorStep(); })
+
       } else if (this.id == 3) {
         ///POST finance///
         this.output.house               = this.$refs.finance.house;

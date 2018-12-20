@@ -30,6 +30,10 @@ export default {
   mounted() {
     getStudentBasic().then(({data}) => {
       this.studentData = data.data;
+      this.studentData.forEach((student) => {
+        student.aid_type = student.financial_aid
+          .map(e => e.financial_aid_type).join("，");
+      });
     })
   },
   data() {

@@ -7,7 +7,7 @@ const service = axios.create({
   //local url: http://118.101.72.11:8080/
   //school url: http://10.15.9.32/
   //production url: https://chkl-co-curriculum.ml/api/
-  baseURL: process.env.NODE_ENV === 'production' ? "/api/" : "http://118.101.72.11:8080/",
+  baseURL: process.env.NODE_ENV === 'production' ? "/api/" : "http://mechfrog88.ddns.net:80",
   withCredentials: true,
   transformRequest: [function (data, headers) {
     if(headers['Content-Type'] == "multipart/form-data"){

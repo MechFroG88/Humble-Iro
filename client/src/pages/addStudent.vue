@@ -53,7 +53,6 @@
 
 <script>
 import layout from '@/layout/default'
-import axios  from 'axios'
 //form pages
 import basic   from '@/pages/createStudent/basic'
 import parent  from '@/pages/createStudent/parent'
@@ -97,10 +96,22 @@ export default {
       }
     }
   },
+  watch: {
+    $route(to, from) {
+      this.errors.clear();
+      this.active = this.paths.indexOf(this.$route.name);
+      this.id = this.active;
+      this.student_id = this.$route.params.id;
+      if (this.active == -1 || this.id == -1) {
+        this.active = 4;
+        this.id = 4;
+      }
+    }
+  },
   mounted() {
-    this.student_id = this.$route.params.id;
     this.active = this.paths.indexOf(this.$route.name);
     this.id = this.active;
+    this.student_id = this.$route.params.id;
     if (this.active == -1 || this.id == -1) {
       this.active = 4;
       this.id = 4;
@@ -129,27 +140,30 @@ export default {
       }
       const params = this.paths[this.id];
       this.$router.push({ path: `/addStudent/${id}/${params}` });
-      this.$nextTick(function() {
+      this.$nextTick(() => {
         this.active = this.paths.indexOf(params);
       });
     },
-    postData() {
+    errorStep() {
       ///Show validation warning///
-      this.$validator.validate().then(result => {
-        if (!result) {
-          this.$notify({
-            type: 'warning',
-            title: '警告！',
-            message: '您有些资料尚未填写。'
-          })
-        }
+      this.$notify({
+        type: 'warning',
+        title: '表格提交失败！',
+        message: '您的表格有错误，请重新检查后再提交。'
       })
-
+    },
+    postData() {
       /////POST input data/////
       if (this.id == 0) {
         ///POST basic///
         this.output.basic = this.$refs.basic.value;
         editStudentBasic(this.output.basic, this.student_id)
+        .then(() => {
+          this.nextStep();
+        })
+        .catch(() => {
+          this.errorStep();
+        })
       } else if (this.id == 1) {
         ///POST parent///
         this.output.parent = this.$refs.parent.output_value;
@@ -158,9 +172,8 @@ export default {
         ///POST family and siblings///
         this.output.family   = this.$refs.family.family_value;
         this.output.siblings = this.$refs.family.siblings_array;
-        editFamily(this.output.family, this.student_id).then(({data}) => {
-          editSibling(this.output.siblings, this.student_id)
-        })
+        editFamily(this.output.family, this.student_id)
+        editSibling(this.output.siblings, this.student_id)
       } else if (this.id == 3) {
         ///POST finance///
         this.output.house               = this.$refs.finance.house;
@@ -169,19 +182,14 @@ export default {
         this.output.transport           = this.$refs.finance.transportArr;
         this.output.finance_income      = this.$refs.finance.income;
         this.output.finance_expenditure = this.$refs.finance.expenditure;
-        editIncome(this.output.finance_income, this.student_id).then(() => {
-          editExpenditure(this.output.finance_expenditure, this.student_id).then(() => {
-            editFinance(this.output.finance, this.student_id).then(() => {
-              editHouse(this.output.house, this.student_id).then(() => {
-                editAircond(this.output.aircond, this.student_id).then(() => {
-                  editTransport(this.output.transport, this.student_id)
-                })
-              })
-            })
-          })
-        })
+        
+        editIncome(this.output.finance_income, this.student_id)
+        editExpenditure(this.output.finance_expenditure, this.student_id)
+        editFinance(this.output.finance, this.student_id)
+        editHouse(this.output.house, this.student_id)
+        editAircond(this.output.aircond, this.student_id)
+        editTransport(this.output.transport, this.student_id)
       }
-      this.nextStep();
     },
     finishStep() {
       this.dialogVisible = false;

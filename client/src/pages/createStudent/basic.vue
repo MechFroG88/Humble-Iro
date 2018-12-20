@@ -202,6 +202,8 @@ export default {
       if (Object.keys(data.data).length != 0) {
         this.value = Object.assign({}, data.data)
       }
+    }).catch(() => {
+      this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
     })
   },
   data() {

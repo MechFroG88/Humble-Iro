@@ -34,6 +34,8 @@ export default {
         student.aid_type = student.financial_aid
           .map(e => e.financial_aid_type).join("，");
       });
+    }).catch(() => {
+      this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
     })
   },
   data() {

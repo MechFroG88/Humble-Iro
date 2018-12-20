@@ -94,6 +94,8 @@ export default {
     get() {
       getUser().then(({data}) => {
         this.usersData = data.data;
+      }).catch(() => {
+        this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
       })
     },
     addModal() {

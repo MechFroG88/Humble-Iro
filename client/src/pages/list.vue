@@ -69,7 +69,8 @@ export default {
     get() {
       getAidById(this.$route.params.id).then(({data}) => {
         this.details = data.data;
-        // console.log(data.data);
+      }).catch(() => {
+        this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
       })
     },
     openCheck(index) {
@@ -85,12 +86,6 @@ export default {
       })
     },
     remove(index) {
-      // deleteVerification({
-      //   student_id: this.details.student[index].student_id,
-      //   financial_aid_id: this.details.financial_aid_id
-      // }).then(() => {
-      //   this.get();
-      // })
       this.deleteId = index;
       this.$refs.del.active = true;
     },
@@ -100,6 +95,8 @@ export default {
         financial_aid_id: this.details.financial_aid_id
       }).then(() => {
         this.get();
+      }).catch(() => {
+        this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
       })
     }
   }

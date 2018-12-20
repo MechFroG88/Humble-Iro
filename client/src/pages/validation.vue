@@ -94,19 +94,19 @@
           </tr>
           <tr class="occupation col-12">
             <td class="col-3">职业：</td>
-            <td class="col-9">{{parent[index].occupation}}</td>
+            <td class="col-9">{{parent[index].occupation || '─'}}</td>
           </tr>
           <tr class="work_place col-12">
             <td class="col-3">雇主/公司/工作单位名称：</td>
-            <td class="col-9">{{parent[index].work_place}}</td>
+            <td class="col-9">{{parent[index].work_place || '─'}}</td>
           </tr>
           <tr class="boss_contact col-12">
             <td class="col-3">雇主联络号码：</td>
-            <td class="col-9">{{parent[index].boss_contact}}</td>
+            <td class="col-9">{{parent[index].boss_contact || '─'}}</td>
           </tr>
           <tr class="work_address col-12">
             <td class="col-3">工作地址：</td>
-            <td class="col-9">{{parent[index].work_address}}</td>
+            <td class="col-9">{{parent[index].work_address || '─'}}</td>
           </tr>
         </tbody>
       </table>

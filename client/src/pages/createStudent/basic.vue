@@ -106,7 +106,7 @@
         id="phonenum" 
         v-validate="{
           required: true,
-          regex: /^(\+6)?0(1\-?(1|5)\d{8}|1[02-46-9]\d{7}|[2-79]\d{8}|8[0-9]\d{6})$/
+          regex: /^(\+6)?0(1(1|5)-?\d{8}|1[02-46-9]-?\d{7}|[2-79]-?\d{8}|8[0-9]-?\d{6})$/
         }"
         placeholder="联络号码"
         v-model="value.contact">
@@ -152,7 +152,7 @@
         type="text" 
         id="attitude" 
         name="attitude"
-        v-validate="'required|decimal:0|between:0,100'"
+        v-validate="'required|numeric|between:0,100'"
         placeholder="操行"
         v-model.number="value.attitude">
         <div class="toast toast-error mt-1" v-if="errors.has('attitude')">

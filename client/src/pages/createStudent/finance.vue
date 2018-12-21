@@ -33,10 +33,13 @@
               type="number" 
               id="other_aid" 
               data-vv-as="field"
-              v-validate="'required|numeric'"
+              v-validate="'required|decimal:2'"
               v-model.number="income[index].income" 
               @keyup="updateTotal">
             </div>
+          </div>
+          <div class="toast toast-error mt-1" v-if="errors.has('member') || errors.has('income')">
+            {{errors.first('member') || errors.first('income')}}
           </div>
         </div>
       </form>
@@ -73,10 +76,13 @@
               type="number" 
               id="expenditure" 
               data-vv-as="field"
-              v-validate="'required|numeric'"
+              v-validate="'required|decimal:2'"
               v-model.number="expenditure[index].expenditure"
               @keyup="updateTotal">
             </div>
+          </div>
+          <div class="toast toast-error mt-1" v-if="errors.has('object') || errors.has('expenditure')">
+            {{errors.first('object') || errors.first('expenditure')}}
           </div>
         </div>
       </form>
@@ -125,7 +131,7 @@
         <div class="form-group auto_transfer">
           <label class="form-label">申请学校自动转账服务</label>
           <label class="form-radio">
-            <input type="radio" name="auto_transfer" checked 
+            <input type="radio" name="auto_transfer" 
             v-model="finance.auto_transfer" :value="1">
             <i class="form-icon"></i> 是
           </label>
@@ -143,7 +149,6 @@
           name="remarks"
           placeholder="备注" 
           rows="3"
-          v-validate="'required'"
           v-model="finance.remarks"></textarea>
         </div>
       </form>
@@ -183,6 +188,9 @@
               v-validate="'required'"
               v-model="house[index].house_type">
             </div>
+            <div class="toast toast-error mt-1" v-if="errors.has('house_state') || errors.has('house_type')">
+              {{errors.first('house_state') || errors.first('house_type')}}
+            </div>
           </div>
         </div>
         <div class="form-group aircond">
@@ -190,10 +198,13 @@
           <input class="form-input" 
           type="number" 
           id="aircond" 
-          name="amount"
+          name="aircond"
           placeholder="冷气机数量" 
           v-validate="'required|numeric'"
           v-model="aircond.amount">
+          <div class="toast toast-error mt-1" v-if="errors.has('aircond')">
+            {{errors.first('aircond')}}
+          </div>
         </div>
         <div class="form-group">
           <div class="col-7 transport-title mb-2">
@@ -233,13 +244,16 @@
             <div class="col-5 col-sm-12 input-group">
               <input 
               class="form-input input-sm" 
-              type="text" 
-              id="transport" 
+              type="number"
+              id="year" 
               name="year"
               placeholder="（年份）"
               v-validate="'required|digits:4'"
               v-model="transportArr[index].year">
             </div>
+          </div>
+          <div class="toast toast-error mt-1" v-if="errors.has('model') || errors.has('year')">
+            {{errors.first('model') || errors.first('year')}}
           </div>
         </div>
       </form>

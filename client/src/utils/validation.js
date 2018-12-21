@@ -46,7 +46,7 @@ const errorMessages = {
     },
     attitude: {
       required: '请填上操行分数',
-      numeric: '操行分数必须为整数',
+      numeric: '操行分数必须是整数',
       between: '分数只能介于0与100之间'
     },
     averageScore: {
@@ -103,6 +103,37 @@ const errorMessages = {
     aid_total: {
       required: '请填上助学金数额',
       decimal: '数额准确至2位小数'
+    },
+    member: {
+      required: '请填上收入来源'
+    },
+    income: {
+      required: '请填上收入数额',
+      decimal: '收入数额准确至2位小数'
+    },
+    object: {
+      required: '请填上开销来源'
+    },
+    expenditure: {
+      required: '请填上开销数额',
+      decimal: '开销数额准确至2位小数'
+    },
+    house_state: {
+      required: '请选择房屋状态'
+    },
+    house_type: {
+      required: '请填上房屋种类'
+    },
+    aircond: {
+      required: '请填上冷气机数量',
+      numeric: '冷气机数量必须是整数'
+    },
+    model: {
+      required: '请填上汽车/摩托款式'
+    },
+    year: {
+      required: '请填上年份',
+      digits: '年份格式错误（XXXX）'
     }
   }
 };

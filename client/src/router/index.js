@@ -88,14 +88,14 @@ router.beforeEach((to, from, next) => {
   if(getToken() && to.path == "/login"){
     return next({
       path: '/student'
-    })
+    });
   }
   if(!getToken() && to.path != '/login'){
     return next({
       path: '/login'
-    })
+    });
   }
-  return next()
+  return next();
 })
 
 export default router;

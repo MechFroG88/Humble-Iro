@@ -4,7 +4,10 @@ import axios from 'axios'
 import qs    from 'qs'
 
 const service = axios.create({
-  baseURL: process.env.NODE_ENV === 'production' ? "/api/" : "http://mechfrog88.ddns.net/",
+  //local url: http://mechfrog88.ddns.net:80
+  //school url: http://10.15.9.32/
+  //production url: https://chkl-co-curriculum.ml/api/
+  baseURL: process.env.NODE_ENV === 'production' ? "/api/" : "http://mechfrog88.ddns.net:80",
   withCredentials: true,
   transformRequest: [function (data, headers) {
     if(headers['Content-Type'] == "multipart/form-data"){

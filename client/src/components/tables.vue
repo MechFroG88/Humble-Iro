@@ -12,6 +12,7 @@
         v-for="(column, index) in columns" 
         :fixed="index == 0 ? true : false"
         min-width="160"
+        max-width="240"
         :key="column.field"
         :prop="column.field"
         :label="column.label">

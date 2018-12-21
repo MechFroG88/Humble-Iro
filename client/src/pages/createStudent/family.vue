@@ -4,7 +4,7 @@
       <div class="form-group single_parent columns col-gapless">
         <label class="form-label col-12">单亲家庭</label>
         <label class="form-radio col-2">
-          <input type="radio" name="single_parent" checked
+          <input type="radio" name="single_parent"
           v-model="family_value.single_parent" :value="1" @click="showSingle = true">
           <i class="form-icon"></i> 是
         </label>
@@ -24,12 +24,15 @@
         placeholder="单亲原因"
         v-validate="'required'"
         v-model="family_value.single_reason">
+        <div class="toast toast-error mt-1" v-if="errors.has('single_reason')">
+          {{errors.first('single_reason')}}
+        </div>
       </div>
 
       <div class="form-group disable_member columns col-gapless">
         <label class="form-label col-12">残障家人</label>
         <label class="form-radio col-2">
-          <input type="radio" name="disabled" checked
+          <input type="radio" name="disabled"
           v-model="family_value.disabled" :value="1" @click="showDisabled = true">
           <i class="form-icon"></i> 有
         </label>
@@ -49,6 +52,9 @@
         placeholder="与残障家人的关系"
         v-validate="'required'"
         v-model="family_value.disabled_relation">
+        <div class="toast toast-error mt-1" v-if="errors.has('disabled_relation')">
+          {{errors.first('disabled_relation')}}
+        </div>
       </div>
 
       <div class="form-group family_size">
@@ -61,6 +67,9 @@
         placeholder="家庭人数"
         v-validate="'required|numeric'"
         v-model="family_value.family_size">
+        <div class="toast toast-error mt-1" v-if="errors.has('family_size')">
+          {{errors.first('family_size')}}
+        </div>
       </div>
       <div class="form-group">
         <label class="form-label" for="working_people">就业人数</label>
@@ -72,6 +81,9 @@
         placeholder="就业人数"
         v-validate="'required|numeric'"
         v-model="family_value.working_people">
+        <div class="toast toast-error mt-1" v-if="errors.has('working_people')">
+          {{errors.first('working_people')}}
+        </div>
       </div>
       <div class="form-group">
         <label class="form-label" for="primary_people">就读小学人数</label>
@@ -83,8 +95,10 @@
         placeholder="就读小学人数"
         v-validate="'required|numeric'"
         v-model="family_value.primary_people">
+        <div class="toast toast-error mt-1" v-if="errors.has('primary_people')">
+          {{errors.first('primary_people')}}
+        </div>
       </div>
-
       <div class="form-group">
         <label class="form-label" for="smk_people">就读国中人数</label>
         <input 
@@ -95,6 +109,9 @@
         placeholder="就读国中人数"
         v-validate="'required|numeric'"
         v-model="family_value.smk_people">
+        <div class="toast toast-error mt-1" v-if="errors.has('smk_people')">
+          {{errors.first('smk_people')}}
+        </div>
       </div>
       <div class="form-group">
         <label class="form-label" for="smp_people">就读独中/私立学校人数</label>
@@ -106,6 +123,9 @@
         placeholder="就读独中/私立学校人数"
         v-validate="'required|numeric'"
         v-model="family_value.smp_people">
+        <div class="toast toast-error mt-1" v-if="errors.has('smp_people')">
+          {{errors.first('smp_people')}}
+        </div>
       </div>
       <div class="form-group">
         <label class="form-label" for="uni_people">就读学院/大专人数</label>
@@ -117,6 +137,9 @@
         placeholder="就读学院/大专人数"
         v-validate="'required|numeric'"
         v-model="family_value.uni_people">
+        <div class="toast toast-error mt-1" v-if="errors.has('uni_people')">
+          {{errors.first('uni_people')}}
+        </div>
       </div>  
     </form>
 
@@ -152,6 +175,9 @@
           placeholder="中文姓名"
           v-validate="'required'"
           v-model="siblings_array[formIndex].cn_name">
+          <div class="toast toast-error mt-1" v-if="errors.has('cn_name')">
+            {{errors.first('cn_name')}}
+          </div>
         </div>
         <div class="form-group age">
           <label class="form-label" for="age">年龄</label>
@@ -163,13 +189,16 @@
           placeholder="年龄"
           v-validate="'required|integer'"
           v-model="siblings_array[formIndex].age">
+          <div class="toast toast-error mt-1" v-if="errors.has('age')">
+            {{errors.first('age')}}
+          </div>
         </div>
-        <div class="form-group relation">
-          <label class="form-label" for="relation">关系</label>
+        <div class="form-group relationship">
+          <label class="form-label" for="relationship">关系</label>
           <select 
           class="form-select" 
-          name="relation"
-          id="relation" 
+          name="relationship"
+          id="relationship" 
           v-validate="'required'"
           v-model="siblings_array[formIndex].relation">
             <option :value="null" disabled>请选择一个关系</option>
@@ -178,6 +207,9 @@
             <option :value="2">姐姐</option>
             <option :value="3">妹妹</option>
           </select>
+          <div class="toast toast-error mt-1" v-if="errors.has('relatioship')">
+            {{errors.first('relatioship')}}
+          </div>
         </div>
       </div>
       <div class="form-container aid_info">
@@ -187,7 +219,6 @@
             <input 
             type="radio" 
             name="got_aid"
-            checked
             v-model="siblings_array[formIndex].got_aid" 
             :value="1"
             @click="siblings_array[formIndex].financial_aid_id = []">
@@ -229,6 +260,9 @@
                 :value="financialArr[index].financial_aid_id" 
                 :key="financialArr[index].financial_aid_id">{{financialArr[index].financial_aid_type}}</option>
               </select>
+              <div class="toast toast-error mt-1" v-if="errors.has('financial_aid')">
+                {{errors.first('financial_aid')}}
+              </div>
             </div>
           </div>
           <div class="form-group aid_total">
@@ -239,8 +273,11 @@
             name="aid_total"
             id="aid_total" 
             placeholder="助学金名数额"
-            v-validate="'required|integer'"
+            v-validate="'required|decimal:2'"
             v-model="siblings_array[formIndex].aid_total">
+            <div class="toast toast-error mt-1" v-if="errors.has('aid_total')">
+              {{errors.first('aid_total')}}
+            </div>
           </div>
         </div>
       </div>
@@ -249,29 +286,35 @@
 </template>
 
 <script>
-import 
-{ getFamily, createSibling, getSibling, getSiblingBasic, deleteSibling } 
-from '@/api/student'
+import { 
+  getFamily, createSibling, getSibling, getSiblingBasic, deleteSibling 
+} from '@/api/student'
 import { getAid } from '@/api/financial_aid'
 export default {
   beforeMount() {
     getFamily(this.$route.params.id).then(({data}) => {
       this.family_value = data.data;
-    }).then(() => {
       if (this.family_value.single_parent == 1) { this.showSingle = true; }
       if (this.family_value.disabled == 1) { this.showDisabled = true; }
+    }).catch(() => {
+      this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
     })
+
     getSibling(this.$route.params.id).then(({data}) => {
       if (data.data.length != 0) {
         this.siblings_array = data.data;
+        this.sibling_number = this.siblings_array.length;
       }
-    }).then(() => {
-      this.sibling_number = this.siblings_array.length;
+    }).catch(() => {
+      this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
     })
+
     getAid().then(({data}) => {
       for (let i = 0; i < data.data.length; i++) {
         this.financialArr.push(data.data[i]);
       }
+    }).catch(() => {
+      this.$message.error('哎哟！出现了某些问题，请刷新页面重试。')
     })
   },
   data() {
@@ -283,7 +326,7 @@ export default {
       showDisabled: false,
       family_value: {
         single_reason : '',
-        single_parent : null,
+        single_parent : 0,
         family_size   : null,
         working_people: null,
         primary_people: null,
@@ -291,13 +334,13 @@ export default {
         smp_people    : null,
         uni_people    : null,
         disabled_relation: '',
-        disabled  : null,
+        disabled  : 0,
       },
       siblings_value: {
         cn_name: '',
         age: null,
         relation: null,
-        got_aid: null,
+        got_aid: 0,
         financial_aid_id: [],
         aid_total: '',
         sibling_id: null

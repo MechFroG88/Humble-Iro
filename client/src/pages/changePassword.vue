@@ -39,9 +39,10 @@ export default {
                 type: 'success'
               });
             }
+          }).catch(() => {
+            this.$message.error('更改密码失败！');
           })
         }
-        this.$message.error('更改密码失败！');
       });
     }
   }

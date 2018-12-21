@@ -58,15 +58,19 @@ export default {
               const sleep = (milliseconds) => {
                 return new Promise(resolve => setTimeout(resolve, milliseconds))
               }
-              setToken(data.data)
-              window.token = data.data
+              setToken(data.data);
+              window.token = data.data;
               sleep(500).then(() => {
+                this.$message({
+                  type: 'success',
+                  message: '登入成功！',
+                  center: true
+                })
                 this.$router.push('/student')
-                location.reload();
               })
             }
           }).catch((err) => {
-            this.$message.error('用户名或密码错误！');
+            this.$message.error('登入失败！');
           })
         }
       });

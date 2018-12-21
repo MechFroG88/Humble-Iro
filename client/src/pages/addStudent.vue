@@ -180,7 +180,8 @@ export default {
           editSibling(this.output.siblings, this.student_id)
           .then(() => {this.nextStep();})
           .catch(() => { this.errorStep(); })
-        }).catch(() => { this.errorStep(); })
+        })
+        .catch(() => { this.errorStep(); })
 
       } else if (this.id == 3) {
         ///POST finance///
@@ -191,12 +192,17 @@ export default {
         this.output.finance_income      = this.$refs.finance.income;
         this.output.finance_expenditure = this.$refs.finance.expenditure;
         
-        editIncome(this.output.finance_income, this.student_id)
-        editExpenditure(this.output.finance_expenditure, this.student_id)
-        editFinance(this.output.finance, this.student_id)
-        editHouse(this.output.house, this.student_id)
-        editAircond(this.output.aircond, this.student_id)
-        editTransport(this.output.transport, this.student_id)
+        editIncome(this.output.finance_income, this.student_id).then(() => {
+          editExpenditure(this.output.finance_expenditure, this.student_id).then(() => {
+            editFinance(this.output.finance, this.student_id).then(() => {
+              editHouse(this.output.house, this.student_id).then(() => {
+                editAircond(this.output.aircond, this.student_id).then(() => {
+                  editTransport(this.output.transport, this.student_id).catch(() => { this.errorStep(); })
+                }).catch(() => { this.errorStep(); })
+              }).catch(() => { this.errorStep(); })
+            }).catch(() => { this.errorStep(); })
+          }).catch(() => { this.errorStep(); })
+        }).catch(() => { this.errorStep(); })
       }
     },
     finishStep() {

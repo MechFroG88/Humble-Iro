@@ -96,7 +96,7 @@ export default {
     },
     handleDelete() {
       deleteVerification({
-        student_id: this.details.student[deleteId].student_id,
+        student_id: this.details.student[this.deleteId].student_id,
         financial_aid_id: this.details.financial_aid_id
       }).then(() => {
         this.get();

@@ -78,7 +78,7 @@ import deleteModal from '@/components/modal/confirmation'
 import editModal   from '@/components/modal/modal'
 import { getStudentBasic, deleteStudent, deleteVerification } from '@/api/student'
 import { getUser, editUser, deleteUser } from '@/api/user'
-import { getAid, editAid, deleteAid } from '@/api/financial_aid'
+import { getAid, editAid, deleteAid } from '@/api/financialAid'
 export default {
   components: {
     deleteModal,
@@ -98,7 +98,7 @@ export default {
     },
     modalTitle: String,
     modalData: Array,
-    type: String //student, financial_aid, users, financial_list
+    type: String //student, financialAid, users, financial_list
   },
   beforeMount() {
     if (this.modal == true) {

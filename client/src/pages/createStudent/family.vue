@@ -289,7 +289,7 @@
 import { 
   getFamily, createSibling, getSibling, getSiblingBasic, deleteSibling 
 } from '@/api/student'
-import { getAid } from '@/api/financial_aid'
+import { getAid } from '@/api/financialAid'
 export default {
   beforeMount() {
     getFamily(this.$route.params.id).then(({data}) => {

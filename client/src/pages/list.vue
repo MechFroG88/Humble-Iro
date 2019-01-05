@@ -51,7 +51,7 @@
 <script>
 import layout from '@/layout/default'
 import deleteModal from '@/components/modal/confirmation'
-import { getAidById } from '@/api/financial_aid'
+import { getAidById } from '@/api/financialAid'
 import { verifyStudent, deleteVerification } from '@/api/student'
 export default {
   beforeMount() {

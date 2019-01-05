@@ -34,7 +34,7 @@
             </router-link>
           </li>
           <li class="aid">
-            <router-link :to="{'name': 'financial_aid'}">
+            <router-link :to="{'name': 'financialAid'}">
               <i class="icon icon-file-text"></i> 助学金列表
             </router-link>
           </li>

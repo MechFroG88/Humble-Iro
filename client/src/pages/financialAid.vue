@@ -95,7 +95,7 @@ import crudTable from '@/components/tables'
 import modal     from '@/components/modal/modal'
 import { financialAidModal }   from '@/api/modalData'
 import { financialAidColumns } from '@/api/tableColumns'
-import { getAid, addAid } from '@/api/financial_aid'
+import { getAid, addAid } from '@/api/financialAid'
 
 export default {
   beforeMount() {
